@@ -19,7 +19,8 @@ public partial class Player : CharacterBody2D
 
 		// Add the gravity.
 		if (!IsOnFloor())
-			velocity.Y += gravity * (float)delta;
+			if (velocity.Y < 0) velocity.Y += gravity * (float)delta;
+			else velocity.Y += gravity * 2 * (float)delta; 
 
 		// Handle Jump.
 		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
