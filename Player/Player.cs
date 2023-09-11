@@ -7,6 +7,8 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -600.0f;
 	public const float Acceleration = 10.0f; 
 	public const float Decceleration = 20.0f;
+	public Vector2 Force;
+	public float Mass = 60.0f;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -40,5 +42,10 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		UpdateForce(velocity);
+	}
+	
+	public void UpdateForce(Vector2 velocity) {
+		Force = velocity * Mass;
 	}
 }
