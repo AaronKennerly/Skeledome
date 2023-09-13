@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
 	public const float Decceleration = 20.0f;
 	public Vector2 Force;
 	public float Mass = 60.0f;
+	public int JumpCount = 0;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -26,8 +27,15 @@ public partial class Player : CharacterBody2D
 			else velocity.Y += gravity * 2 * (float)delta; 
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed(controls.jump) && IsOnFloor())
+		if (Input.IsActionJustPressed(controls.jump) && JumpCount < 1) {
 			velocity.Y = JumpVelocity;
+			JumpCount++;
+		}
+		
+		// reset jumps
+		if(IsOnFloor()) {
+			JumpCount = 0;
+		}
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
