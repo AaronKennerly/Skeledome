@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b11p88gw1kqfq"]
+
+[ext_resource type="Script" path="res://Spawnpoint.cs" id="1_c6k2i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8gfe5"]
+radius = 6.0
+
+[node name="Spawnpoint" type="Node2D"]
+script = ExtResource("1_c6k2i")
+
+[node name="Area2D" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_8gfe5")

@@ -55,9 +55,19 @@ public partial class Player : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 		UpdateForce(velocity);
+
+		// this section is to check if the player is out of boounds
+		if (Position.Y >= 750 | Position.X <= -200 | Position.X >= 1350 ) {
+			Die();
+		}
 	}
 	
 	public void UpdateForce(Vector2 velocity) {
 		Force = velocity * Mass;
+	}
+
+	// this functionis for when the player falls off the map
+	public void Die() {
+		GameManager.respawnPlayer(this);
 	}
 }
