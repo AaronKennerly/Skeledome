@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://coeghcr4hdtor"]
+[gd_scene load_steps=9 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="1_kgcvc"]
 [ext_resource type="Resource" uid="uid://3yo3g02j7qsp" path="res://Player/player2_controls.tres" id="2_3fdtu"]
@@ -12,6 +12,34 @@ size = Vector2(236, 61.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8rq7"]
 size = Vector2(248, 61.25)
+
+[sub_resource type="GDScript" id="GDScript_0js7q"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = \"Player 1 Deaths: \" + str(get_node(\"../../Player\").deaths)
+"
+
+[sub_resource type="GDScript" id="GDScript_4k4p0"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = \"Player 2 Deaths: \" + str(get_node(\"../../Player2\").deaths)
+"
 
 [node name="World" type="Node2D"]
 
@@ -62,3 +90,25 @@ position = Vector2(584, 37)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(586, 319)
 zoom = Vector2(0.8, 0.8)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="P1Score" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 564.0
+offset_right = 144.0
+offset_bottom = 629.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
+script = SubResource("GDScript_0js7q")
+
+[node name="P2Score" type="Label" parent="UI"]
+offset_left = 836.0
+offset_top = 573.0
+offset_right = 933.0
+offset_bottom = 625.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
+script = SubResource("GDScript_4k4p0")

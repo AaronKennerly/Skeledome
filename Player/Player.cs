@@ -21,6 +21,7 @@ public partial class Player : CharacterBody2D
 	public Vector2 Force;
 	public float Mass = 60.0f;
 	public int JumpCount = 0;
+	public int deaths = 0;
 	public Vector2 velocity;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -107,6 +108,7 @@ public partial class Player : CharacterBody2D
 
 	// this functionis for when the player falls off the map
 	public void Die() {
+		deaths += 1;
 		GameManager.respawnPlayer(this);
 	}
 
