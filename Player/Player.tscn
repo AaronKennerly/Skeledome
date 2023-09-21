@@ -1,23 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://bc0sc1t1gdja4"]
 
-[ext_resource type="Script" path="res://Player/Player.cs" id="1_jnxvg"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
-height = 32.0
+radius = 9.0
+height = 34.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eceab"]
-radius = 13.0
-height = 40.0
+radius = 12.0
+height = 38.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_70t8f"]
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_jnxvg")
+script = ExtResource("1_ntgxl")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Touch" type="Area2D" parent="."]
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Touch"]
 shape = SubResource("CapsuleShape2D_h3myt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,3 +32,6 @@ texture = SubResource("CanvasTexture_70t8f")
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
+
+[connection signal="body_entered" from="Touch" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

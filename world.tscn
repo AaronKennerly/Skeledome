@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://coeghcr4hdtor"]
+[gd_scene load_steps=10 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="1_kgcvc"]
 [ext_resource type="Resource" uid="uid://3yo3g02j7qsp" path="res://Player/player2_controls.tres" id="2_3fdtu"]
+[ext_resource type="Resource" uid="uid://c0hxissv5licl" path="res://Player/player1_controls.tres" id="2_dso05"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://spawnpoint.tscn" id="4_v77yx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbot4"]
@@ -45,6 +46,7 @@ func _process(delta):
 
 [node name="Player" parent="." instance=ExtResource("1_kgcvc")]
 position = Vector2(486, 231)
+controls = ExtResource("2_dso05")
 
 [node name="Player2" parent="." instance=ExtResource("1_kgcvc")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
