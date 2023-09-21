@@ -91,25 +91,29 @@ position = Vector2(584, 37)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(586, 319)
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.75, 0.75)
 
 [node name="UI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="P1Score" type="Label" parent="UI"]
-offset_left = 16.0
-offset_top = 564.0
-offset_right = 144.0
-offset_bottom = 629.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.997
+offset_left = 1.0
+offset_top = 576.0
+offset_right = -1018.0
+offset_bottom = -0.0560303
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Test"
 script = SubResource("GDScript_0js7q")
 
 [node name="P2Score" type="Label" parent="UI"]
-offset_left = 836.0
-offset_top = 573.0
-offset_right = 933.0
-offset_bottom = 625.0
+offset_left = 832.0
+offset_top = 576.0
+offset_right = 960.0
+offset_bottom = 645.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Test"
