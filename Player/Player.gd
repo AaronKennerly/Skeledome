@@ -1,11 +1,13 @@
 extends CharacterBody2D
+class_name Player
 
 # Exported variables
 @export var controls: Resource = null
 
+@onready var state_machine : PlayerStateMachine = $PlayerStateMachine
+
 # Constants
 const SPEED = 300.0
-const JUMP_VELOCITY = -600.0
 const ACCELERATION = 10.0
 const DECELERATION = 20.0
 const JUMP_BUFFER_TIME = 0.1
@@ -20,7 +22,6 @@ var respawn_timer : Timer
 var touch : Area2D
 var force : Vector2
 var mass = 60.0
-var jump_count = 0
 var deaths = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -75,20 +76,21 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	
 	# calculating Base Movement
-	if Input.is_action_pressed(controls.moveLeft):
-		if velocity.x > 0:
-			velocity.x *= 0.75 #If changing direction, happens slightly faster, feeling better
-		velocity.x = max(velocity.x - ACCELERATION, -SPEED)
-	elif Input.is_action_pressed(controls.moveRight):
-		if velocity.x < 0:
-			velocity.x *= 0.75
-		velocity.x = min(velocity.x + ACCELERATION, SPEED)
-		
-	else:
-		if velocity.x < 0:
-			velocity.x = min(velocity.x + DECELERATION, 0)
+	if state_machine.get_can_move():
+		if Input.is_action_pressed(controls.moveLeft):
+			if velocity.x > 0:
+				velocity.x *= 0.75 #If changing direction, happens slightly faster, feeling better
+			velocity.x = max(velocity.x - ACCELERATION, -SPEED)
+		elif Input.is_action_pressed(controls.moveRight):
+			if velocity.x < 0:
+				velocity.x *= 0.75
+			velocity.x = min(velocity.x + ACCELERATION, SPEED)
+			
 		else:
-			velocity.x = max(velocity.x - DECELERATION, 0)
+			if velocity.x < 0:
+				velocity.x = min(velocity.x + DECELERATION, 0)
+			else:
+				velocity.x = max(velocity.x - DECELERATION, 0)
 	
 	set_velocity(velocity)
 	move_and_slide()
@@ -97,10 +99,7 @@ func _physics_process(delta):
 func update_force(_velocity):
 	force = _velocity * mass
 
-func jump():
-	jump_count += 1
-	velocity.y = JUMP_VELOCITY
-	jump_bool = true
+
 
 # this function is for when the player falls off the map
 func die():
@@ -128,4 +127,6 @@ func _on_touch_body_entered(body):
 	if body.is_in_group("Player"):
 		velocity.y += body.velocity.y
 		velocity.x += body.velocity.x
+
+
 
