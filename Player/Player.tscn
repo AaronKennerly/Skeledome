@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
-radius = 9.0
-height = 34.0
+radius = 31.0
+height = 64.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eceab"]
 radius = 12.0
@@ -16,7 +16,6 @@ height = 38.0
 script = ExtResource("1_ntgxl")
 
 [node name="Touch" type="Area2D" parent="."]
-monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Touch"]
 shape = SubResource("CapsuleShape2D_h3myt")
@@ -33,5 +32,5 @@ texture = SubResource("CanvasTexture_70t8f")
 wait_time = 1.5
 autostart = true
 
-[connection signal="body_entered" from="Touch" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
