@@ -44,11 +44,11 @@ func _process(delta):
 
 [node name="World" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_kgcvc")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_kgcvc")]
 position = Vector2(486, 231)
 controls = ExtResource("2_dso05")
 
-[node name="Player2" parent="." instance=ExtResource("1_kgcvc")]
+[node name="Player2" parent="." groups=["Player"] instance=ExtResource("1_kgcvc")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(720, 232)
 controls = ExtResource("2_3fdtu")

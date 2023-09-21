@@ -27,8 +27,8 @@ var deaths = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	touch = $Touch
-	touch.body_entered.connect(_on_body_entered)
+#	touch = $Touch
+#	touch._on_body_entered.connect(_on_body_entered)
 	respawn_timer = $RespawnTimer
 	respawn_timer.timeout.connect(_on_timer_timeout)
 
@@ -83,6 +83,7 @@ func _physics_process(delta):
 		if velocity.x < 0:
 			velocity.x *= 0.75
 		velocity.x = min(velocity.x + ACCELERATION, SPEED)
+		
 	else:
 		if velocity.x < 0:
 			velocity.x = min(velocity.x + DECELERATION, 0)
@@ -114,5 +115,17 @@ func _on_respawn_timer_timeout():
 	pass # Replace with function body.
 
 
-func _on_body_entered(body):
-	pass # Replace with function body.
+#func _on_body_entered(body):
+#	if body.is_in_group == "Player":
+#		velocity.y += body.velocity.y
+#		velocity.x += body.velocity.x
+#	print("test")
+	
+	
+
+
+func _on_touch_body_entered(body):
+	if body.is_in_group("Player"):
+		velocity.y += body.velocity.y
+		velocity.x += body.velocity.x
+
