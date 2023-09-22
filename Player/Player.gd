@@ -21,7 +21,8 @@ var touch : Area2D
 var force : Vector2
 var mass = 60.0
 var jump_count = 0
-var deaths = 0
+var deaths = 5
+var dead = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -108,9 +109,14 @@ func die():
 	# stop physics and hide the player
 	self.set_physics_process(false)
 	self.hide()
-	# increase the death count and start the timer
-	deaths += 1
-	$RespawnTimer.start()
+	# decrease the death count and start the timer
+	deaths -= 1
+	if deaths == 0:
+		dead = true
+		velocity.y = 0
+		velocity.x = 0
+	else:
+		$RespawnTimer.start()
 	
 
 func _on_touch_body_entered(body):
