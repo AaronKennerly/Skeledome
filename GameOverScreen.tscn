@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce43jxgt7xeey"]
+
+[sub_resource type="GDScript" id="GDScript_egx1j"]
+script/source = "extends CanvasLayer
+
+
+func _on_rematch_button_pressed():
+	get_tree().reload_current_scene()
+
+
+func _on_quit_button_pressed():
+	get_tree().change_scene_to_file(\"res://main.tscn\")
+
+
+func setText(text):
+	var label = get_node(\"PanelContainer/MarginContainer/Rows/EndLabel\")
+	label.setWhoWon(text)
+"
+
+[sub_resource type="GDScript" id="GDScript_h35rp"]
+script/source = "extends Label
+
+var whoWon: String = \"no one yet\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = \"Player \" + whoWon + \" Wins!!\"
+
+func setWhoWon(num):
+	whoWon = num
+"
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = SubResource("GDScript_egx1j")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -34.0
+offset_right = 212.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Rows" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 225
+
+[node name="EndLabel" type="Label" parent="PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Player One wins"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_h35rp")
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/Rows/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="RematchButton" type="Button" parent="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+disabled = true
+text = " Rematch "
+
+[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+disabled = true
+text = " Main Menu "
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RematchButton" to="." method="_on_rematch_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

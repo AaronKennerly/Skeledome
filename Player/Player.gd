@@ -25,17 +25,19 @@ var respawn_timer : Timer
 var touch : Area2D
 var force : Vector2
 var mass = 60.0
-var deaths = 0
+
+var jump_count = 0
+var deaths = 5
+var dead = false
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-#	touch = $Touch
-#	touch._on_body_entered.connect(_on_body_entered)
 	respawn_timer = $RespawnTimer
-	respawn_timer.timeout.connect(_on_timer_timeout)
-	
+
+
 
 
 func _physics_process(delta):
@@ -59,10 +61,13 @@ func _physics_process(delta):
 			velocity.x = min(velocity.x + ACCELERATION, SPEED)
 			
 		else:
-			if velocity.x < 0:
-				velocity.x = min(velocity.x + DECELERATION, 0)
-			else:
-				velocity.x = max(velocity.x - DECELERATION, 0)
+
+			velocity.x = max(velocity.x - DECELERATION, 0)
+
+	# if the player goes out of bounds kill them
+	if position.y >= 750 or position.x <= -200 or position.x >= 1350:
+		die()
+
 	
 	set_velocity(velocity)
 	move_and_slide()
@@ -75,25 +80,18 @@ func update_force(_velocity):
 
 # this function is for when the player falls off the map
 func die():
-	deaths += 1
-	GameManager.respawn_player(self)
-
-func _on_timer_timeout():
-	if position.y >= 750 or position.x <= -200 or position.x >= 1350:
-		die()
-
-func _on_respawn_timer_timeout():
-	pass # Replace with function body.
-
-
-#func _on_body_entered(body):
-#	if body.is_in_group == "Player":
-#		velocity.y += body.velocity.y
-#		velocity.x += body.velocity.x
-#	print("test")
+	# stop physics and hide the player
+	self.set_physics_process(false)
+	self.hide()
+	# decrease the death count and start the timer
+	deaths -= 1
+	if deaths == 0:
+		dead = true
+		velocity.y = 0
+		velocity.x = 0
+	else:
+		$RespawnTimer.start()
 	
-	
-
 
 func _on_touch_body_entered(body):
 	if body.is_in_group("Player"):
@@ -101,4 +99,14 @@ func _on_touch_body_entered(body):
 		velocity.x += body.velocity.x
 
 
+
+
+func _on_respawn_timer_timeout():
+	# set the velocities to 0
+	velocity.y = 0
+	velocity.x = 0
+	# move and resume the player
+	GameManager.respawn_player(self)
+	self.show()
+	self.set_physics_process(true)
 
