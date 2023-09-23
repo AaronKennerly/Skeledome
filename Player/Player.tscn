@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=9 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
+[ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
+[ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="3_uyf1r"]
+[ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="4_d8gs3"]
+[ext_resource type="Script" path="res://Player/StateDubugLabel.gd" id="5_i26wn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -31,6 +35,38 @@ texture = SubResource("CanvasTexture_70t8f")
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
+script = ExtResource("2_8yjh4")
+player = NodePath("..")
+current_state = NodePath("Air")
+
+[node name="Run" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state")]
+script = ExtResource("3_uyf1r")
+air_state = NodePath("../Air")
+
+[node name="Air" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state")]
+script = ExtResource("4_d8gs3")
+run_state = NodePath("../Run")
+
+[node name="Dash" type="Node" parent="PlayerStateMachine"]
+
+[node name="Slide" type="Node" parent="PlayerStateMachine"]
+
+[node name="Landing" type="Node" parent="PlayerStateMachine"]
+
+[node name="Hit" type="Node" parent="PlayerStateMachine"]
+
+[node name="Respawn" type="Node" parent="PlayerStateMachine"]
+
+[node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+offset_left = -49.0
+offset_top = -56.0
+offset_right = 79.0
+offset_bottom = -30.0
+text = "State: "
+script = ExtResource("5_i26wn")
+state_machine = NodePath("../PlayerStateMachine")
 
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
