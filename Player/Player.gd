@@ -3,6 +3,7 @@ class_name Player
 
 # Exported variables
 @export var controls: Resource = null
+@export var jump_state: PlayerState
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 
@@ -12,11 +13,13 @@ const ACCELERATION = 10.0
 const DECELERATION = 20.0
 const JUMP_BUFFER_TIME = 0.1
 const COYOTE_TIME = 0.2
+const JUMP_VELOCITY = -600.0
 
 # Member variables
 var coyote_timer = 0.0
 var jump_buffer_timer = -10.0
 var jump_bool = false
+var jump_count = 0
 
 var respawn_timer : Timer
 var touch : Area2D
@@ -32,48 +35,17 @@ func _ready():
 #	touch._on_body_entered.connect(_on_body_entered)
 	respawn_timer = $RespawnTimer
 	respawn_timer.timeout.connect(_on_timer_timeout)
+	
 
 
 func _physics_process(delta):
 	velocity = get_velocity()
-	
+
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
-	
-	# handle timer
-	if is_on_floor():
-		coyote_timer = COYOTE_TIME
-		jump_count = 0
-	else:
-		coyote_timer -= delta
-	
-	# Add the gravity.
-	if not is_on_floor():
-		if velocity.y < 0:
-			velocity.y += gravity * delta
-		else:
-			velocity.y += gravity * 2 * delta
-	
+
 	if Input.is_action_just_pressed(controls.jump):
 		jump_buffer_timer = JUMP_BUFFER_TIME
-	
-	# Handle Jump.
-	if Input.is_action_just_pressed(controls.jump) and (coyote_timer > 0 or jump_count < 2):
-		if coyote_timer < 0:
-			jump_count += 1
-		jump()
-	
-	if jump_buffer_timer >= 0 and is_on_floor():
-		jump_count = 0
-		jump()
-	
-	# When jump button is released (Janky solution. Reassess)
-	if not Input.is_action_pressed(controls.jump) and jump_bool:
-		velocity.y = velocity.y + 400.0
-		coyote_timer = 0
-		jump_bool = false
-	
-	# Get the input direction and handle the movement/deceleration.
 	
 	# calculating Base Movement
 	if state_machine.get_can_move():

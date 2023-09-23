@@ -2,18 +2,36 @@ extends PlayerState
 
 class_name RunState
 
-@export var JUMP_VELOCITY = -600.0
-@export var jump_state : PlayerState
+@export var air_state : PlayerState
 
-var jump_count = 0
+func state_process(delta):
+	# reset timer and jumps
+	player.coyote_timer = player.COYOTE_TIME
+	player.jump_count = 0
+	player.jump_bool = false
+
+	if player.jump_buffer_timer >= 0 and player.is_on_floor():
+		player.jump_count = 0
+		jump()
+	
+	if not player.is_on_floor():
+		next_state = air_state
+
+
 
 func state_input(event : InputEvent):
-	if(event.is_action_pressed("jump1")):
+	# Handle Jump.
+	if Input.is_action_just_pressed(player.controls.jump) and (player.coyote_timer > 0 or player.jump_count < 2):
+		if player.coyote_timer < 0:
+			player.jump_count += 1
 		jump()
 
 
 func jump():
-	jump_count += 1
-	player.velocity.y = JUMP_VELOCITY
-	next_state = jump_state
+	player.jump_count += 1
+	player.jump_bool = true
+	player.velocity.y = player.JUMP_VELOCITY
+	next_state = air_state
+
+
 
