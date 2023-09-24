@@ -12,10 +12,11 @@ func state_process(_delta):
 		player.coyote_timer -= _delta
 
 	# handle gravity
-	if player.velocity.y < 0:
-		player.velocity.y += player.gravity * _delta
-	else:
-		player.velocity.y += player.gravity * 2 * _delta
+	if !player.is_dashing:
+		if player.velocity.y < 0:
+			player.velocity.y += player.gravity * _delta
+		else:
+			player.velocity.y += player.gravity * 2 * _delta
 	
 	#TODO: Look at janky solution
 	# When jump button is released (Janky solution. Reassess)

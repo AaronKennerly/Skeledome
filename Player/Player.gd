@@ -4,6 +4,7 @@ class_name Player
 # Exported variables
 @export var jump_state: PlayerState
 @export var dash_state : PlayerState
+@export var respawn_state : PlayerState
 @export var right : PlayerAction
 @export var left : PlayerAction
 @export var jump : PlayerAction
@@ -35,6 +36,7 @@ var force : Vector2
 var mass = 60.0
 var deaths = 3
 var dead = false
+var is_dashing = false
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -68,18 +70,19 @@ func _physics_process(delta):
 			if velocity.x < 0:
 				velocity.x *= 0.75
 			velocity.x = min(velocity.x + ACCELERATION, SPEED)
-		elif Input.is_action_pressed(dash.action):
-			if can_dash:
-				state_machine.switch_states(dash_state)
 		else:
 			if velocity.x > 0:
 				velocity.x = max(velocity.x - DECELERATION, 0)
 			else:
 				velocity.x = min(velocity.x + DECELERATION, 0)
+		
+		if Input.is_action_pressed(dash.action):
+			if can_dash:
+				state_machine.switch_states(dash_state)
 
 	# if the player goes out of bounds kill them
 	if position.y >= 750 or position.x <= -200 or position.x >= 1350:
-		die()
+		state_machine.switch_states(respawn_state)
 
 	
 	set_velocity(velocity)
@@ -89,36 +92,10 @@ func _physics_process(delta):
 func update_force(_velocity):
 	force = _velocity * mass
 
-
-
-# this function is for when the player falls off the map
-func die():
-	# stop physics and hide the player
-	self.set_physics_process(false)
-	self.hide()
-	# decrease the death count and start the timer
-	deaths -= 1
-	if deaths == 0:
-		dead = true
-		velocity.y = 0
-		velocity.x = 0
-	else:
-		$RespawnTimer.start()
-	
-
 # handle colision
 func _on_touch_body_entered(body):
 	if body.is_in_group("Player"):
 		state_machine.get_state().collide(body)
-		
 
-func _on_respawn_timer_timeout():
-	# set the velocities to 0
-	velocity.y = 0
-	velocity.x = 0
-	# move and resume the player
-	GameManager.respawn_player(self)
-	self.show()
-	self.set_physics_process(true)
 
 

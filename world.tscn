@@ -56,6 +56,15 @@ script = ExtResource("1_4vesi")
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("2_3fdtu")]
 position = Vector2(486, 231)
 
+[node name="Run" parent="Player/PlayerStateMachine" index="0"]
+can_move = null
+can_jump = null
+can_dash = null
+can_slide = null
+
+[node name="Slide" parent="Player/PlayerStateMachine" index="3"]
+can_jump = null
+
 [node name="LeftAction" parent="Player/Controls" index="0"]
 action = "move_left_1"
 
@@ -74,6 +83,15 @@ action = "slide_1"
 [node name="Player2" parent="." groups=["Player"] instance=ExtResource("2_3fdtu")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(720, 232)
+
+[node name="Run" parent="Player2/PlayerStateMachine" index="0"]
+can_move = null
+can_jump = null
+can_dash = null
+can_slide = null
+
+[node name="Slide" parent="Player2/PlayerStateMachine" index="3"]
+can_jump = null
 
 [node name="LeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
