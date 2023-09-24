@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=12 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/StateDubugLabel.gd" id="5_fai0a"]
 [ext_resource type="Script" path="res://Scripts/States/Player/DashState.gd" id="5_pltby"]
 [ext_resource type="Script" path="res://Scripts/PlayerAction.gd" id="6_uoquc"]
+[ext_resource type="Script" path="res://Scripts/States/Player/DashCooldown.gd" id="6_w63g6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -44,6 +45,10 @@ texture = SubResource("CanvasTexture_70t8f")
 wait_time = 1.5
 one_shot = true
 
+[node name="JumpBuffer" type="Timer" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("2_8yjh4")
 player = NodePath("..")
@@ -60,6 +65,11 @@ run_state = NodePath("../Run")
 [node name="Dash" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_pltby")
 
+[node name="DashTimer" type="Timer" parent="PlayerStateMachine/Dash"]
+
+[node name="DashCoolDown" type="Timer" parent="PlayerStateMachine/Dash"]
+script = ExtResource("6_w63g6")
+
 [node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -49.0
 offset_top = -56.0
@@ -71,6 +81,9 @@ state_machine = NodePath("../PlayerStateMachine")
 
 [node name="Controls" type="Node" parent="."]
 
+[node name="LeftAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
 [node name="RightAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
@@ -78,9 +91,6 @@ script = ExtResource("6_uoquc")
 script = ExtResource("6_uoquc")
 
 [node name="DashAction" type="Node" parent="Controls"]
-script = ExtResource("6_uoquc")
-
-[node name="LeftAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]

@@ -19,12 +19,16 @@ const DECELERATION = 20.0
 const JUMP_BUFFER_TIME = 0.1
 const COYOTE_TIME = 0.2
 const JUMP_VELOCITY = -600.0
+const DASH_SPEED = 800
+const DASH_DURATION = .1
 
 # Member variables
 var coyote_timer = 0.0
 var jump_buffer_timer = -10.0
 var jump_bool = false
 var jump_count = 0
+var can_dash = true
+var dash_cooldown = 3.0
 
 var respawn_timer : Timer
 var touch : Area2D
