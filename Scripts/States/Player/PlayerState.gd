@@ -36,5 +36,9 @@ func jump():
 	player.jump_count += 1
 	player.jump_bool = true
 	player.velocity.y = player.JUMP_VELOCITY
-	
+
+
+func collide(body):
+	player.velocity.x += body.velocity.x
+	player.velocity.y += body.velocity.y
 

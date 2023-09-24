@@ -30,6 +30,9 @@ func _physics_process(delta):
 func get_can_move():
 	return current_state.can_move
 
+func get_state():
+	return current_state
+
 # switch states to new_state defined by current_state
 func switch_states(new_state : PlayerState):
 	if(current_state != null):

@@ -25,7 +25,7 @@ func on_enter():
 		push_warning("Player should not have been sent to dash state")
 
 # wait for dash_timer to end
-func _physics_process(_delta):
+func state_process(delta):
 	pass
 
 

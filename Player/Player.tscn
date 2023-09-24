@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=13 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/States/Player/DashState.gd" id="5_pltby"]
 [ext_resource type="Script" path="res://Scripts/PlayerAction.gd" id="6_uoquc"]
 [ext_resource type="Script" path="res://Scripts/States/Player/DashCooldown.gd" id="6_w63g6"]
+[ext_resource type="Script" path="res://Scripts/States/Player/SlideState.gd" id="7_27nyv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -19,7 +20,7 @@ height = 38.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_70t8f"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "right", "left", "jump", "dash")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "right", "left", "jump", "dash", "slide")]
 script = ExtResource("1_ntgxl")
 jump_state = NodePath("PlayerStateMachine/Air")
 dash_state = NodePath("PlayerStateMachine/Dash")
@@ -27,6 +28,7 @@ right = NodePath("Controls/RightAction")
 left = NodePath("Controls/LeftAction")
 jump = NodePath("Controls/JumpAction")
 dash = NodePath("Controls/DashAction")
+slide = NodePath("Controls/SlideAction")
 
 [node name="Touch" type="Area2D" parent="."]
 
@@ -54,13 +56,15 @@ script = ExtResource("2_8yjh4")
 player = NodePath("..")
 current_state = NodePath("Air")
 
-[node name="Run" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state")]
+[node name="Run" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "slide_state")]
 script = ExtResource("3_uyf1r")
 air_state = NodePath("../Air")
+slide_state = NodePath("../Slide")
 
 [node name="Air" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state")]
 script = ExtResource("4_d8gs3")
 run_state = NodePath("../Run")
+can_slide = false
 
 [node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "dash_timer", "dash_cooldown")]
 script = ExtResource("5_pltby")
@@ -79,6 +83,17 @@ one_shot = true
 one_shot = true
 script = ExtResource("6_w63g6")
 player = NodePath("../../..")
+
+[node name="Slide" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state", "air_state", "slide_timer")]
+script = ExtResource("7_27nyv")
+run_state = NodePath("../Run")
+air_state = NodePath("../Air")
+slide_timer = NodePath("SlideTimer")
+can_move = false
+can_dash = false
+can_slide = false
+
+[node name="SlideTimer" type="Timer" parent="PlayerStateMachine/Slide"]
 
 [node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -49.0
@@ -103,7 +118,11 @@ script = ExtResource("6_uoquc")
 [node name="DashAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
+[node name="SlideAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Dash/DashTimer" to="PlayerStateMachine/Dash" method="on_exit"]
 [connection signal="timeout" from="PlayerStateMachine/Dash/DashCoolDown" to="PlayerStateMachine/Dash/DashCoolDown" method="_on_timeout"]
+[connection signal="timeout" from="PlayerStateMachine/Slide/SlideTimer" to="PlayerStateMachine/Slide" method="on_exit"]

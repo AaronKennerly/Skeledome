@@ -8,6 +8,7 @@ class_name Player
 @export var left : PlayerAction
 @export var jump : PlayerAction
 @export var dash : PlayerAction
+@export var slide : PlayerAction
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 
@@ -108,11 +109,8 @@ func die():
 # handle colision
 func _on_touch_body_entered(body):
 	if body.is_in_group("Player"):
-		velocity.y += body.velocity.y
-		velocity.x += body.velocity.x
-
-
-
+		state_machine.get_state().collide(body)
+		
 
 func _on_respawn_timer_timeout():
 	# set the velocities to 0
