@@ -3,10 +3,14 @@ class_name Player
 
 # Exported variables
 @export var jump_state: PlayerState
-@export var player_num = ""
 @export var dash_state : PlayerState
+@export var right : PlayerAction
+@export var left : PlayerAction
+@export var jump : PlayerAction
+@export var dash : PlayerAction
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
+
 
 # Constants
 const SPEED = 300.0
@@ -46,20 +50,20 @@ func _physics_process(delta):
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
 
-	if Input.is_action_just_pressed("jump_" + player_num):
+	if Input.is_action_just_pressed(jump.action):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	
 	# calculating Base Movement
 	if state_machine.get_can_move():
-		if Input.is_action_pressed("move_left_" + player_num):
+		if Input.is_action_pressed(left.action):
 			if velocity.x > 0:
 				velocity.x *= 0.75 #If changing direction, happens slightly faster, feeling better
 			velocity.x = max(velocity.x - ACCELERATION, -SPEED)
-		elif Input.is_action_pressed("move_right_" + player_num):
+		elif Input.is_action_pressed(right.action):
 			if velocity.x < 0:
 				velocity.x *= 0.75
 			velocity.x = min(velocity.x + ACCELERATION, SPEED)
-		elif Input.is_action_pressed("dash_" + player_num):
+		elif Input.is_action_pressed(dash.action):
 			state_machine.switch_states(dash_state)
 			
 		else:

@@ -28,9 +28,9 @@ func handle_input(event):
 
 # is the action being held?
 func is_holding():
-	var is_holding = false
+	var holding = false
 	if Input.is_action_pressed(action):
-		is_holding = true
+		holding = true
 		emit_signal("handling")
 		emit_signal("pressed")
-	return is_holding
+	return holding

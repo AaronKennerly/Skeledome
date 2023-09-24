@@ -4,7 +4,7 @@ class_name RunState
 
 @export var air_state : PlayerState
 
-func state_process(delta):
+func state_process(_delta):
 	# reset timer and jumps
 	player.coyote_timer = player.COYOTE_TIME
 	player.jump_count = 0
@@ -19,9 +19,9 @@ func state_process(delta):
 
 
 
-func state_input(event : InputEvent):
+func state_input(_event : InputEvent):
 	# Handle Jump.
-	if Input.is_action_just_pressed(player.controls.jump) and (player.coyote_timer > 0 or player.jump_count < 2):
+	if Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2):
 		if player.coyote_timer < 0:
 			player.jump_count += 1
 		jump()

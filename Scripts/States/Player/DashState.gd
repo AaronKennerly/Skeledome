@@ -11,7 +11,7 @@ func on_enter():
 	timer = $DashTimer
 	player.velocity.x += player.DASH_SPEED
 	start_dash(player.DASH_DURATION)
-#
+
 #func _physics_process(delta):
 #	if timer.is_stoped():
 #		if player.is_on_floor():

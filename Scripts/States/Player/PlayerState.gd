@@ -11,13 +11,13 @@ class_name PlayerState
 var player : CharacterBody2D
 var next_state : PlayerState
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	pass
 
-func state_process(delta):
+func state_process(_delta):
 	pass
 
-func state_input(event : InputEvent):
+func state_input(_event : InputEvent):
 	pass
 
 func on_enter():
