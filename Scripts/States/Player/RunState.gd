@@ -10,10 +10,12 @@ func state_process(_delta):
 	player.jump_count = 0
 	player.jump_bool = false
 
+	# initiate jump by jump buffer
 	if player.jump_buffer_timer >= 0 and player.is_on_floor():
 		player.jump_count = 0
 		jump()
 	
+	# leave to AirState if player leaves ground
 	if not player.is_on_floor():
 		next_state = air_state
 
@@ -26,7 +28,7 @@ func state_input(_event : InputEvent):
 			player.jump_count += 1
 		jump()
 
-
+# this seems unnecessary, but this is needed for variable jump hight to work
 func jump():
 	player.jump_count += 1
 	player.jump_bool = true

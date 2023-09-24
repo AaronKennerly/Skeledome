@@ -11,7 +11,6 @@ class_name Player
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 
-
 # Constants
 const SPEED = 300.0
 const ACCELERATION = 10.0
@@ -29,12 +28,10 @@ var jump_bool = false
 var jump_count = 0
 var can_dash = true
 var dash_cooldown = 3.0
-
 var respawn_timer : Timer
 var touch : Area2D
 var force : Vector2
 var mass = 60.0
-
 var deaths = 3
 var dead = false
 
@@ -50,10 +47,13 @@ func _ready():
 
 func _physics_process(delta):
 	velocity = get_velocity()
-
+	
+	
+	#TODO: Change to timer node
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
 
+	#TODO: Chnage to timer node
 	if Input.is_action_just_pressed(jump.action):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	
@@ -68,11 +68,13 @@ func _physics_process(delta):
 				velocity.x *= 0.75
 			velocity.x = min(velocity.x + ACCELERATION, SPEED)
 		elif Input.is_action_pressed(dash.action):
-			state_machine.switch_states(dash_state)
-			
+			if can_dash:
+				state_machine.switch_states(dash_state)
 		else:
-
-			velocity.x = max(velocity.x - DECELERATION, 0)
+			if velocity.x > 0:
+				velocity.x = max(velocity.x - DECELERATION, 0)
+			else:
+				velocity.x = min(velocity.x + DECELERATION, 0)
 
 	# if the player goes out of bounds kill them
 	if position.y >= 750 or position.x <= -200 or position.x >= 1350:
@@ -103,6 +105,7 @@ func die():
 		$RespawnTimer.start()
 	
 
+# handle colision
 func _on_touch_body_entered(body):
 	if body.is_in_group("Player"):
 		velocity.y += body.velocity.y

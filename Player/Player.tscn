@@ -62,13 +62,23 @@ air_state = NodePath("../Air")
 script = ExtResource("4_d8gs3")
 run_state = NodePath("../Run")
 
-[node name="Dash" type="Node" parent="PlayerStateMachine"]
+[node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "dash_timer", "dash_cooldown")]
 script = ExtResource("5_pltby")
+air_state = NodePath("../Air")
+ground_state = NodePath("../Run")
+dash_timer = NodePath("DashTimer")
+dash_cooldown = NodePath("DashCoolDown")
+can_move = false
+can_jump = false
+can_slide = false
 
 [node name="DashTimer" type="Timer" parent="PlayerStateMachine/Dash"]
+one_shot = true
 
-[node name="DashCoolDown" type="Timer" parent="PlayerStateMachine/Dash"]
+[node name="DashCoolDown" type="Timer" parent="PlayerStateMachine/Dash" node_paths=PackedStringArray("player")]
+one_shot = true
 script = ExtResource("6_w63g6")
+player = NodePath("../../..")
 
 [node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -49.0
@@ -95,3 +105,5 @@ script = ExtResource("6_uoquc")
 
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="PlayerStateMachine/Dash/DashTimer" to="PlayerStateMachine/Dash" method="on_exit"]
+[connection signal="timeout" from="PlayerStateMachine/Dash/DashCoolDown" to="PlayerStateMachine/Dash/DashCoolDown" method="_on_timeout"]

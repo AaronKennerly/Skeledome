@@ -2,8 +2,8 @@ extends Timer
 
 class_name DashCooldown
 
-var player : CharacterBody2D
+@export var player : CharacterBody2D
 
 
-func _on_timer_timeout():
+func _on_timeout():
 	player.can_dash = true

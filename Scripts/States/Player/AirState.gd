@@ -5,10 +5,11 @@ class_name AirState
 @export var run_state : PlayerState
 
 func state_process(_delta):
+	# constantly check if player has landed, else subtract from coyote time
 	if(player.is_on_floor()):
 		next_state = run_state
-	
-		player.coyote_timer -= _delta # subtract from coyote time
+	else:
+		player.coyote_timer -= _delta
 
 	# handle gravity
 	if player.velocity.y < 0:
@@ -16,6 +17,7 @@ func state_process(_delta):
 	else:
 		player.velocity.y += player.gravity * 2 * _delta
 	
+	#TODO: Look at janky solution
 	# When jump button is released (Janky solution. Reassess)
 	if not Input.is_action_pressed(player.jump.action) and player.jump_bool:
 		player.velocity.y = player.velocity.y + 400.0
