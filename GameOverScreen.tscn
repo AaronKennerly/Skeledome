@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ce43jxgt7xeey"]
+[gd_scene load_steps=3 format=3 uid="uid://yjefolfkqwrx"]
 
 [sub_resource type="GDScript" id="GDScript_egx1j"]
 script/source = "extends CanvasLayer
@@ -27,7 +27,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	text = \"Player \" + whoWon + \" Wins!!\"
 
 func setWhoWon(num):

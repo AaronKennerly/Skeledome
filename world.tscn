@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://coeghcr4hdtor"]
+[gd_scene load_steps=10 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_4vesi"]
-[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="1_kgcvc"]
-[ext_resource type="Resource" uid="uid://3yo3g02j7qsp" path="res://Player/player2_controls.tres" id="2_3fdtu"]
-[ext_resource type="Resource" uid="uid://c0hxissv5licl" path="res://Player/player1_controls.tres" id="2_dso05"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_3fdtu"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://spawnpoint.tscn" id="4_v77yx"]
-[ext_resource type="PackedScene" uid="uid://ce43jxgt7xeey" path="res://GameOverScreen.tscn" id="6_wceqi"]
+[ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://GameOverScreen.tscn" id="6_wceqi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbot4"]
 size = Vector2(947, 115.5)
@@ -27,7 +25,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if player.deaths == 0:
 		text = \"Player 1 Out\"
 	else:
@@ -45,7 +43,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if player.deaths == 0:
 		text = \"Player 2 Out\"
 	else:
@@ -55,14 +53,36 @@ func _process(delta):
 [node name="World" type="Node2D"]
 script = ExtResource("1_4vesi")
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_kgcvc")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_3fdtu")]
 position = Vector2(486, 231)
-controls = ExtResource("2_dso05")
 
-[node name="Player2" parent="." groups=["Player"] instance=ExtResource("1_kgcvc")]
+[node name="RightAction" parent="Player/Controls" index="0"]
+action = "move_right_1"
+
+[node name="JumpAction" parent="Player/Controls" index="1"]
+action = "jump_1"
+
+[node name="DashAction" parent="Player/Controls" index="2"]
+action = "dash_1"
+
+[node name="LeftAction" parent="Player/Controls" index="3"]
+action = "move_left_1"
+
+[node name="Player2" parent="." groups=["Player"] instance=ExtResource("2_3fdtu")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(720, 232)
-controls = ExtResource("2_3fdtu")
+
+[node name="RightAction" parent="Player2/Controls" index="0"]
+action = "move_right_2"
+
+[node name="JumpAction" parent="Player2/Controls" index="1"]
+action = "jump_2"
+
+[node name="DashAction" parent="Player2/Controls" index="2"]
+action = "dash_2"
+
+[node name="LeftAction" parent="Player2/Controls" index="3"]
+action = "move_left_2"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(585, 214)
@@ -139,3 +159,6 @@ script = SubResource("GDScript_4k4p0")
 
 [node name="GameOverScreen" parent="." instance=ExtResource("6_wceqi")]
 visible = false
+
+[editable path="Player"]
+[editable path="Player2"]
