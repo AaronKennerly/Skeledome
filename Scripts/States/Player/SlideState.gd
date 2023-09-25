@@ -31,5 +31,13 @@ func collide(body):
 	body.velocity.y -= abs(player.velocity.x)
 	body.velocity.y -= player.velocity.y
 
+func state_input(_event : InputEvent):
+	# Handle Jump.
+	if Input.is_action_just_pressed(player.jump.action):
+		player.jump_count += 1
+		player.jump_bool = true
+		player.velocity.y = player.JUMP_VELOCITY
+		next_state = air_state
+
 
 

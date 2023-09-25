@@ -90,6 +90,9 @@ script = ExtResource("7_27nyv")
 run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 slide_timer = NodePath("SlideTimer")
+can_move = false
+can_dash = false
+can_slide = false
 
 [node name="SlideTimer" type="Timer" parent="PlayerStateMachine/Slide"]
 

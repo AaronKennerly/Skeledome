@@ -27,7 +27,8 @@ func on_enter():
 
 # wait for dash_timer to end
 func state_process(delta):
-	player.velocity = velocity
+	player.velocity.y = 0
+	player.velocity.x = velocity.x
 
 
 # start timer
