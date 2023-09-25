@@ -10,6 +10,7 @@ class_name PlayerState
 
 var player : CharacterBody2D
 var next_state : PlayerState
+var height
 
 # constant checks
 func _physics_process(_delta):
@@ -33,6 +34,7 @@ func on_exit():
 
 # all Player states have access to the jump function
 func jump():
+#	height = player.position.y
 	player.jump_count += 1
 	player.jump_bool = true
 	player.velocity.y = player.JUMP_VELOCITY

@@ -11,17 +11,19 @@ class_name Player
 @export var dash : PlayerAction
 @export var slide : PlayerAction
 
+@export var SPEED = 300.0
+@export var ACCELERATION = 10.0
+@export var DECELERATION = 20.0
+@export var JUMP_BUFFER_TIME = 0.1
+@export var JUMP_VELOCITY = -600.0
+@export var JUMP_HEIGHT = 10
+@export var DASH_SPEED = 800
+@export var DASH_DURATION = .1
+
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 
 # Constants
-const SPEED = 300.0
-const ACCELERATION = 10.0
-const DECELERATION = 20.0
-const JUMP_BUFFER_TIME = 0.1
 const COYOTE_TIME = 0.2
-const JUMP_VELOCITY = -600.0
-const DASH_SPEED = 800
-const DASH_DURATION = .1
 
 # Member variables
 var coyote_timer = 0.0
@@ -43,7 +45,7 @@ var is_dashing = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	respawn_timer = $RespawnTimer
+	pass
 
 
 

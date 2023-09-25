@@ -31,6 +31,10 @@ left = NodePath("Controls/LeftAction")
 jump = NodePath("Controls/JumpAction")
 dash = NodePath("Controls/DashAction")
 slide = NodePath("Controls/SlideAction")
+SPEED = 600.0
+ACCELERATION = 30.0
+DECELERATION = 50.0
+JUMP_HEIGHT = -100
 
 [node name="Touch" type="Area2D" parent="."]
 
@@ -54,13 +58,10 @@ script = ExtResource("2_8yjh4")
 player = NodePath("..")
 current_state = NodePath("Air")
 
-[node name="Run" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state", "air_state", "dash_state", "slide_state", "respawn_state")]
+[node name="Run" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "slide_state")]
 script = ExtResource("3_uyf1r")
-run_state = NodePath(".")
 air_state = NodePath("../Air")
-dash_state = NodePath("../Dash")
 slide_state = NodePath("../Slide")
-respawn_state = NodePath("../Respawn")
 
 [node name="Air" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state")]
 script = ExtResource("4_d8gs3")
