@@ -100,6 +100,7 @@ script = ExtResource("7_27nyv")
 run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 slide_timer = NodePath("SlideTimer")
+deceleration = 10
 can_move = false
 can_dash = false
 can_slide = false
@@ -143,5 +144,4 @@ script = ExtResource("6_uoquc")
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="PlayerStateMachine/Dash/DashTimer" to="PlayerStateMachine/Dash" method="on_exit"]
 [connection signal="timeout" from="PlayerStateMachine/Dash/DashCoolDown" to="PlayerStateMachine/Dash/DashCoolDown" method="_on_timeout"]
-[connection signal="timeout" from="PlayerStateMachine/Slide/SlideTimer" to="PlayerStateMachine/Slide" method="on_exit"]
 [connection signal="timeout" from="PlayerStateMachine/Respawn/RespawnTimer" to="PlayerStateMachine/Respawn" method="_on_respawn_timer_timeout"]

@@ -39,6 +39,7 @@ var mass = 60.0
 var deaths = 3
 var dead = false
 var is_dashing = false
+var direction : Vector2
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -52,6 +53,10 @@ func _ready():
 
 func _physics_process(delta):
 	velocity = get_velocity()
+	if velocity.x != 0:
+		direction.x = velocity.x / abs(velocity.x)
+	if velocity.y != 0:
+		direction.y = velocity.y / abs(velocity.y)
 	
 	
 	#TODO: Change to timer node

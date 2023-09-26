@@ -5,18 +5,23 @@ class_name SlideState
 @export var run_state : PlayerState
 @export var air_state : PlayerState
 @export var slide_timer : Timer
+@export var deceleration : int
 
 var velocity : Vector2
 
 func on_enter():
-	velocity = player.get_velocity()
 	start_slide()
 
 
 func state_process(_delta):
-	player.velocity = velocity
+	if player.direction.x > 0:
+		player.velocity.x = max(player.velocity.x - deceleration, 0)
+	else:
+		player.velocity.x = min(player.velocity.x + deceleration, 0)
 	if !player.is_on_floor():
 		next_state = air_state
+	if player.velocity.x == 0:
+		on_exit()
 
 func on_exit():
 	if(player.is_on_floor()):
