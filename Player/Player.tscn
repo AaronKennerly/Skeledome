@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=16 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
+[ext_resource type="Script" path="res://Scripts/FollowMouse.gd" id="2_uxlaw"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="3_uyf1r"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="4_d8gs3"]
 [ext_resource type="Script" path="res://Scripts/StateDubugLabel.gd" id="5_fai0a"]
@@ -20,6 +21,8 @@ radius = 12.0
 height = 38.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_70t8f"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5y63k"]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "respawn_state", "right", "left", "jump", "dash", "slide")]
 script = ExtResource("1_ntgxl")
@@ -44,10 +47,17 @@ shape = SubResource("CapsuleShape2D_h3myt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_eceab")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 rotation = 3.14159
 scale = Vector2(22.1352, -31.7975)
 texture = SubResource("CanvasTexture_70t8f")
+
+[node name="Pivot" type="Node2D" parent="Body"]
+script = ExtResource("2_uxlaw")
+
+[node name="Hand" type="Sprite2D" parent="Body/Pivot"]
+scale = Vector2(0.2, 0.15)
+texture = SubResource("CanvasTexture_5y63k")
 
 [node name="JumpBuffer" type="Timer" parent="."]
 

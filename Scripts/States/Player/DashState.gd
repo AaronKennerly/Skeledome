@@ -26,7 +26,7 @@ func on_enter():
 		push_warning("Player should not have been sent to dash state")
 
 # wait for dash_timer to end
-func state_process(delta):
+func state_process(_delta):
 	player.velocity.y = 0
 	player.velocity.x = velocity.x
 

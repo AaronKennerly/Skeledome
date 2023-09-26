@@ -18,7 +18,7 @@ func on_enter():
 		$RespawnTimer.start()
 
 
-func state_process(delta):
+func state_process(_delta):
 	if !player.is_on_floor():
 		next_state = air_state
 

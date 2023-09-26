@@ -13,7 +13,7 @@ func on_enter():
 	start_slide()
 
 
-func state_process(delta):
+func state_process(_delta):
 	player.velocity = velocity
 	if !player.is_on_floor():
 		next_state = air_state

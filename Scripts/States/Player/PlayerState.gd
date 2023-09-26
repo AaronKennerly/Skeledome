@@ -39,8 +39,12 @@ func jump():
 	player.jump_bool = true
 	player.velocity.y = player.JUMP_VELOCITY
 
+# TODO: player bounce
+# BUG: game collisions prioritizes player 1. if equal collide, player 2 is bumped
 # handle collisions
 func collide(body):
+	if abs(player.velocity.x) - abs(body.velocity.x) < 100:
+		player.velocity.x *= -2
 	player.velocity.x += body.velocity.x
 	player.velocity.y += body.velocity.y
 
