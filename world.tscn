@@ -93,6 +93,9 @@ action = "dash_2"
 [node name="SlideAction" parent="Player2/Controls" index="4"]
 action = "slide_2"
 
+[node name="StompAction" parent="Player2/Controls" index="5"]
+action = "stomp_2"
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(585, 214)
 
