@@ -6,6 +6,7 @@ class_name PlayerState
 @export var can_jump : bool = true
 @export var can_dash : bool = true
 @export var can_slide : bool = true
+@export var can_stomp : bool = true
 
 
 var player : CharacterBody2D

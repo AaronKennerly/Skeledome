@@ -10,6 +10,7 @@ class_name Player
 @export var jump : PlayerAction
 @export var dash : PlayerAction
 @export var slide : PlayerAction
+@export var stomp : PlayerAction
 
 @export var SPEED = 300.0
 @export var ACCELERATION = 10.0

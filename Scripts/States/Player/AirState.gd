@@ -3,6 +3,7 @@ extends PlayerState
 class_name AirState
 
 @export var run_state : PlayerState
+@export var stomp_state : PlayerState
 
 func on_enter():
 	height = player.position.y + player.JUMP_HEIGHT
@@ -36,3 +37,7 @@ func state_input(_event : InputEvent):
 		if player.coyote_timer < 0:
 			player.jump_count += 1
 		jump()
+	
+	# handle jump
+	if Input.is_action_just_pressed(player.stomp.action):
+		next_state = stomp_state

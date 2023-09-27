@@ -71,6 +71,9 @@ action = "dash_1"
 [node name="SlideAction" parent="Player/Controls" index="4"]
 action = "slide_1"
 
+[node name="StompAction" parent="Player/Controls" index="5"]
+action = "stomp_1"
+
 [node name="Player2" parent="." groups=["Player"] instance=ExtResource("2_3fdtu")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(720, 232)
