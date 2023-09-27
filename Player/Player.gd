@@ -12,34 +12,34 @@ class_name Player
 @export var slide : PlayerAction
 @export var stomp : PlayerAction
 
-@export var SPEED = 300.0
-@export var ACCELERATION = 10.0
-@export var DECELERATION = 20.0
-@export var JUMP_BUFFER_TIME = 0.1
-@export var JUMP_VELOCITY = -600.0
-@export var JUMP_HEIGHT = 10
-@export var DASH_SPEED = 800
-@export var DASH_DURATION = .1
+@export var SPEED : float = 300.0
+@export var ACCELERATION : float = 10.0
+@export var DECELERATION : float = 20.0
+@export var JUMP_BUFFER_TIME : float = 0.1
+@export var JUMP_VELOCITY : float = -600.0
+@export var JUMP_HEIGHT : int = 10
+@export var DASH_SPEED : int = 800
+@export var DASH_DURATION : float = .1
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 
 # Constants
-const COYOTE_TIME = 0.2
+const COYOTE_TIME : float = 0.2
 
 # Member variables
-var coyote_timer = 0.0
-var jump_buffer_timer = -10.0
-var jump_bool = false
-var jump_count = 0
-var can_dash = true
-var dash_cooldown = 3.0
+var coyote_timer : float = 0.0
+var jump_buffer_timer : float = -10.0
+var jump_bool : bool = false
+var jump_count : int = 0
+var can_dash : bool = true
+var dash_cooldown : float = 3.0
 var respawn_timer : Timer
 var touch : Area2D
 var force : Vector2
-var mass = 60.0
-var deaths = 3
-var dead = false
-var is_dashing = false
+var mass : float = 60.0
+var deaths : int = 3
+var dead : bool = false
+var is_dashing : bool = false
 var direction : Vector2
 
 

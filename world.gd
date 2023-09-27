@@ -1,10 +1,10 @@
 extends Node2D
 
-var player1
-var player2
-var endScreen
+var player1 : CharacterBody2D
+var player2 : CharacterBody2D
+var endScreen : CanvasLayer
 var gameOver = false
-var endText
+var endText : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
