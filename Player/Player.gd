@@ -20,6 +20,7 @@ class_name Player
 @export var JUMP_HEIGHT : int = 10
 @export var DASH_SPEED : int = 800
 @export var DASH_DURATION : float = .1
+@export var SPAWNPOINT : Node2D
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 
@@ -41,6 +42,7 @@ var deaths : int = 3
 var dead : bool = false
 var is_dashing : bool = false
 var direction : Vector2
+var player_joined : bool = false
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
