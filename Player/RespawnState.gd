@@ -24,6 +24,7 @@ func state_process(_delta):
 
 
 func _on_respawn_timer_timeout():
+	print("test")
 	# set the velocities to 0
 	player.velocity.y = 0
 	player.velocity.x = 0

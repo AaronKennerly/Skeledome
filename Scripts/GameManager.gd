@@ -1,9 +1,9 @@
 extends Node
 
 # Declare a static variable for the spawnpoint
-var spawnpoint : Node = null
+var player_count : int = 0
 
 # Function to respawn the player
 func respawn_player(player):
-	if spawnpoint != null:
-		player.position = spawnpoint.global_position
+	if player.SPAWNPOINT != null:
+		player.position = player.SPAWNPOINT.global_position

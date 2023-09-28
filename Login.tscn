@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=3 uid="uid://b41jwtbu0dvdu"]
+
+[ext_resource type="Script" path="res://Login.gd" id="1_bqra0"]
+[ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://spawnpoint.tscn" id="1_xj2pj"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_6qa6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvywd"]
+size = Vector2(1180, 116)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwh4d"]
+bg_color = Color(0.27451, 0.290196, 0.286275, 1)
+
+[node name="Login" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_bqra0")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Rows" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 265
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 39
+text = "Press Enter or Select To Join"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(572, 327)
+
+[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_6qa6g")]
+position = Vector2(145, 230)
+SPAWNPOINT = NodePath("../Spawnpoint1")
+
+[node name="LeftAction" parent="Player1/Controls" index="0"]
+action = "move_left_1"
+
+[node name="RightAction" parent="Player1/Controls" index="1"]
+action = "move_right_1"
+
+[node name="JumpAction" parent="Player1/Controls" index="2"]
+action = "jump_1"
+
+[node name="DashAction" parent="Player1/Controls" index="3"]
+action = "dash_1"
+
+[node name="SlideAction" parent="Player1/Controls" index="4"]
+action = "slide_1"
+
+[node name="StompAction" parent="Player1/Controls" index="5"]
+action = "stomp_1"
+
+[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_6qa6g")]
+modulate = Color(0.486275, 0.945098, 0.878431, 1)
+position = Vector2(420, 230)
+SPAWNPOINT = NodePath("../Spawnpoint2")
+
+[node name="LeftAction" parent="Player2/Controls" index="0"]
+action = "move_left_2"
+
+[node name="RightAction" parent="Player2/Controls" index="1"]
+action = "move_right_2"
+
+[node name="JumpAction" parent="Player2/Controls" index="2"]
+action = "jump_2"
+
+[node name="DashAction" parent="Player2/Controls" index="3"]
+action = "dash_2"
+
+[node name="SlideAction" parent="Player2/Controls" index="4"]
+action = "slide_2"
+
+[node name="StompAction" parent="Player2/Controls" index="5"]
+action = "stomp_2"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(597, 315)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-18, 283)
+shape = SubResource("RectangleShape2D_pvywd")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -2.0
+offset_top = 540.0
+offset_right = 1028.0
+offset_bottom = 639.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.12435, 1.11668)
+theme_override_styles/panel = SubResource("StyleBoxFlat_wwh4d")
+
+[node name="Spawnpoint1" parent="." instance=ExtResource("1_xj2pj")]
+position = Vector2(145, 230)
+
+[node name="Spawnpoint2" parent="." instance=ExtResource("1_xj2pj")]
+position = Vector2(420, 230)
+
+[node name="Spawnpoint3" parent="." instance=ExtResource("1_xj2pj")]
+position = Vector2(761, 229)
+
+[node name="Spawnpoint4" parent="." instance=ExtResource("1_xj2pj")]
+position = Vector2(1023, 229)
+
+[editable path="Player1"]
+[editable path="Player2"]
