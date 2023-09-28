@@ -23,6 +23,7 @@ class_name Player
 @export var SPAWNPOINT : Node2D
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
+@onready var collision_timer : Timer = $CollisionTimer
 
 # Constants
 const COYOTE_TIME : float = 0.2
@@ -110,7 +111,7 @@ func update_force(_velocity):
 
 # handle colision
 func _on_touch_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
 
 
