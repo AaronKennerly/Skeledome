@@ -7,7 +7,6 @@ class_name SlideState
 @export var slide_timer : Timer
 @export var deceleration : int
 
-var velocity : Vector2
 
 func on_enter():
 	start_slide()

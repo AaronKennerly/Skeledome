@@ -9,7 +9,7 @@ class_name PlayerState
 @export var can_stomp : bool = true
 
 
-var player : CharacterBody2D
+var player : Player
 var next_state : PlayerState
 var height
 
