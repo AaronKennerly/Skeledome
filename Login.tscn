@@ -15,8 +15,11 @@ follow_viewport_enabled = true
 script = ExtResource("1_bqra0")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -37,7 +40,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(572, 327)
+position = Vector2(574, 324)
 
 [node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_6qa6g")]
 position = Vector2(145, 230)
@@ -94,11 +97,10 @@ shape = SubResource("RectangleShape2D_pvywd")
 [node name="Panel" type="Panel" parent="."]
 offset_left = -2.0
 offset_top = 540.0
-offset_right = 1028.0
-offset_bottom = 639.0
+offset_right = 1152.0
+offset_bottom = 657.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.12435, 1.11668)
 theme_override_styles/panel = SubResource("StyleBoxFlat_wwh4d")
 
 [node name="Spawnpoint1" parent="." instance=ExtResource("1_xj2pj")]
