@@ -1,7 +1,7 @@
 extends Node2D
 
-var player1 : CharacterBody2D
-var player2 : CharacterBody2D
+var player1 : Player
+var player2 : Player
 var endScreen : CanvasLayer
 var gameOver = false
 var endText : String

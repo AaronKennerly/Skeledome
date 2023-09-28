@@ -94,11 +94,13 @@ current_state = NodePath("Air")
 script = ExtResource("3_uyf1r")
 air_state = NodePath("../Air")
 slide_state = NodePath("../Slide")
+can_stomp = false
 
 [node name="Air" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state", "stomp_state")]
 script = ExtResource("4_d8gs3")
 run_state = NodePath("../Run")
 stomp_state = NodePath("../Stomp")
+can_slide = false
 
 [node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "dash_timer", "dash_cooldown")]
 script = ExtResource("5_pltby")

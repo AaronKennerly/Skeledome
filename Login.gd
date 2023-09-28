@@ -21,7 +21,7 @@ func _ready():
 	player2.set_physics_process(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _input(event:InputEvent):

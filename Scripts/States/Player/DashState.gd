@@ -11,28 +11,21 @@ var velocity : Vector2
 var target : Vector2
 
 
-#TODO: change to direction system
 # add dash velocity in direction of current velocity
 func on_enter():
 	if (player.can_dash):
 		player.is_dashing = true
 		target = player.get_global_mouse_position()
 		velocity = player.position.direction_to(target) * player.DASH_SPEED
-#		velocity = player.get_velocity()
-#		if velocity.x >= 0:
-#			player.velocity.x += player.DASH_SPEED
-#		else: 
-#			player.velocity.x -= player.DASH_SPEED
-#		velocity = player.get_velocity()
 		start_dash(player.DASH_DURATION)
 	else:
 		push_warning("Player should not have been sent to dash state")
 
+
 # wait for dash_timer to end
 func state_process(_delta):
+	velocity.y += player.gravity * 2 * _delta
 	player.velocity = velocity
-#	player.velocity.y = 0
-#	player.velocity.x = velocity.x
 
 
 # start timer

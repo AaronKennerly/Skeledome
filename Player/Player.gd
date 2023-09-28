@@ -81,10 +81,16 @@ func _physics_process(delta):
 				velocity.x *= 0.75
 			velocity.x = min(velocity.x + ACCELERATION, SPEED)
 		else:
-			if velocity.x > 0:
-				velocity.x = max(velocity.x - DECELERATION, 0)
+			if is_on_floor():
+				if velocity.x > 0:
+					velocity.x = max(velocity.x - DECELERATION, 0)
+				else:
+					velocity.x = min(velocity.x + DECELERATION, 0)
 			else:
-				velocity.x = min(velocity.x + DECELERATION, 0)
+				if velocity.x < 0:
+					velocity.x += gravity * delta
+				else:
+					velocity.x -= gravity * delta
 		
 		if Input.is_action_pressed(dash.action):
 			if can_dash:
