@@ -44,9 +44,12 @@ func jump():
 # BUG: game collisions prioritizes player 1. if equal collide, player 2 is bumped
 # handle collisions
 func collide(body):
-	if abs(player.velocity.x) - abs(body.velocity.x) < 100 && player.velocity.x / body.velocity.x <= 1:
+	if body.velocity.x == 0:
+		body.velocity.x = player.velocity.x * 1.5
+	if abs(player.velocity.x) - abs(body.velocity.x) < 100 && (player.velocity.x / body.velocity.x <= 1) && abs(player.velocity.x) >= 100:
 		player.velocity.x *= -2
-	player.velocity.x += body.velocity.x
+	else:
+		player.velocity.x += body.velocity.x
 	if (player.velocity.y > body.velocity.y):
 		player.velocity.y += min(player.velocity.y - body.velocity.y, 300)
 	player.collision_timer.start()
