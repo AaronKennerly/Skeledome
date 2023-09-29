@@ -1,4 +1,4 @@
-Welcome to Welcome to the Skeledome, an action-packed player vs player platforming centric party fighting game where players will take control of the weakest beings in hell and battle against each other in a 2D platforming arena. Developed by Ben Lockwood and Aaron Kennerly using the Unity Engine, Welcome to the Skeledome is an exciting game that's currently in the early stages of development.
+Welcome to Welcome to the Skeledome, an action-packed player vs player platforming centric party fighting game where players will take control of the weakest beings in hell and battle against each other in a 2D platforming arena. Developed by Ben Lockwood and Aaron Kennerly using the Godot Engine, Welcome to the Skeledome currently in the early stages of development.
 
 
 ### Getting Started:
