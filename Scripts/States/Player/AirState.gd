@@ -31,13 +31,18 @@ func state_process(_delta):
 
 
 func state_input(_event : InputEvent):
-	# Handle Jump.
+	# handle wall jump (placeholder currently)
+	#if Input.is_action_pressed(player.jump.action) and (player.is_on_wall_only()):
+		#player.jump_bool = true
+		#player.velocity.y = player.JUMP_VELOCITY
+	
+	# handle jump
 	if Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2):
 		height = player.position.y + player.JUMP_HEIGHT
 		if player.coyote_timer < 0:
 			player.jump_count += 1
 		jump()
 	
-	# handle jump
+	# handle stomp
 	if Input.is_action_just_pressed(player.stomp.action):
 		next_state = stomp_state

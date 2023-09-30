@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://coeghcr4hdtor"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_4vesi"]
-[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_3fdtu"]
-[ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://spawnpoint.tscn" id="4_v77yx"]
-[ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://GameOverScreen.tscn" id="6_wceqi"]
+[ext_resource type="Script" path="res://Levels/testing world/world.gd" id="1_ng5tp"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_7c503"]
+[ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_n4iwg"]
+[ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbot4"]
 size = Vector2(947, 115.5)
@@ -51,9 +51,9 @@ func _process(_delta):
 "
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_4vesi")
+script = ExtResource("1_ng5tp")
 
-[node name="Player" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_3fdtu")]
+[node name="Player" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
 position = Vector2(486, 231)
 SPAWNPOINT = NodePath("../Spawnpoint")
 
@@ -75,7 +75,7 @@ action = "slide_1"
 [node name="StompAction" parent="Player/Controls" index="5"]
 action = "stomp_1"
 
-[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_3fdtu")]
+[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(720, 232)
 SPAWNPOINT = NodePath("../Spawnpoint")
@@ -131,7 +131,7 @@ offset_top = 102.0
 offset_right = 977.0
 offset_bottom = 161.0
 
-[node name="Spawnpoint" parent="." instance=ExtResource("4_v77yx")]
+[node name="Spawnpoint" parent="." instance=ExtResource("3_n4iwg")]
 position = Vector2(584, 37)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -171,7 +171,7 @@ theme_override_font_sizes/font_size = 30
 text = "Test"
 script = SubResource("GDScript_4k4p0")
 
-[node name="GameOverScreen" parent="." instance=ExtResource("6_wceqi")]
+[node name="GameOverScreen" parent="." instance=ExtResource("4_5d4y4")]
 visible = false
 
 [editable path="Player"]

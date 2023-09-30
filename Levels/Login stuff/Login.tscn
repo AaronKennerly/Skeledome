@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://b41jwtbu0dvdu"]
 
-[ext_resource type="Script" path="res://Login.gd" id="1_bqra0"]
-[ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://spawnpoint.tscn" id="1_xj2pj"]
-[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_6qa6g"]
+[ext_resource type="Script" path="res://Levels/Login stuff/Login.gd" id="1_ki8xt"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_5bg56"]
+[ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_pn10h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvywd"]
 size = Vector2(1180, 116)
@@ -12,7 +12,7 @@ bg_color = Color(0.27451, 0.290196, 0.286275, 1)
 
 [node name="Login" type="CanvasLayer"]
 follow_viewport_enabled = true
-script = ExtResource("1_bqra0")
+script = ExtResource("1_ki8xt")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -42,7 +42,7 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(574, 324)
 
-[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_6qa6g")]
+[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_5bg56")]
 position = Vector2(145, 230)
 SPAWNPOINT = NodePath("../Spawnpoint1")
 
@@ -64,7 +64,7 @@ action = "slide_1"
 [node name="StompAction" parent="Player1/Controls" index="5"]
 action = "stomp_1"
 
-[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_6qa6g")]
+[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_5bg56")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(420, 230)
 SPAWNPOINT = NodePath("../Spawnpoint2")
@@ -103,16 +103,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wwh4d")
 
-[node name="Spawnpoint1" parent="." instance=ExtResource("1_xj2pj")]
+[node name="Spawnpoint1" parent="." instance=ExtResource("3_pn10h")]
 position = Vector2(145, 230)
 
-[node name="Spawnpoint2" parent="." instance=ExtResource("1_xj2pj")]
+[node name="Spawnpoint2" parent="." instance=ExtResource("3_pn10h")]
 position = Vector2(420, 230)
 
-[node name="Spawnpoint3" parent="." instance=ExtResource("1_xj2pj")]
+[node name="Spawnpoint3" parent="." instance=ExtResource("3_pn10h")]
 position = Vector2(761, 229)
 
-[node name="Spawnpoint4" parent="." instance=ExtResource("1_xj2pj")]
+[node name="Spawnpoint4" parent="." instance=ExtResource("3_pn10h")]
 position = Vector2(1023, 229)
 
 [editable path="Player1"]

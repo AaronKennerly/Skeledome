@@ -47,4 +47,4 @@ func _input(event:InputEvent):
 		player3.set_owner(player3.get_parent())
 	elif event.is_action_pressed("start"):
 		GameManager.player_count = player_count
-		get_tree().change_scene_to_file("res://world.tscn")
+		get_tree().change_scene_to_file("res://Levels/testing world/world.tscn")
