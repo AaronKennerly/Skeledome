@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://coeghcr4hdtor"]
+[gd_scene load_steps=12 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="Script" path="res://Levels/testing world/world.gd" id="1_ng5tp"]
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_7c503"]
@@ -21,7 +21,7 @@ var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(\"../../Player\")
+	player = get_node(\"../../Player1\")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,35 +50,71 @@ func _process(_delta):
 		text = \"Player 2 Lives: \" + str(player.deaths)
 "
 
+[sub_resource type="GDScript" id="GDScript_fm5uk"]
+script/source = "extends Label
+
+var player
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_node(\"../../Player3\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if player.deaths == 0:
+		text = \"Player 3 Out\"
+	else:
+		text = \"Player 3 Lives: \" + str(player.deaths)
+"
+
+[sub_resource type="GDScript" id="GDScript_c4hex"]
+script/source = "extends Label
+
+var player
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_node(\"../../Player4\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if player.deaths == 0:
+		text = \"Player 4 Out\"
+	else:
+		text = \"Player 4 Lives: \" + str(player.deaths)
+"
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_ng5tp")
 
-[node name="Player" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
-position = Vector2(486, 231)
+[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
+position = Vector2(-2782, -2989)
 SPAWNPOINT = NodePath("../Spawnpoint")
 
-[node name="LeftAction" parent="Player/Controls" index="0"]
+[node name="LeftAction" parent="Player1/Controls" index="0"]
 action = "move_left_1"
 
-[node name="RightAction" parent="Player/Controls" index="1"]
+[node name="RightAction" parent="Player1/Controls" index="1"]
 action = "move_right_1"
 
-[node name="JumpAction" parent="Player/Controls" index="2"]
+[node name="JumpAction" parent="Player1/Controls" index="2"]
 action = "jump_1"
 
-[node name="DashAction" parent="Player/Controls" index="3"]
+[node name="DashAction" parent="Player1/Controls" index="3"]
 action = "dash_1"
 
-[node name="SlideAction" parent="Player/Controls" index="4"]
+[node name="SlideAction" parent="Player1/Controls" index="4"]
 action = "slide_1"
 
-[node name="StompAction" parent="Player/Controls" index="5"]
+[node name="StompAction" parent="Player1/Controls" index="5"]
 action = "stomp_1"
 
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
-position = Vector2(720, 232)
-SPAWNPOINT = NodePath("../Spawnpoint")
+position = Vector2(-2619, -2993)
+SPAWNPOINT = NodePath("../Spawnpoint2")
 
 [node name="LeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
@@ -97,6 +133,58 @@ action = "slide_2"
 
 [node name="StompAction" parent="Player2/Controls" index="5"]
 action = "stomp_2"
+
+[node name="Player3" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
+modulate = Color(0.807843, 0.211765, 0.192157, 1)
+position = Vector2(-2489, -2992)
+SPAWNPOINT = NodePath("../Spawnpoint3")
+
+[node name="StateDubugLabel" parent="Player3" index="7"]
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftAction" parent="Player3/Controls" index="0"]
+action = "move_left_3"
+
+[node name="RightAction" parent="Player3/Controls" index="1"]
+action = "move_right_3"
+
+[node name="JumpAction" parent="Player3/Controls" index="2"]
+action = "jump_4"
+
+[node name="DashAction" parent="Player3/Controls" index="3"]
+action = "dash_3"
+
+[node name="SlideAction" parent="Player3/Controls" index="4"]
+action = "slide_3"
+
+[node name="StompAction" parent="Player3/Controls" index="5"]
+action = "stomp_3"
+
+[node name="Player4" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
+modulate = Color(0.254902, 0.564706, 0.337255, 1)
+position = Vector2(-2284, -2984)
+SPAWNPOINT = NodePath("../Spawnpoint4")
+
+[node name="StateDubugLabel" parent="Player4" index="7"]
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftAction" parent="Player4/Controls" index="0"]
+action = "move_left_4"
+
+[node name="RightAction" parent="Player4/Controls" index="1"]
+action = "move_right_4"
+
+[node name="JumpAction" parent="Player4/Controls" index="2"]
+action = "jump_4"
+
+[node name="DashAction" parent="Player4/Controls" index="3"]
+action = "dash_4"
+
+[node name="SlideAction" parent="Player4/Controls" index="4"]
+action = "slide_4"
+
+[node name="StompAction" parent="Player4/Controls" index="5"]
+action = "stomp_4"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(585, 214)
@@ -131,8 +219,20 @@ offset_top = 102.0
 offset_right = 977.0
 offset_bottom = 161.0
 
-[node name="Spawnpoint" parent="." instance=ExtResource("3_n4iwg")]
+[node name="Respawn" parent="." instance=ExtResource("3_n4iwg")]
 position = Vector2(584, 37)
+
+[node name="Spawnpoint" parent="." instance=ExtResource("3_n4iwg")]
+position = Vector2(314, 9)
+
+[node name="Spawnpoint2" parent="." instance=ExtResource("3_n4iwg")]
+position = Vector2(864, 5)
+
+[node name="Spawnpoint3" parent="." instance=ExtResource("3_n4iwg")]
+position = Vector2(168, 218)
+
+[node name="Spawnpoint4" parent="." instance=ExtResource("3_n4iwg")]
+position = Vector2(839, 192)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(586, 319)
@@ -171,8 +271,20 @@ theme_override_font_sizes/font_size = 30
 text = "Test"
 script = SubResource("GDScript_4k4p0")
 
+[node name="P3Score" type="Label" parent="UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = SubResource("GDScript_fm5uk")
+
+[node name="P4Score" type="Label" parent="UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = SubResource("GDScript_c4hex")
+
 [node name="GameOverScreen" parent="." instance=ExtResource("4_5d4y4")]
 visible = false
 
-[editable path="Player"]
+[editable path="Player1"]
 [editable path="Player2"]
+[editable path="Player3"]
+[editable path="Player4"]

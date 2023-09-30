@@ -1,32 +1,45 @@
 extends Node2D
 
-var player1 : Player
-var player2 : Player
+var players : Array = []
 var endScreen : CanvasLayer
 var gameOver = false
 var endText : String
+var count : int = GameManager.player_count
+var player_vals : Array = GameManager.player_nums
+var numWords : Array = ["One", "Two", "Three", "Four"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player1 = get_node("Player")
-	player2 = get_node("Player2")
+	#player1 = get_node("Player1")
+	for i in count:
+		var player = get_node("Player" + str(player_vals[i]))
+		player.player_joined = true
+		player.position = player.SPAWNPOINT.global_position
+		player.SPAWNPOINT = get_node("Respawn")
+		players.append(player)
+		
 	endScreen = get_node("GameOverScreen")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if player1.dead:
-		player2.set_process(false)
-		player2.set_physics_process(false)
-		endText = "One"
-		gameOver = true
-	elif player2.dead:
-		player1.set_process(false)
-		player1.set_physics_process(false)
-		endText = "Two"
-		gameOver = true
+	
+	# check how many players are dead if the number is 1 less 
+	# than the total we have a winner
+	var players_dead : int = 0
+	for i in count:
+		if (players[i].dead):
+			players_dead += 1
+		if (players_dead == count - 1):
+			gameOver = true
 		
 	if gameOver:
+		for i in count:
+			if (!players[i].dead):
+				players[i].set_process(false)
+				players[i].set_physics_process(false)
+				endText = numWords[i]
+			
 		endScreen.setText(endText)
 		endScreen.visible = true
 		endScreen.get_node("PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton").disabled = false

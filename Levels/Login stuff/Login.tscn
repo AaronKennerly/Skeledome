@@ -87,6 +87,50 @@ action = "slide_2"
 [node name="StompAction" parent="Player2/Controls" index="5"]
 action = "stomp_2"
 
+[node name="Player3" parent="." instance=ExtResource("2_5bg56")]
+modulate = Color(0.807843, 0.211765, 0.192157, 1)
+position = Vector2(761, 229)
+
+[node name="LeftAction" parent="Player3/Controls" index="0"]
+action = "move_left_3"
+
+[node name="RightAction" parent="Player3/Controls" index="1"]
+action = "move_right_3"
+
+[node name="JumpAction" parent="Player3/Controls" index="2"]
+action = "jump_4"
+
+[node name="DashAction" parent="Player3/Controls" index="3"]
+action = "dash_3"
+
+[node name="SlideAction" parent="Player3/Controls" index="4"]
+action = "slide_3"
+
+[node name="StompAction" parent="Player3/Controls" index="5"]
+action = "stomp_3"
+
+[node name="Player4" parent="." instance=ExtResource("2_5bg56")]
+modulate = Color(0.254902, 0.564706, 0.337255, 1)
+position = Vector2(1020, 229)
+
+[node name="LeftAction" parent="Player4/Controls" index="0"]
+action = "move_left_4"
+
+[node name="RightAction" parent="Player4/Controls" index="1"]
+action = "move_right_4"
+
+[node name="JumpAction" parent="Player4/Controls" index="2"]
+action = "jump_4"
+
+[node name="DashAction" parent="Player4/Controls" index="3"]
+action = "dash_4"
+
+[node name="SlideAction" parent="Player4/Controls" index="4"]
+action = "slide_4"
+
+[node name="StompAction" parent="Player4/Controls" index="5"]
+action = "stomp_4"
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(597, 315)
 
@@ -117,3 +161,5 @@ position = Vector2(1023, 229)
 
 [editable path="Player1"]
 [editable path="Player2"]
+[editable path="Player3"]
+[editable path="Player4"]
