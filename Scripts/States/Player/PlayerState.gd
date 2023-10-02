@@ -7,6 +7,8 @@ class_name PlayerState
 @export var can_dash : bool = true
 @export var can_slide : bool = true
 @export var can_stomp : bool = true
+@export var can_cancel : bool = true
+@export var can_block : bool = true
 
 
 var player : Player
@@ -44,6 +46,7 @@ func jump():
 # BUG: game collisions prioritizes player 1. if equal collide, player 2 is bumped
 # handle collisions
 func collide(body):
+	player.is_colliding = true
 	if body.velocity.x == 0:
 		body.velocity.x = player.velocity.x * 1.5
 	if abs(player.velocity.x) - abs(body.velocity.x) < 100 && (player.velocity.x / body.velocity.x <= 1) && abs(player.velocity.x) >= 100:
