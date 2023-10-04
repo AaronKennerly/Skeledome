@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://coeghcr4hdtor"]
+[gd_scene load_steps=14 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="Script" path="res://Levels/testing world/world.gd" id="1_ng5tp"]
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_7c503"]
@@ -6,14 +6,27 @@
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 [ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assests/tileset.png" id="5_fvare"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
+bg_color = Color(0.682353, 0.576471, 0.513726, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.137255, 0.137255, 0.137255, 1)
+border_blend = true
+
+[sub_resource type="Theme" id="Theme_ea4v1"]
+Label/styles/normal = SubResource("StyleBoxFlat_qlkcc")
+
 [sub_resource type="GDScript" id="GDScript_0js7q"]
 script/source = "extends Label
 
-var player
+var player : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(\"../../Player1\")
+	player = get_node(\"/root/World/Player1\")
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,17 +34,21 @@ func _process(_delta):
 	if player.deaths == 0:
 		text = \"Player 1 Out\"
 	else:
-		text = \"Player 1 Lives: \" + str(player.deaths)
+		text = \"Player 1\\n Lives: \" + str(player.deaths)
+		
+	if player.player_joined && !self.visible:
+		self.visible = true
 "
 
 [sub_resource type="GDScript" id="GDScript_4k4p0"]
 script/source = "extends Label
 
-var player
+var player : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(\"../../Player2\")
+	player = get_node(\"/root/World/Player2\")
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,17 +56,21 @@ func _process(_delta):
 	if player.deaths == 0:
 		text = \"Player 2 Out\"
 	else:
-		text = \"Player 2 Lives: \" + str(player.deaths)
+		text = \"Player 2\\n Lives: \" + str(player.deaths)
+	
+	if player.player_joined && !self.visible:
+		self.visible = true
 "
 
 [sub_resource type="GDScript" id="GDScript_fm5uk"]
 script/source = "extends Label
 
-var player
+var player : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(\"../../Player3\")
+	player = get_node(\"/root/World/Player3\")
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,17 +78,21 @@ func _process(_delta):
 	if player.deaths == 0:
 		text = \"Player 3 Out\"
 	else:
-		text = \"Player 3 Lives: \" + str(player.deaths)
+		text = \"Player 3\\n Lives: \" + str(player.deaths)
+		
+	if player.player_joined && !self.visible:
+		self.visible = true
 "
 
 [sub_resource type="GDScript" id="GDScript_c4hex"]
 script/source = "extends Label
 
-var player
+var player : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(\"../../Player4\")
+	player = get_node(\"/root/World/Player4\")
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,7 +100,10 @@ func _process(_delta):
 	if player.deaths == 0:
 		text = \"Player 4 Out\"
 	else:
-		text = \"Player 4 Lives: \" + str(player.deaths)
+		text = \"Player 4\\n Lives: \" + str(player.deaths)
+		
+	if player.player_joined && !self.visible:
+		self.visible = true
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1n63v"]
@@ -602,50 +630,66 @@ position = Vector2(168, 218)
 position = Vector2(839, 192)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(586, 319)
+position = Vector2(578, 304)
 zoom = Vector2(0.75, 0.75)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="P1Score" type="Label" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_top = 0.869
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 29.0
-offset_top = -71.0
-offset_right = 90.0
-offset_bottom = -26.0
+offset_top = 19.888
+grow_horizontal = 2
 grow_vertical = 0
+theme = SubResource("Theme_ea4v1")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 210
+
+[node name="P1Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Test"
 script = SubResource("GDScript_0js7q")
 
-[node name="P2Score" type="Label" parent="UI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -109.0
-offset_top = -68.0
-offset_right = -48.0
-offset_bottom = -23.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="P2Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Test"
 script = SubResource("GDScript_4k4p0")
 
-[node name="P3Score" type="Label" parent="UI"]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="P3Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
 script = SubResource("GDScript_fm5uk")
 
-[node name="P4Score" type="Label" parent="UI"]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="P4Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
 script = SubResource("GDScript_c4hex")
 
 [node name="GameOverScreen" parent="." instance=ExtResource("4_5d4y4")]
