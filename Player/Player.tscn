@@ -1,4 +1,5 @@
-[gd_scene load_steps=17 format=3 uid="uid://bc0sc1t1gdja4"]
+
+[gd_scene load_steps=22 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
@@ -10,7 +11,11 @@
 [ext_resource type="Script" path="res://Scripts/PlayerAction.gd" id="6_uoquc"]
 [ext_resource type="Script" path="res://Scripts/States/Player/DashCooldown.gd" id="6_w63g6"]
 [ext_resource type="Script" path="res://Scripts/States/Player/SlideState.gd" id="7_27nyv"]
-[ext_resource type="Script" path="res://Player/RespawnState.gd" id="8_13vjk"]
+[ext_resource type="Script" path="res://Scripts/States/Player/RespawnState.gd" id="10_lwp5q"]
+[ext_resource type="Script" path="res://Scripts/States/Player/CancelState.gd" id="11_i4gte"]
+[ext_resource type="Script" path="res://Scripts/States/Player/StunnedState.gd" id="12_6higs"]
+[ext_resource type="Script" path="res://Player/BlockState.gd" id="12_nqoed"]
+[ext_resource type="Script" path="res://Scripts/States/Player/BlockCooldown.gd" id="13_ymt22"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -60,6 +65,8 @@ SPEED = 600.0
 ACCELERATION = 30.0
 DECELERATION = 50.0
 JUMP_HEIGHT = -100
+DASH_SPEED = 1000
+DASH_DURATION = 0.2
 
 [node name="Touch" type="Area2D" parent="."]
 
@@ -137,7 +144,7 @@ can_slide = false
 [node name="SlideTimer" type="Timer" parent="PlayerStateMachine/Slide"]
 
 [node name="Respawn" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state")]
-script = ExtResource("8_13vjk")
+script = ExtResource("10_lwp5q")
 air_state = NodePath("../Air")
 
 [node name="RespawnTimer" type="Timer" parent="PlayerStateMachine/Respawn"]
@@ -157,7 +164,32 @@ can_slide = false
 wait_time = 0.1
 one_shot = true
 
+
+[node name="Cancel State" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_i4gte")
+
+[node name="CancelTimer" type="Timer" parent="PlayerStateMachine/Cancel State"]
+
+[node name="Block State" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("12_nqoed")
+
+[node name="BlockCooldown" type="Timer" parent="PlayerStateMachine/Block State"]
+script = ExtResource("13_ymt22")
+
+[node name="Grabbed State" type="Node" parent="PlayerStateMachine"]
+
+[node name="Stunned State" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("12_6higs")
+can_move = false
+can_jump = false
+can_dash = false
+can_slide = false
+can_stomp = false
+can_block = false
+
+[node name="StunTimer" type="Timer" parent="PlayerStateMachine/Stunned State"]
 [node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+
 offset_left = -49.0
 offset_top = -56.0
 offset_right = 79.0
@@ -191,3 +223,5 @@ script = ExtResource("6_uoquc")
 [connection signal="timeout" from="PlayerStateMachine/Dash/DashCoolDown" to="PlayerStateMachine/Dash/DashCoolDown" method="_on_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Respawn/RespawnTimer" to="PlayerStateMachine/Respawn" method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Stomp/StompWindup" to="PlayerStateMachine/Stomp" method="start_stomp"]
+[connection signal="timeout" from="PlayerStateMachine/Cancel State/CancelTimer" to="PlayerStateMachine/Cancel State" method="end_cancel"]
+[connection signal="timeout" from="PlayerStateMachine/Stunned State/StunTimer" to="PlayerStateMachine/Stunned State" method="end_stun"]

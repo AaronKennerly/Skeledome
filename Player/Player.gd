@@ -5,6 +5,7 @@ class_name Player
 @export var jump_state: PlayerState
 @export var dash_state : PlayerState
 @export var respawn_state : PlayerState
+@export var block_state : PlayerState
 @export var right : PlayerAction
 @export var left : PlayerAction
 @export var jump : PlayerAction
@@ -21,6 +22,7 @@ class_name Player
 @export var DASH_SPEED : int = 800
 @export var DASH_DURATION : float = .1
 @export var SPAWNPOINT : Node2D
+@export var BLOCKTIME : float = 10
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 @onready var collision_timer : Timer = $CollisionTimer
@@ -31,9 +33,11 @@ const COYOTE_TIME : float = 0.2
 # Member variables
 var coyote_timer : float = 0.0
 var jump_buffer_timer : float = -10.0
+var block_timer : float = BLOCKTIME
 var jump_bool : bool = false
 var jump_count : int = 0
 var can_dash : bool = true
+var can_block : bool = true
 var dash_cooldown : float = 3.0
 var respawn_timer : Timer
 var touch : Area2D
@@ -102,6 +106,9 @@ func _physics_process(delta):
 	if (position.y >= 750 or position.x <= -200 or position.x >= 1350) and player_joined:
 		state_machine.switch_states(respawn_state)
 
+	if state_machine.get_state() != block_state and can_block:
+		if block_timer < BLOCKTIME:
+			block_timer += delta
 	
 	set_velocity(velocity)
 	move_and_slide()
