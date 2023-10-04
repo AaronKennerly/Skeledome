@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=17 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
 [ext_resource type="Script" path="res://Scripts/FollowMouse.gd" id="2_uxlaw"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="3_uyf1r"]
-[ext_resource type="Script" path="res://Scripts/States/Player/CollisionTimer.gd" id="3_wssg8"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="4_d8gs3"]
 [ext_resource type="Script" path="res://Scripts/StateDubugLabel.gd" id="5_fai0a"]
 [ext_resource type="Script" path="res://Scripts/States/Player/DashState.gd" id="5_pltby"]
@@ -31,37 +30,19 @@ script/source = "extends PlayerState
 class_name StompStat
 
 @export var run_state : PlayerState
-@export var air_state : PlayerState
 @export var stomp_windup : Timer
-@export var stomp_timer : Timer
-
-var initial_velocity : Vector2
 
 func on_enter():
-	initial_velocity.y = player.velocity.y
 	player.velocity.x = 0
 	stomp_windup.start()
 
 func state_process(delta):
 	if player.is_on_floor():
 		next_state = run_state
-	
-	if stomp_timer.is_stopped():
-		end_stomp()
-	
-	if player.isColliding():
-		player.velocity.y *= -0.5
-		next_state = air_state
 
 
 func start_stomp():
 	player.velocity.y = 1200
-	stomp_timer.start()
-
-func end_stomp():
-	initial_velocity.y = player.velocity.y
-	next_state = air_state
-	
 "
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "respawn_state", "right", "left", "jump", "dash", "slide", "stomp")]
@@ -104,11 +85,9 @@ texture = SubResource("CanvasTexture_5y63k")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 
-[node name="CollisionTimer" type="Timer" parent="." node_paths=PackedStringArray("player")]
+[node name="CollisionTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
-script = ExtResource("3_wssg8")
-player = NodePath("..")
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("2_8yjh4")
@@ -135,7 +114,6 @@ dash_timer = NodePath("DashTimer")
 dash_cooldown = NodePath("DashCoolDown")
 can_move = false
 can_jump = false
-can_dash = false
 can_slide = false
 
 [node name="DashTimer" type="Timer" parent="PlayerStateMachine/Dash"]
@@ -166,31 +144,18 @@ air_state = NodePath("../Air")
 wait_time = 1.5
 one_shot = true
 
-[node name="Stomp" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state", "air_state", "stomp_windup", "stomp_timer")]
+[node name="Stomp" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("run_state", "stomp_windup")]
 script = SubResource("GDScript_33vhp")
 run_state = NodePath("../Run")
-air_state = NodePath("../Air")
 stomp_windup = NodePath("StompWindup")
-stomp_timer = NodePath("StompTimer")
 can_move = false
 can_jump = false
 can_dash = false
 can_slide = false
-can_stomp = false
-
-[node name="StompTimer" type="Timer" parent="PlayerStateMachine/Stomp"]
 
 [node name="StompWindup" type="Timer" parent="PlayerStateMachine/Stomp"]
 wait_time = 0.1
 one_shot = true
-
-[node name="Cancel State" type="Node" parent="PlayerStateMachine"]
-
-[node name="Block State" type="Node" parent="PlayerStateMachine"]
-
-[node name="Grabbed State" type="Node" parent="PlayerStateMachine"]
-
-[node name="Stunned State" type="Node" parent="PlayerStateMachine"]
 
 [node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -49.0
