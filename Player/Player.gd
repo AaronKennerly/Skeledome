@@ -44,6 +44,7 @@ var dead : bool = false
 var is_dashing : bool = false
 var direction : Vector2
 var player_joined : bool = false
+var is_colliding : bool = false
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
