@@ -6,12 +6,15 @@ class_name Player
 @export var dash_state : PlayerState
 @export var respawn_state : PlayerState
 @export var block_state : PlayerState
+@export var cancel_state : PlayerState
 @export var right : PlayerAction
 @export var left : PlayerAction
 @export var jump : PlayerAction
 @export var dash : PlayerAction
 @export var slide : PlayerAction
 @export var stomp : PlayerAction
+@export var block : PlayerAction
+@export var cancel : PlayerAction
 
 @export var SPEED : float = 300.0
 @export var ACCELERATION : float = 10.0
@@ -38,6 +41,7 @@ var jump_bool : bool = false
 var jump_count : int = 0
 var can_dash : bool = true
 var can_block : bool = true
+var can_cancel : bool = true
 var dash_cooldown : float = 3.0
 var respawn_timer : Timer
 var touch : Area2D
@@ -77,7 +81,7 @@ func _physics_process(delta):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	
 	# calculating Base Movement
-	if state_machine.get_can_move():
+	if state_machine.get_can_move() && state_machine.get_state() != block_state:
 		if Input.is_action_pressed(left.action):
 			if velocity.x > 0:
 				velocity.x *= 0.75 #If changing direction, happens slightly faster, feeling better
@@ -101,6 +105,14 @@ func _physics_process(delta):
 		if Input.is_action_pressed(dash.action):
 			if can_dash:
 				state_machine.switch_states(dash_state)
+		
+		if Input.is_action_pressed(block.action):
+			if can_block:
+				state_machine.switch_states(block_state)
+		
+		if Input.is_action_pressed(cancel.action):
+			if can_cancel:
+				state_machine.switch_states(cancel_state)
 
 	# if the player goes out of bounds kill them
 	if (position.y >= 750 or position.x <= -200 or position.x >= 1350) and player_joined:

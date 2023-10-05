@@ -11,7 +11,7 @@ func on_enter():
 
 
 func state_input(_event : InputEvent):
-	if Input.is_action_just_pressed(player.jump.action) and player.can_dash:
+	if Input.is_action_just_pressed(player.cancel.action) and player.can_cancel:
 		next_state = cancel_state
 
 func end_stun():

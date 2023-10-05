@@ -64,6 +64,12 @@ action = "slide_1"
 [node name="StompAction" parent="Player1/Controls" index="5"]
 action = "stomp_1"
 
+[node name="BlockAction" parent="Player1/Controls" index="6"]
+action = "block_1"
+
+[node name="CancelAction" parent="Player1/Controls" index="7"]
+action = "cancel_1"
+
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_5bg56")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(420, 230)
@@ -87,6 +93,12 @@ action = "slide_2"
 [node name="StompAction" parent="Player2/Controls" index="5"]
 action = "stomp_2"
 
+[node name="BlockAction" parent="Player2/Controls" index="6"]
+action = "block_2"
+
+[node name="CancelAction" parent="Player2/Controls" index="7"]
+action = "cancel_2"
+
 [node name="Player3" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(761, 229)
@@ -109,6 +121,12 @@ action = "slide_3"
 [node name="StompAction" parent="Player3/Controls" index="5"]
 action = "stomp_3"
 
+[node name="BlockAction" parent="Player3/Controls" index="6"]
+action = "block_3"
+
+[node name="CancelAction" parent="Player3/Controls" index="7"]
+action = "cancel_3"
+
 [node name="Player4" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(1020, 229)
@@ -130,6 +148,12 @@ action = "slide_4"
 
 [node name="StompAction" parent="Player4/Controls" index="5"]
 action = "stomp_4"
+
+[node name="BlockAction" parent="Player4/Controls" index="6"]
+action = "block_4"
+
+[node name="CancelAction" parent="Player4/Controls" index="7"]
+action = "cancel_4"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(597, 315)

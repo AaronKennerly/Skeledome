@@ -3,12 +3,9 @@ extends PlayerState
 class_name BlockState
 
 @export var air_state : PlayerState
+@export var stun_state : PlayerState
 
 @export var block_cooldown : Timer
-
-
-func on_enter():
-	player.block_timer = player.block_time
 
 func state_process(delta):
 	if player.is_on_floor():
@@ -25,11 +22,11 @@ func state_process(delta):
 	player.block_timer -= delta
 	
 	if player.block_timer <= 0:
-		next_state = air_state
+		next_state = stun_state
 		block_cooldown.start()
 
 func state_input(event : InputEvent):
-	if !Input.is_action_just_pressed(player.jump.action):
+	if !Input.is_action_just_pressed(player.block.action):
 		next_state = air_state
 
 

@@ -1,5 +1,4 @@
-
-[gd_scene load_steps=22 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=21 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
@@ -14,7 +13,6 @@
 [ext_resource type="Script" path="res://Scripts/States/Player/RespawnState.gd" id="10_lwp5q"]
 [ext_resource type="Script" path="res://Scripts/States/Player/CancelState.gd" id="11_i4gte"]
 [ext_resource type="Script" path="res://Scripts/States/Player/StunnedState.gd" id="12_6higs"]
-[ext_resource type="Script" path="res://Player/BlockState.gd" id="12_nqoed"]
 [ext_resource type="Script" path="res://Scripts/States/Player/BlockCooldown.gd" id="13_ymt22"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
@@ -50,17 +48,63 @@ func start_stomp():
 	player.velocity.y = 1200
 "
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "respawn_state", "right", "left", "jump", "dash", "slide", "stomp")]
+[sub_resource type="GDScript" id="GDScript_t8aja"]
+script/source = "extends PlayerState
+
+class_name BlockStat
+
+@export var air_state : PlayerState
+@export var stun_state : PlayerState
+
+@export var block_cooldown : Timer
+
+func state_process(delta):
+	if player.is_on_floor():
+		if player.velocity.x > 0:
+			player.velocity.x = max(player.velocity.x - player.DECELERATION * 2, 0)
+		else:
+			player.velocity.x = min(player.velocity.x + player.DECELERATION * 2, 0)
+	else:
+		if player.velocity.x < 0:
+			player.velocity.x += player.gravity * 2 * delta
+		else:
+			player.velocity.x -= player.gravity * 2 * delta
+	
+	player.block_timer -= delta
+	
+	if player.block_timer <= 0:
+		player.can_block = false
+		next_state = stun_state
+		block_cooldown.start()
+
+func state_input(event : InputEvent):
+	if !Input.is_action_pressed(player.block.action):
+		next_state = air_state
+
+
+func collide(body):
+	player.is_colliding = true
+	player.velcocity += body.velocity * 0.25
+	body.velocity *= -2
+	player.collision_timer.start()
+	player.block_timer -= 1
+"
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "respawn_state", "block_state", "cancel_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel")]
 script = ExtResource("1_ntgxl")
 jump_state = NodePath("PlayerStateMachine/Air")
 dash_state = NodePath("PlayerStateMachine/Dash")
 respawn_state = NodePath("PlayerStateMachine/Respawn")
+block_state = NodePath("PlayerStateMachine/Block State")
+cancel_state = NodePath("PlayerStateMachine/Cancel State")
 right = NodePath("Controls/RightAction")
 left = NodePath("Controls/LeftAction")
 jump = NodePath("Controls/JumpAction")
 dash = NodePath("Controls/DashAction")
 slide = NodePath("Controls/SlideAction")
 stomp = NodePath("Controls/StompAction")
+block = NodePath("Controls/BlockAction")
+cancel = NodePath("Controls/CancelAction")
 SPEED = 600.0
 ACCELERATION = 30.0
 DECELERATION = 50.0
@@ -164,22 +208,44 @@ can_slide = false
 wait_time = 0.1
 one_shot = true
 
-
-[node name="Cancel State" type="Node" parent="PlayerStateMachine"]
+[node name="Cancel State" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("cancel_timer", "air_state")]
 script = ExtResource("11_i4gte")
+cancel_timer = NodePath("CancelTimer")
+air_state = NodePath("../Air")
+can_move = false
+can_jump = false
+can_dash = false
+can_slide = false
+can_stomp = false
+can_cancel = false
+can_block = false
 
 [node name="CancelTimer" type="Timer" parent="PlayerStateMachine/Cancel State"]
 
-[node name="Block State" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("12_nqoed")
+[node name="Block State" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "stun_state", "block_cooldown")]
+script = SubResource("GDScript_t8aja")
+air_state = NodePath("../Air")
+stun_state = NodePath("../Stunned State")
+block_cooldown = NodePath("BlockCooldown")
+can_move = false
+can_jump = false
+can_dash = false
+can_slide = false
+can_stomp = false
 
-[node name="BlockCooldown" type="Timer" parent="PlayerStateMachine/Block State"]
+[node name="BlockCooldown" type="Timer" parent="PlayerStateMachine/Block State" node_paths=PackedStringArray("player")]
+wait_time = 8.0
+one_shot = true
 script = ExtResource("13_ymt22")
+player = NodePath("../../..")
 
 [node name="Grabbed State" type="Node" parent="PlayerStateMachine"]
 
-[node name="Stunned State" type="Node" parent="PlayerStateMachine"]
+[node name="Stunned State" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("stun_timer", "air_state", "cancel_state")]
 script = ExtResource("12_6higs")
+stun_timer = NodePath("StunTimer")
+air_state = NodePath("../Air")
+cancel_state = NodePath("../Cancel State")
 can_move = false
 can_jump = false
 can_dash = false
@@ -188,8 +254,8 @@ can_stomp = false
 can_block = false
 
 [node name="StunTimer" type="Timer" parent="PlayerStateMachine/Stunned State"]
-[node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 
+[node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -49.0
 offset_top = -56.0
 offset_right = 79.0
@@ -216,6 +282,12 @@ script = ExtResource("6_uoquc")
 script = ExtResource("6_uoquc")
 
 [node name="StompAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
+[node name="BlockAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
+[node name="CancelAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
