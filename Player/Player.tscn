@@ -84,7 +84,7 @@ func state_input(event : InputEvent):
 
 func collide(body):
 	player.is_colliding = true
-	player.velcocity += body.velocity * 0.25
+	player.velocity += body.velocity * 0.25
 	body.velocity *= -2
 	player.collision_timer.start()
 	player.block_timer -= 1
