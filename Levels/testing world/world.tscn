@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_n4iwg"]
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 [ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assests/tileset.png" id="5_fvare"]
-[ext_resource type="PackedScene" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
+[ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
 bg_color = Color(0.682353, 0.576471, 0.513726, 1)

@@ -11,14 +11,14 @@ var player_nums : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var device_nums = Input.get_connected_joypads()
 	for i in 4:
 		var player = get_node("Player" + str(i + 1))
 		player.player_joined = false
 		player.set_physics_process(false)
 		player.SPAWNPOINT = get_node("Spawnpoint" + str(i + 1))
 		players.append(player)
-	# Get the spawn points
+		if (Input.get_connected_joypads()[0] != 0):
+			GameManager.set_controls(i)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
