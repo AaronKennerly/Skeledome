@@ -17,8 +17,8 @@ func _ready():
 		player.set_physics_process(false)
 		player.SPAWNPOINT = get_node("Spawnpoint" + str(i + 1))
 		players.append(player)
-		if (Input.get_connected_joypads()[0] != 0):
-			GameManager.set_controls(i)
+		
+	GameManager.set_controls()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -31,8 +31,9 @@ func _input(event:InputEvent):
 			players[i].player_joined = true
 			player_count += 1
 			player_nums.append(i + 1)
+			return
 	
-	if event.is_action_pressed("start") && player_count >= 2:
+	if event.is_action_pressed("start_1") && player_count >= 2:
 		GameManager.player_count = player_count
 		GameManager.player_nums = player_nums
 		get_tree().change_scene_to_file("res://Levels/testing world/world.tscn")

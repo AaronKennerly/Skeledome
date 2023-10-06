@@ -10,13 +10,13 @@ func respawn_player(player):
 	if player.SPAWNPOINT != null:
 		player.position = player.SPAWNPOINT.global_position
 
-func set_controls(i : int):
+func set_controls():
 	var device_nums = Input.get_connected_joypads()
 	# loop through the input map any action that ends in i 
 	# change its events to the device at i in device_nums
-	for n in actions.size():
-		if (actions[n].ends_with(str(i+1))):
-			var events = InputMap.action_get_events(actions[n])
-			for j in events.size():
-				if (events[j].get_device() != null):
+	for i in device_nums.size():
+		for n in actions.size():
+			if (actions[n].ends_with(str(i+1))):
+				var events = InputMap.action_get_events(actions[n])
+				for j in events.size():
 					events[j].set_device(device_nums[i])

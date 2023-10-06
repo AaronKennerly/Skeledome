@@ -18,6 +18,7 @@ func _ready():
 		player.SPAWNPOINT = get_node("Respawn")
 		players.append(player)
 		
+		
 	endScreen = get_node("GameOverScreen")
 
 
