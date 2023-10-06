@@ -7,7 +7,8 @@ script/source = "extends Node2D
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group(\"Player\"):
-		body.state_machine.switch_states(body.respawn_state)
+		if body.state_machine.get_state() != body.respawn_state:
+			body.state_machine.switch_states(body.respawn_state)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ttbp"]
