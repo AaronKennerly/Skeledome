@@ -1,9 +1,8 @@
 extends Timer
 
-class_name DashCooldown
+class_name CancelCooldown
 
 @export var player : CharacterBody2D
 
-
 func on_timeout():
-	player.can_dash = true
+	player.can_cancel = true

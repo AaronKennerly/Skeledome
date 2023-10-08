@@ -15,6 +15,10 @@ class_name Player
 @export var stomp : PlayerAction
 @export var block : PlayerAction
 @export var cancel : PlayerAction
+@export var look_up : PlayerAction
+@export var look_down : PlayerAction
+@export var look_left : PlayerAction
+@export var look_right : PlayerAction
 
 @export var SPEED : float = 300.0
 @export var ACCELERATION : float = 10.0
@@ -25,7 +29,7 @@ class_name Player
 @export var DASH_SPEED : int = 800
 @export var DASH_DURATION : float = .1
 @export var SPAWNPOINT : Node2D
-@export var BLOCKTIME : float = 10
+@export var BLOCKTIME : float = 5
 
 @onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 @onready var collision_timer : Timer = $CollisionTimer
@@ -102,17 +106,14 @@ func _physics_process(delta):
 				else:
 					velocity.x -= gravity * delta
 		
-		if Input.is_action_pressed(dash.action):
-			if can_dash:
-				state_machine.switch_states(dash_state)
+		if Input.is_action_pressed(dash.action) and can_dash:
+			state_machine.switch_states(dash_state)
 		
-		if Input.is_action_pressed(block.action):
-			if can_block:
-				state_machine.switch_states(block_state)
+		if Input.is_action_pressed(block.action) and can_block:
+			state_machine.switch_states(block_state)
 		
-		if Input.is_action_pressed(cancel.action):
-			if can_cancel:
-				state_machine.switch_states(cancel_state)
+		if Input.is_action_pressed(cancel.action) and can_cancel:
+			state_machine.switch_states(cancel_state)
 
 	# if the player goes out of bounds kill them
 	if (position.y >= 750 or position.x <= -200 or position.x >= 1350) and player_joined:

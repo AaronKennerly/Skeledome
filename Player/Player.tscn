@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=22 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/States/Player/DashCooldown.gd" id="6_w63g6"]
 [ext_resource type="Script" path="res://Scripts/States/Player/SlideState.gd" id="7_27nyv"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RespawnState.gd" id="10_lwp5q"]
+[ext_resource type="Script" path="res://Scripts/States/Player/CancelCooldown.gd" id="11_8dptt"]
 [ext_resource type="Script" path="res://Scripts/States/Player/CancelState.gd" id="11_i4gte"]
 [ext_resource type="Script" path="res://Scripts/States/Player/StunnedState.gd" id="12_6higs"]
 [ext_resource type="Script" path="res://Scripts/States/Player/BlockCooldown.gd" id="13_ymt22"]
@@ -95,21 +96,25 @@ func collide(body):
 	player.block_timer -= 1
 "
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "respawn_state", "block_state", "cancel_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jump_state", "dash_state", "respawn_state", "block_state", "cancel_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right")]
 script = ExtResource("1_ntgxl")
 jump_state = NodePath("PlayerStateMachine/Air")
 dash_state = NodePath("PlayerStateMachine/Dash")
 respawn_state = NodePath("PlayerStateMachine/Respawn")
 block_state = NodePath("PlayerStateMachine/Block State")
 cancel_state = NodePath("PlayerStateMachine/Cancel State")
-right = NodePath("Controls/RightAction")
-left = NodePath("Controls/LeftAction")
+right = NodePath("Controls/MoveRightAction")
+left = NodePath("Controls/MoveLeftAction")
 jump = NodePath("Controls/JumpAction")
 dash = NodePath("Controls/DashAction")
 slide = NodePath("Controls/SlideAction")
 stomp = NodePath("Controls/StompAction")
 block = NodePath("Controls/BlockAction")
 cancel = NodePath("Controls/CancelAction")
+look_up = NodePath("Controls/LookUpAction")
+look_down = NodePath("Controls/LookDownAction")
+look_left = NodePath("Controls/LookLeftAction")
+look_right = NodePath("Controls/LookRightAction")
 SPEED = 600.0
 ACCELERATION = 30.0
 DECELERATION = 50.0
@@ -130,8 +135,9 @@ rotation = 3.14159
 scale = Vector2(22.1352, -31.7975)
 texture = SubResource("CanvasTexture_70t8f")
 
-[node name="Pivot" type="Node2D" parent="Body"]
+[node name="Pivot" type="Node2D" parent="Body" node_paths=PackedStringArray("player")]
 script = ExtResource("2_uxlaw")
+player = NodePath("../..")
 
 [node name="Hand" type="Sprite2D" parent="Body/Pivot"]
 scale = Vector2(0.2, 0.15)
@@ -162,12 +168,13 @@ run_state = NodePath("../Run")
 stomp_state = NodePath("../Stomp")
 can_slide = false
 
-[node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "dash_timer", "dash_cooldown")]
+[node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "dash_timer", "dash_cooldown", "direction")]
 script = ExtResource("5_pltby")
 air_state = NodePath("../Air")
 ground_state = NodePath("../Run")
 dash_timer = NodePath("DashTimer")
 dash_cooldown = NodePath("DashCoolDown")
+direction = NodePath("../../Body/Pivot/Hand")
 can_move = false
 can_jump = false
 can_slide = false
@@ -213,10 +220,11 @@ can_slide = false
 wait_time = 0.1
 one_shot = true
 
-[node name="Cancel State" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("cancel_timer", "air_state")]
+[node name="Cancel State" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "cancel_timer", "cancel_cooldown")]
 script = ExtResource("11_i4gte")
-cancel_timer = NodePath("CancelTimer")
 air_state = NodePath("../Air")
+cancel_timer = NodePath("CancelTimer")
+cancel_cooldown = NodePath("CancelCooldown")
 can_move = false
 can_jump = false
 can_dash = false
@@ -226,6 +234,14 @@ can_cancel = false
 can_block = false
 
 [node name="CancelTimer" type="Timer" parent="PlayerStateMachine/Cancel State"]
+wait_time = 0.5
+one_shot = true
+
+[node name="CancelCooldown" type="Timer" parent="PlayerStateMachine/Cancel State" node_paths=PackedStringArray("player")]
+wait_time = 10.0
+one_shot = true
+script = ExtResource("11_8dptt")
+player = NodePath("../../..")
 
 [node name="Block State" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("air_state", "stun_state", "block_cooldown")]
 script = SubResource("GDScript_t8aja")
@@ -271,10 +287,10 @@ state_machine = NodePath("../PlayerStateMachine")
 
 [node name="Controls" type="Node" parent="."]
 
-[node name="LeftAction" type="Node" parent="Controls"]
+[node name="MoveLeftAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
-[node name="RightAction" type="Node" parent="Controls"]
+[node name="MoveRightAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
 [node name="JumpAction" type="Node" parent="Controls"]
@@ -295,10 +311,24 @@ script = ExtResource("6_uoquc")
 [node name="CancelAction" type="Node" parent="Controls"]
 script = ExtResource("6_uoquc")
 
+[node name="LookUpAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
+[node name="LookDownAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
+[node name="LookLeftAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
+[node name="LookRightAction" type="Node" parent="Controls"]
+script = ExtResource("6_uoquc")
+
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="PlayerStateMachine/Dash/DashTimer" to="PlayerStateMachine/Dash" method="on_exit"]
-[connection signal="timeout" from="PlayerStateMachine/Dash/DashCoolDown" to="PlayerStateMachine/Dash/DashCoolDown" method="_on_timeout"]
+[connection signal="timeout" from="PlayerStateMachine/Dash/DashCoolDown" to="PlayerStateMachine/Dash/DashCoolDown" method="on_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Respawn/RespawnTimer" to="PlayerStateMachine/Respawn" method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Stomp/StompWindup" to="PlayerStateMachine/Stomp" method="start_stomp"]
 [connection signal="timeout" from="PlayerStateMachine/Cancel State/CancelTimer" to="PlayerStateMachine/Cancel State" method="end_cancel"]
+[connection signal="timeout" from="PlayerStateMachine/Cancel State/CancelCooldown" to="PlayerStateMachine/Cancel State/CancelCooldown" method="on_timeout"]
+[connection signal="timeout" from="PlayerStateMachine/Block State/BlockCooldown" to="PlayerStateMachine/Block State/BlockCooldown" method="on_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Stunned State/StunTimer" to="PlayerStateMachine/Stunned State" method="end_stun"]

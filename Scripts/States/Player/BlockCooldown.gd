@@ -1,5 +1,7 @@
 extends Timer
 
+class_name BlockCooldownq
+
 @export var player : CharacterBody2D
 
 func on_timeout():

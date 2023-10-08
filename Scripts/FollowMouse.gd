@@ -1,13 +1,15 @@
 extends Node2D
 
+@export var player : CharacterBody2D
+
 @onready var child = get_children()[0]
 
 var max_distance = 1
-var mouse_postition
-var direction
+var direction : Vector2
+var look_axis : Vector2
 var distance
 
 func _process(_delta):
-	mouse_postition = get_local_mouse_position()
-	direction = Vector2.ZERO.direction_to(mouse_postition)
+	look_axis = Input.get_vector(player.look_right.action, player.look_left.action, player.look_up.action, player.look_down.action)
+	direction = Vector2.ZERO.direction_to(look_axis)
 	child.position = direction

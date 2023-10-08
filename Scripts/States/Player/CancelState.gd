@@ -2,8 +2,10 @@ extends PlayerState
 
 class_name CancelState
 
-@export var cancel_timer : Timer
 @export var air_state : PlayerState
+
+@export var cancel_timer : Timer
+@export var cancel_cooldown : Timer
 
 func on_enter():
 	player.velocity.x = 0
@@ -17,4 +19,6 @@ func state_process(delta):
 
 
 func end_cancel():
+	player.can_cancel = false
+	cancel_cooldown.start()
 	next_state = air_state

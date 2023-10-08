@@ -142,19 +142,23 @@ slide_4={
 }
 aim_up_1={
 "deadzone": 0.5,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":3,"axis_value":-1.0,"script":null)
+]
 }
 aim_down_1={
 "deadzone": 0.5,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
+]
 }
 aim_right_1={
 "deadzone": 0.5,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":2,"axis_value":1.0,"script":null)
+]
 }
 aim_left_1={
 "deadzone": 0.5,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":2,"axis_value":-1.0,"script":null)
+]
 }
 stomp_1={
 "deadzone": 0.5,
@@ -250,5 +254,65 @@ cancel_3={
 cancel_4={
 "deadzone": 0.5,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":4,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+aim_up_2={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":3,"axis_value":-1.0,"script":null)
+]
+}
+aim_down_2={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":3,"axis_value":1.0,"script":null)
+]
+}
+aim_left_2={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":2,"axis_value":-1.0,"script":null)
+]
+}
+aim_right_2={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":2,"axis_value":1.0,"script":null)
+]
+}
+aim_up_3={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":3,"axis":3,"axis_value":-1.0,"script":null)
+]
+}
+aim_down_3={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":3,"axis":3,"axis_value":1.0,"script":null)
+]
+}
+aim_left_3={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":3,"axis":2,"axis_value":-1.0,"script":null)
+]
+}
+aim_right_3={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":3,"axis":2,"axis_value":1.0,"script":null)
+]
+}
+aim_up_4={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":3,"axis_value":-1.0,"script":null)
+]
+}
+aim_down_4={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":3,"axis_value":1.0,"script":null)
+]
+}
+aim_left_4={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":2,"axis_value":-1.0,"script":null)
+]
+}
+aim_right_4={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":2,"axis_value":1.0,"script":null)
 ]
 }

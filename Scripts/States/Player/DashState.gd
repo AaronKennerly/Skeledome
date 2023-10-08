@@ -6,6 +6,7 @@ class_name DashState
 @export var ground_state : PlayerState
 @export var dash_timer: Timer
 @export var dash_cooldown : Timer
+@export var direction : Sprite2D
 
 var velocity : Vector2
 var target : Vector2
@@ -15,7 +16,7 @@ var target : Vector2
 func on_enter():
 	if (player.can_dash):
 		player.is_dashing = true
-		target = player.get_global_mouse_position()
+		target = direction.global_position
 		velocity = player.position.direction_to(target) * player.DASH_SPEED
 		start_dash(player.DASH_DURATION)
 	else:

@@ -522,10 +522,10 @@ script = ExtResource("1_ng5tp")
 position = Vector2(-2782, -2989)
 SPAWNPOINT = NodePath("../Spawnpoint")
 
-[node name="LeftAction" parent="Player1/Controls" index="0"]
+[node name="MoveLeftAction" parent="Player1/Controls" index="0"]
 action = "move_left_1"
 
-[node name="RightAction" parent="Player1/Controls" index="1"]
+[node name="MoveRightAction" parent="Player1/Controls" index="1"]
 action = "move_right_1"
 
 [node name="JumpAction" parent="Player1/Controls" index="2"]
@@ -546,15 +546,27 @@ action = "block_1"
 [node name="CancelAction" parent="Player1/Controls" index="7"]
 action = "cancel_1"
 
+[node name="LookUpAction" parent="Player1/Controls" index="8"]
+action = "aim_up_1"
+
+[node name="LookDownAction" parent="Player1/Controls" index="9"]
+action = "aim_down_1"
+
+[node name="LookLeftAction" parent="Player1/Controls" index="10"]
+action = "aim_left_1"
+
+[node name="LookRightAction" parent="Player1/Controls" index="11"]
+action = "aim_right_1"
+
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(-2619, -2993)
 SPAWNPOINT = NodePath("../Spawnpoint2")
 
-[node name="LeftAction" parent="Player2/Controls" index="0"]
+[node name="MoveLeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
 
-[node name="RightAction" parent="Player2/Controls" index="1"]
+[node name="MoveRightAction" parent="Player2/Controls" index="1"]
 action = "move_right_2"
 
 [node name="JumpAction" parent="Player2/Controls" index="2"]
@@ -575,6 +587,18 @@ action = "block_2"
 [node name="CancelAction" parent="Player2/Controls" index="7"]
 action = "cancel_2"
 
+[node name="LookUpAction" parent="Player2/Controls" index="8"]
+action = "aim_up_2"
+
+[node name="LookDownAction" parent="Player2/Controls" index="9"]
+action = "aim_down_2"
+
+[node name="LookLeftAction" parent="Player2/Controls" index="10"]
+action = "aim_left_2"
+
+[node name="LookRightAction" parent="Player2/Controls" index="11"]
+action = "aim_right_2"
+
 [node name="Player3" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-2489, -2992)
@@ -583,10 +607,10 @@ SPAWNPOINT = NodePath("../Spawnpoint3")
 [node name="StateDubugLabel" parent="Player3" index="7"]
 metadata/_edit_use_anchors_ = true
 
-[node name="LeftAction" parent="Player3/Controls" index="0"]
+[node name="MoveLeftAction" parent="Player3/Controls" index="0"]
 action = "move_left_3"
 
-[node name="RightAction" parent="Player3/Controls" index="1"]
+[node name="MoveRightAction" parent="Player3/Controls" index="1"]
 action = "move_right_3"
 
 [node name="JumpAction" parent="Player3/Controls" index="2"]
@@ -607,6 +631,18 @@ action = "block_3"
 [node name="CancelAction" parent="Player3/Controls" index="7"]
 action = "cancel_3"
 
+[node name="LookUpAction" parent="Player3/Controls" index="8"]
+action = "aim_up_3"
+
+[node name="LookDownAction" parent="Player3/Controls" index="9"]
+action = "aim_down_3"
+
+[node name="LookLeftAction" parent="Player3/Controls" index="10"]
+action = "aim_left_3"
+
+[node name="LookRightAction" parent="Player3/Controls" index="11"]
+action = "aim_right_3"
+
 [node name="Player4" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-2284, -2984)
@@ -615,10 +651,10 @@ SPAWNPOINT = NodePath("../Spawnpoint4")
 [node name="StateDubugLabel" parent="Player4" index="7"]
 metadata/_edit_use_anchors_ = true
 
-[node name="LeftAction" parent="Player4/Controls" index="0"]
+[node name="MoveLeftAction" parent="Player4/Controls" index="0"]
 action = "move_left_4"
 
-[node name="RightAction" parent="Player4/Controls" index="1"]
+[node name="MoveRightAction" parent="Player4/Controls" index="1"]
 action = "move_right_4"
 
 [node name="JumpAction" parent="Player4/Controls" index="2"]
@@ -638,6 +674,18 @@ action = "block_4"
 
 [node name="CancelAction" parent="Player4/Controls" index="7"]
 action = "cancel_4"
+
+[node name="LookUpAction" parent="Player4/Controls" index="8"]
+action = "aim_up_4"
+
+[node name="LookDownAction" parent="Player4/Controls" index="9"]
+action = "aim_down_4"
+
+[node name="LookLeftAction" parent="Player4/Controls" index="10"]
+action = "aim_left_4"
+
+[node name="LookRightAction" parent="Player4/Controls" index="11"]
+action = "aim_right_4"
 
 [node name="Respawn" parent="." instance=ExtResource("3_n4iwg")]
 position = Vector2(584, 37)
