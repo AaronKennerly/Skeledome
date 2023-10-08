@@ -8,6 +8,8 @@ func on_enter():
 	# stop physics and hide the player
 	player.set_physics_process(false)
 	player.hide()
+	player.set_collision_layer_value(1, false)
+	player.set_collision_mask_value(1, false)
 	# decrease the death count and start the timer
 	player.deaths -= 1
 	if player.deaths == 0:
@@ -29,5 +31,7 @@ func _on_respawn_timer_timeout():
 	player.velocity.x = 0
 	# move and resume the player
 	GameManager.respawn_player(player)
+	player.set_collision_layer_value(1, true)
+	player.set_collision_mask_value(1, true)
 	player.show()
 	player.set_physics_process(true)

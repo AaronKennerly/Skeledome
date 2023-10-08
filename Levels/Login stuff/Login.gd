@@ -11,14 +11,14 @@ var player_nums : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var device_nums = Input.get_connected_joypads()
 	for i in 4:
 		var player = get_node("Player" + str(i + 1))
 		player.player_joined = false
 		player.set_physics_process(false)
 		player.SPAWNPOINT = get_node("Spawnpoint" + str(i + 1))
 		players.append(player)
-	# Get the spawn points
+		
+	GameManager.set_controls()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -31,8 +31,9 @@ func _input(event:InputEvent):
 			players[i].player_joined = true
 			player_count += 1
 			player_nums.append(i + 1)
+			return
 	
-	if event.is_action_pressed("start") && player_count >= 2:
+	if event.is_action_pressed("start_1") && player_count >= 2:
 		GameManager.player_count = player_count
 		GameManager.player_nums = player_nums
 		get_tree().change_scene_to_file("res://Levels/testing world/world.tscn")
