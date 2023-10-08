@@ -4,7 +4,7 @@ class_name RespawnState
 
 @export var air_state : PlayerState
 
-func on_enter():
+func on_enter() -> void:
 	# stop physics and hide the player
 	player.set_physics_process(false)
 	player.hide()
@@ -20,12 +20,12 @@ func on_enter():
 		$RespawnTimer.start()
 
 
-func state_process(_delta):
+func state_process(_delta) -> void:
 	if !player.is_on_floor():
 		next_state = air_state
 
 
-func _on_respawn_timer_timeout():
+func _on_respawn_timer_timeout() -> void:
 	# set the velocities to 0
 	player.velocity.y = 0
 	player.velocity.x = 0

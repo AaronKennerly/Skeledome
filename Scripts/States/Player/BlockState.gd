@@ -7,7 +7,7 @@ class_name BlockState
 
 @export var block_cooldown : Timer
 
-func state_process(delta):
+func state_process(delta) -> void:
 	if player.is_on_floor():
 		if player.velocity.x > 0:
 			player.velocity.x = max(player.velocity.x - player.DECELERATION * 2, 0)
@@ -25,12 +25,12 @@ func state_process(delta):
 		next_state = stun_state
 		block_cooldown.start()
 
-func state_input(event : InputEvent):
+func state_input(event : InputEvent) -> void:
 	if !Input.is_action_just_pressed(player.block.action):
 		next_state = air_state
 
 
-func collide(body):
+func collide(body) -> void:
 	player.is_colliding = true
 	player.velcocity += body.velocity * 0.25
 	body.velocity *= -2

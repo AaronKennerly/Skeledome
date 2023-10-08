@@ -13,7 +13,7 @@ var target : Vector2
 
 
 # add dash velocity in direction of current velocity
-func on_enter():
+func on_enter() -> void:
 	if (player.can_dash):
 		player.is_dashing = true
 		target = direction.global_position
@@ -24,20 +24,20 @@ func on_enter():
 
 
 # wait for dash_timer to end
-func state_process(_delta):
+func state_process(_delta) -> void:
 	velocity.y += player.gravity * 2 * _delta
 	player.velocity = velocity
 
 
 # start timer
-func start_dash(duration):
+func start_dash(duration) -> void:
 	dash_timer.wait_time = duration
 	dash_timer.start()
 	player.is_dashing = true
 
 
 # start dash cooldown and set next state
-func on_exit():
+func on_exit() -> void:
 	player.can_dash = false
 	dash_cooldown.wait_time = player.dash_cooldown
 	dash_cooldown.start()

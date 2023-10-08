@@ -62,13 +62,13 @@ var is_colliding : bool = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func _ready():
+func _ready() -> void:
 	pass
 
 
 
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	velocity = get_velocity()
 	if velocity.x != 0:
 		direction.x = velocity.x / abs(velocity.x)
@@ -127,11 +127,11 @@ func _physics_process(delta):
 	move_and_slide()
 	update_force(velocity)
 
-func update_force(_velocity):
+func update_force(_velocity) -> void:
 	force = _velocity * mass
 
 # handle colision
-func _on_touch_body_entered(body):
+func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
 

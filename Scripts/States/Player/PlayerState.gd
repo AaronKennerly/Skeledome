@@ -16,27 +16,27 @@ var next_state : PlayerState
 var height
 
 # constant checks
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	pass
 
 # checks unique for state
-func state_process(_delta):
+func state_process(_delta) -> void:
 	pass
 
 # input handled while in state
-func state_input(_event : InputEvent):
+func state_input(_event : InputEvent) -> void:
 	pass
 
 # do when entering state
-func on_enter():
+func on_enter() -> void:
 	pass
 
 # do when leaving state
-func on_exit():
+func on_exit() -> void:
 	pass
 
 # all Player states have access to the jump function
-func jump():
+func jump() -> void:
 #	height = player.position.y
 	player.jump_count += 1
 	player.jump_bool = true
@@ -45,7 +45,7 @@ func jump():
 # TODO: player bounce
 # BUG: game collisions prioritizes player 1. if equal collide, player 2 is bumped
 # handle collisions
-func collide(body):
+func collide(body) -> void:
 	player.is_colliding = true
 	if body.velocity.x == 0:
 		body.velocity.x = player.velocity.x * 1.5

@@ -10,7 +10,7 @@ var players : Array = []
 var player_nums : Array = []
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	for i in 4:
 		var player = get_node("Player" + str(i + 1))
 		player.player_joined = false
@@ -21,10 +21,10 @@ func _ready():
 	GameManager.set_controls()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta) -> void:
 	pass
 
-func _input(event:InputEvent):
+func _input(event:InputEvent) -> void:
 	for i in 4:
 		if players[i] != null && event.is_action_pressed("join_" + str(i + 1)) && !players[i].player_joined :
 			players[i].set_physics_process(true)

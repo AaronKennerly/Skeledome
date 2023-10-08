@@ -5,11 +5,11 @@ class_name AirState
 @export var run_state : PlayerState
 @export var stomp_state : PlayerState
 
-func on_enter():
+func on_enter() -> void:
 	height = player.position.y + player.JUMP_HEIGHT
 
 # TODO: Fix Dash issue
-func state_process(_delta):
+func state_process(_delta) -> void:
 	# constantly check if player has landed, else subtract from coyote time
 	if(player.is_on_floor()):
 		next_state = run_state
@@ -30,7 +30,7 @@ func state_process(_delta):
 		player.jump_bool = false
 
 
-func state_input(_event : InputEvent):
+func state_input(_event : InputEvent) -> void:
 	# handle wall jump (placeholder currently)
 	#if Input.is_action_pressed(player.jump.action) and (player.is_on_wall_only()):
 		#player.jump_bool = true

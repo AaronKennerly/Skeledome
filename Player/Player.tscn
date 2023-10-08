@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_ntgxl"]
 [ext_resource type="Script" path="res://Scripts/States/Player/PlayerStateMachine.gd" id="2_8yjh4"]
-[ext_resource type="Script" path="res://Scripts/FollowMouse.gd" id="2_uxlaw"]
+[ext_resource type="Script" path="res://Scripts/Utilities/Aim.gd" id="2_n6y7r"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="3_uyf1r"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="4_d8gs3"]
 [ext_resource type="Script" path="res://Scripts/StateDubugLabel.gd" id="5_fai0a"]
@@ -136,7 +136,7 @@ scale = Vector2(22.1352, -31.7975)
 texture = SubResource("CanvasTexture_70t8f")
 
 [node name="Pivot" type="Node2D" parent="Body" node_paths=PackedStringArray("player")]
-script = ExtResource("2_uxlaw")
+script = ExtResource("2_n6y7r")
 player = NodePath("../..")
 
 [node name="Hand" type="Sprite2D" parent="Body/Pivot"]

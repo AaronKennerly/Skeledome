@@ -7,7 +7,7 @@ var states : Array[PlayerState]
 @export var player : CharacterBody2D
 @export var current_state : PlayerState
 
-func _ready():
+func _ready() -> void:
 	# creating an array of children looking at some modes of state machine
 	for child in get_children():
 		if (child is PlayerState):
@@ -20,21 +20,21 @@ func _ready():
 			push_warning("Child " + child.name +" is not a State for PlayerStateMachine")
 
 # check if state needs to change, else do state process
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	if(current_state.next_state != null):
 		switch_states(current_state.next_state)
 	
 	current_state.state_process(delta)
 
 # can player move in this state?
-func get_can_move():
+func get_can_move() -> bool:
 	return current_state.can_move
 
-func get_state():
+func get_state() -> PlayerState:
 	return current_state
 
 # switch states to new_state defined by current_state
-func switch_states(new_state : PlayerState):
+func switch_states(new_state : PlayerState) -> void:
 	if(current_state != null):
 		current_state.on_exit()
 		current_state.next_state = null
@@ -44,5 +44,5 @@ func switch_states(new_state : PlayerState):
 	current_state.on_enter()
 
 # handle input
-func _input(event : InputEvent):
+func _input(event : InputEvent) -> void:
 	current_state.state_input(event)
