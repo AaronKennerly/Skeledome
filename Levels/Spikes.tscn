@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://v8u0fb2cw5bl"]
 
-[ext_resource type="Texture2D" uid="uid://co3t6d7lkxivs" path="res://Assests/spikes.png" id="1_enttl"]
+[ext_resource type="Texture2D" uid="uid://co3t6d7lkxivs" path="res://Assets/Art/Obstacles/spikes.png" id="1_enttl"]
 
 [sub_resource type="GDScript" id="GDScript_bn0o5"]
 script/source = "extends Node2D

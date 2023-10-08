@@ -1,6 +1,6 @@
 extends Timer
 
-class_name BlockCooldownq
+class_name BlockCooldown
 
 @export var player : CharacterBody2D
 

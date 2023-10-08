@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b41jwtbu0dvdu"]
 
 [ext_resource type="Script" path="res://Levels/Login stuff/Login.gd" id="1_ki8xt"]
-[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_5bg56"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_5bg56"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_pn10h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvywd"]

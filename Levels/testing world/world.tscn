@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="Script" path="res://Levels/testing world/world.gd" id="1_ng5tp"]
-[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Player/Player.tscn" id="2_7c503"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_7c503"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_n4iwg"]
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
-[ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assests/tileset.png" id="5_fvare"]
+[ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assets/Art/Obstacles/tileset.png" id="5_4de22"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
@@ -108,7 +108,7 @@ func _process(_delta):
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1n63v"]
-texture = ExtResource("5_fvare")
+texture = ExtResource("5_4de22")
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
