@@ -116,7 +116,7 @@ func _physics_process(delta) -> void:
 			state_machine.switch_states(cancel_state)
 
 	# if the player goes out of bounds kill them
-	if (position.y >= 750 or position.x <= -200 or position.x >= 1350) and player_joined:
+	if (position.y >= 955 or position.x <= -575 or position.x >= 1735) and player_joined:
 		state_machine.switch_states(respawn_state)
 
 	if state_machine.get_state() != block_state and can_block:

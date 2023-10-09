@@ -6,10 +6,10 @@ class_name RespawnState
 
 func on_enter() -> void:
 	# stop physics and hide the player
-	player.set_physics_process(false)
-	player.hide()
 	player.set_collision_layer_value(1, false)
 	player.set_collision_mask_value(1, false)
+	player.set_physics_process(false)
+	player.hide()
 	# decrease the death count and start the timer
 	player.deaths -= 1
 	if player.deaths == 0:
@@ -18,6 +18,7 @@ func on_enter() -> void:
 		player.velocity.x = 0
 	else:
 		$RespawnTimer.start()
+		GameManager.respawn_player(player)
 
 
 func state_process(_delta) -> void:
@@ -30,8 +31,7 @@ func _on_respawn_timer_timeout() -> void:
 	player.velocity.y = 0
 	player.velocity.x = 0
 	# move and resume the player
-	GameManager.respawn_player(player)
-	player.set_collision_layer_value(1, true)
-	player.set_collision_mask_value(1, true)
 	player.show()
 	player.set_physics_process(true)
+	player.set_collision_layer_value(1, true)
+	player.set_collision_mask_value(1, true)
