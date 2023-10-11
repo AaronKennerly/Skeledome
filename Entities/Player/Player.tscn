@@ -119,12 +119,9 @@ look_right = NodePath("Controls/LookRightAction")
 SPEED = 600.0
 ACCELERATION = 30.0
 DECELERATION = 50.0
-JUMP_BUFFER_TIME = null
-JUMP_VELOCITY = null
 JUMP_HEIGHT = -100
 DASH_SPEED = 1000
 DASH_DURATION = 0.2
-BLOCKTIME = null
 
 [node name="Touch" type="Area2D" parent="."]
 
