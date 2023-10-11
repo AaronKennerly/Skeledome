@@ -10,10 +10,23 @@ class_name PlayerState
 @export var can_cancel : bool = true
 @export var can_block : bool = true
 
+@onready var air_state = get_node("../AirState")
+@onready var block_state = get_node("../BlockState")
+@onready var cancel_state = get_node("../CancelState")
+@onready var dash_state = get_node("../DashState")
+@onready var dive_state = get_node("../DiveState")
+@onready var idle_state = get_node("../IdleState")
+@onready var respawn_state = get_node("../RespawnState")
+@onready var run_state = get_node("../RunState")
+@onready var slide_state = get_node("../SlideState")
+@onready var stomp_state = get_node("../StompState")
+@onready var stun_state = get_node("../StunnedState")
+
 
 var player : Player
 var next_state : PlayerState
 var height
+
 
 # constant checks
 func _physics_process(_delta) -> void:

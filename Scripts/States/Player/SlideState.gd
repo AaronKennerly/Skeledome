@@ -2,9 +2,6 @@ extends PlayerState
 
 class_name SlideState
 
-@export var run_state : PlayerState
-@export var air_state : PlayerState
-@export var slide_timer : Timer
 @export var deceleration : int
 
 
@@ -29,7 +26,7 @@ func on_exit() -> void:
 		next_state = air_state
 
 func start_slide() -> void:
-	slide_timer.start()
+	$SlideTimer.start()
 
 func collide(body) -> void:
 	body.velocity.y -= abs(player.velocity.x)

@@ -2,9 +2,6 @@ extends PlayerState
 
 class_name RunState
 
-@export var air_state : PlayerState
-@export var slide_state : PlayerState
-
 func state_process(_delta) -> void:
 	# reset timer and jumps
 	player.coyote_timer = player.COYOTE_TIME
