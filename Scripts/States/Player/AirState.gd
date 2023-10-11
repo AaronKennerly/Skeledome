@@ -2,9 +2,6 @@ extends PlayerState
 
 class_name AirState
 
-@export var run_state : PlayerState
-@export var stomp_state : PlayerState
-
 func on_enter() -> void:
 	height = player.position.y + player.JUMP_HEIGHT
 

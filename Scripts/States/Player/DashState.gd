@@ -1,11 +1,6 @@
 extends PlayerState
 
 class_name DashState
-
-@export var air_state : PlayerState
-@export var ground_state : PlayerState
-@export var dash_timer: Timer
-@export var dash_cooldown : Timer
 @export var direction : Sprite2D
 
 var velocity : Vector2
@@ -31,20 +26,20 @@ func state_process(_delta) -> void:
 
 # start timer
 func start_dash(duration) -> void:
-	dash_timer.wait_time = duration
-	dash_timer.start()
+	$DashTimer.wait_time = duration
+	$DashTimer.start()
 	player.is_dashing = true
 
 
 # start dash cooldown and set next state
 func on_exit() -> void:
 	player.can_dash = false
-	dash_cooldown.wait_time = player.dash_cooldown
-	dash_cooldown.start()
+	$DashCoolDown.wait_time = player.dash_cooldown
+	$DashCoolDown.start()
 	player.velocity = velocity
 	player.is_dashing = false
 	if player.is_on_floor():
-		next_state = ground_state
+		next_state = run_state
 	else:
 		next_state = air_state
 

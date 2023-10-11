@@ -2,8 +2,6 @@ extends PlayerState
 
 class_name RespawnState
 
-@export var air_state : PlayerState
-
 func on_enter() -> void:
 	# stop physics and hide the player
 	player.set_collision_layer_value(1, false)

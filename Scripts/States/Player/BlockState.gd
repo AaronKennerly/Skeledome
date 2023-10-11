@@ -2,11 +2,6 @@ extends PlayerState
 
 class_name BlockState
 
-@export var air_state : PlayerState
-@export var stun_state : PlayerState
-
-@export var block_cooldown : Timer
-
 func state_process(delta) -> void:
 	if player.is_on_floor():
 		if player.velocity.x > 0:
@@ -23,7 +18,7 @@ func state_process(delta) -> void:
 	
 	if player.block_timer <= 0:
 		next_state = stun_state
-		block_cooldown.start()
+		$BlockCooldown.start()
 
 func state_input(event : InputEvent) -> void:
 	if !Input.is_action_just_pressed(player.block.action):

@@ -2,12 +2,8 @@ extends PlayerState
 
 class_name StunnedState
 
-@export var stun_timer : Timer
-@export var air_state : PlayerState
-@export var cancel_state : PlayerState
-
 func on_enter() -> void:
-	stun_timer.start()
+	$StunTimer.start()
 
 
 func state_input(_event : InputEvent) -> void:
