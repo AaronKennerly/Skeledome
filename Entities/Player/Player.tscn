@@ -129,9 +129,8 @@ wait_time = 10.0
 one_shot = true
 script = ExtResource("11_motqc")
 
-[node name="DashState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("direction")]
+[node name="DashState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("6_sgl47")
-direction = NodePath("../../Body/Pivot/Hand")
 can_move = false
 can_jump = false
 can_slide = false
@@ -154,13 +153,6 @@ player = NodePath("../../..")
 
 [node name="RespawnState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("9_gfxja")
-can_move = null
-can_jump = null
-can_dash = null
-can_slide = null
-can_stomp = null
-can_cancel = null
-can_block = null
 
 [node name="RespawnTimer" type="Timer" parent="PlayerStateMachine/RespawnState"]
 wait_time = 1.5

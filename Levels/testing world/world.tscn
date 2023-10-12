@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 [ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assets/Art/Obstacles/tileset.png" id="5_4de22"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
-[ext_resource type="PackedScene" uid="uid://cmw6hfxhhwq4c" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
-[ext_resource type="PackedScene" uid="uid://f80j0gfcnh7k" path="res://Levels/saw_blade.tscn" id="8_dsy71"]
+[ext_resource type="PackedScene" uid="uid://calobleasn223" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
+[ext_resource type="PackedScene" uid="uid://dpuw680iln4q3" path="res://Levels/saw_blade.tscn" id="8_dsy71"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
 bg_color = Color(0.682353, 0.576471, 0.513726, 1)
@@ -524,6 +524,14 @@ script = ExtResource("1_ng5tp")
 position = Vector2(-2782, -2989)
 SPAWNPOINT = NodePath("../Spawnpoint")
 
+[node name="RunState" parent="Player1/PlayerStateMachine" index="6"]
+can_move = true
+can_jump = true
+can_dash = true
+can_slide = true
+can_cancel = true
+can_block = true
+
 [node name="MoveLeftAction" parent="Player1/Controls" index="0"]
 action = "move_left_1"
 
@@ -565,6 +573,14 @@ modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(-2619, -2993)
 SPAWNPOINT = NodePath("../Spawnpoint2")
 
+[node name="RunState" parent="Player2/PlayerStateMachine" index="6"]
+can_move = true
+can_jump = true
+can_dash = true
+can_slide = true
+can_cancel = true
+can_block = true
+
 [node name="MoveLeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
 
@@ -605,6 +621,14 @@ action = "aim_right_2"
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-2489, -2992)
 SPAWNPOINT = NodePath("../Spawnpoint3")
+
+[node name="RunState" parent="Player3/PlayerStateMachine" index="6"]
+can_move = true
+can_jump = true
+can_dash = true
+can_slide = true
+can_cancel = true
+can_block = true
 
 [node name="StateDubugLabel" parent="Player3" index="7"]
 metadata/_edit_use_anchors_ = true
@@ -649,6 +673,14 @@ action = "aim_right_3"
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-2284, -2984)
 SPAWNPOINT = NodePath("../Spawnpoint4")
+
+[node name="RunState" parent="Player4/PlayerStateMachine" index="6"]
+can_move = true
+can_jump = true
+can_dash = true
+can_slide = true
+can_cancel = true
+can_block = true
 
 [node name="StateDubugLabel" parent="Player4" index="7"]
 metadata/_edit_use_anchors_ = true

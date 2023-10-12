@@ -161,5 +161,3 @@ func update_force(_velocity) -> void:
 func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
-
-	pass # Replace with function body.
