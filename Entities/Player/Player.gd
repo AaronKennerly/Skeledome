@@ -61,7 +61,7 @@ var deaths : int = 3
 var dead : bool = false
 var is_dashing : bool = false
 var momentum_direction : Vector2 # what direction player is being actively going
-var moving_direction : int	# what direction player is trying to go
+var acceleration_direction : int	# what direction player is trying to go
 var player_joined : bool = false
 var is_colliding : bool = false
 
@@ -83,9 +83,9 @@ func _physics_process(delta) -> void:
 		momentum_direction.y = velocity.y / abs(velocity.y)
 		
 	if Input.is_action_pressed(left.action):
-		moving_direction = -1
+		acceleration_direction = -1
 	if Input.is_action_pressed(right.action):
-		moving_direction = 1
+		acceleration_direction = 1
 	
 	
 	#TODO: Change to timer node
