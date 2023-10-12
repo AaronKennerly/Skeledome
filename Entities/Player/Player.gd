@@ -69,6 +69,7 @@ var player_joined : bool = false
 var is_colliding : bool = false
 var which_wall : int = 0 # 1 for right 2 for left
 var last_wall : int = 0
+var is_wall_jumping : bool = false
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -161,5 +162,4 @@ func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
 
-
-
+	pass # Replace with function body.
