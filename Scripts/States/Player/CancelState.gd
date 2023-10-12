@@ -8,7 +8,7 @@ func on_enter() -> void:
 	$CancelTimer.start()
 
 
-func state_process(delta) -> void:
+func state_process(_delta) -> void:
 	player.velocity.x = 0
 	player.velocity.y = 0
 

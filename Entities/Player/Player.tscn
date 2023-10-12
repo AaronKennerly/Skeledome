@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=27 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_3sdl6"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/Aim.gd" id="2_374lj"]
@@ -19,8 +19,9 @@
 [ext_resource type="Script" path="res://Scripts/StateDubugLabel.gd" id="14_yvx7c"]
 [ext_resource type="Script" path="res://Scripts/States/Player/StompState.gd" id="15_0xohy"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/PlayerAction.gd" id="15_af7lr"]
-[ext_resource type="Script" path="res://Entities/Player/WallState.gd" id="17_3sfn6"]
 [ext_resource type="Script" path="res://Entities/Player/StompTimer.gd" id="17_kehe0"]
+[ext_resource type="Script" path="res://Scripts/States/Player/WallState.gd" id="19_hht18"]
+[ext_resource type="Script" path="res://Entities/Player/WallJumpTimer.gd" id="20_klxxm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -34,13 +35,15 @@ height = 38.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5y63k"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "dash_state", "respawn_state", "block_state", "cancel_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right")]
 script = ExtResource("1_3sdl6")
 state_machine = NodePath("PlayerStateMachine")
+air_state = NodePath("PlayerStateMachine/AirState")
 dash_state = NodePath("PlayerStateMachine/DashState")
 respawn_state = NodePath("PlayerStateMachine/RespawnState")
 block_state = NodePath("PlayerStateMachine/BlockState")
 cancel_state = NodePath("PlayerStateMachine/CancelState")
+wall_state = NodePath("PlayerStateMachine/WallState")
 right = NodePath("Controls/MoveRightAction")
 left = NodePath("Controls/MoveLeftAction")
 jump = NodePath("Controls/JumpAction")
@@ -97,11 +100,9 @@ current_state = NodePath("AirState")
 [node name="AirState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_3321d")
 can_slide = false
-has_gravity = null
 
 [node name="BlockState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_8jnx5")
-has_gravity = null
 
 [node name="BlockCooldown" type="Timer" parent="PlayerStateMachine/BlockState" node_paths=PackedStringArray("player")]
 wait_time = 8.0
@@ -118,7 +119,6 @@ can_slide = false
 can_stomp = false
 can_cancel = false
 can_block = false
-has_gravity = null
 
 [node name="CancelTimer" type="Timer" parent="PlayerStateMachine/CancelState"]
 wait_time = 0.5
@@ -135,7 +135,6 @@ direction = NodePath("../../Body/Pivot/Hand")
 can_move = false
 can_jump = false
 can_slide = false
-has_gravity = null
 
 [node name="DashTimer" type="Timer" parent="PlayerStateMachine/DashState"]
 one_shot = true
@@ -147,7 +146,6 @@ player = NodePath("../../..")
 
 [node name="DiveState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("11_pafou")
-dive_speed = 1200.0
 
 [node name="DiveTimer" type="Timer" parent="PlayerStateMachine/DiveState" node_paths=PackedStringArray("player")]
 one_shot = true
@@ -163,7 +161,6 @@ can_slide = null
 can_stomp = null
 can_cancel = null
 can_block = null
-has_gravity = null
 
 [node name="RespawnTimer" type="Timer" parent="PlayerStateMachine/RespawnState"]
 wait_time = 1.5
@@ -178,7 +175,6 @@ can_slide = null
 can_stomp = false
 can_cancel = null
 can_block = null
-has_gravity = null
 
 [node name="SlideState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_th6x2")
@@ -186,21 +182,19 @@ deceleration = 10
 can_move = false
 can_dash = false
 can_slide = false
-has_gravity = null
 
 [node name="SlideTimer" type="Timer" parent="PlayerStateMachine/SlideState"]
 
 [node name="StompState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("15_0xohy")
-has_gravity = null
 
 [node name="StompWindup" type="Timer" parent="PlayerStateMachine/StompState"]
 wait_time = 0.1
 one_shot = true
 
-[node name="StompTimer" type="Timer" parent="PlayerStateMachine/StompState" node_paths=PackedStringArray("player")]
+[node name="StompTimer" type="Timer" parent="PlayerStateMachine/StompState" node_paths=PackedStringArray("state_machine")]
 script = ExtResource("17_kehe0")
-player = NodePath("../../..")
+state_machine = NodePath("../..")
 
 [node name="StunnedState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("13_vjhep")
@@ -210,13 +204,17 @@ can_dash = false
 can_slide = false
 can_stomp = false
 can_block = false
-has_gravity = null
 
 [node name="StunTimer" type="Timer" parent="PlayerStateMachine/StunnedState"]
 
 [node name="WallState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("17_3sfn6")
-has_gravity = null
+script = ExtResource("19_hht18")
+
+[node name="WallJumpTimer" type="Timer" parent="PlayerStateMachine/WallState" node_paths=PackedStringArray("player")]
+wait_time = 0.05
+one_shot = true
+script = ExtResource("20_klxxm")
+player = NodePath("../../..")
 
 [node name="StateDubugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -49.0
@@ -288,3 +286,4 @@ action = null
 [connection signal="timeout" from="PlayerStateMachine/RespawnState/RespawnTimer" to="PlayerStateMachine/RespawnState" method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/StompState/StompWindup" to="PlayerStateMachine/StompState" method="start_stomp"]
 [connection signal="timeout" from="PlayerStateMachine/StunnedState/StunTimer" to="PlayerStateMachine/StunnedState" method="end_stun"]
+[connection signal="timeout" from="PlayerStateMachine/WallState/WallJumpTimer" to="PlayerStateMachine/WallState/WallJumpTimer" method="_on_timeout"]

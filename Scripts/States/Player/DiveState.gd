@@ -2,20 +2,17 @@ extends PlayerState
 
 class_name DiveState
 
-@export var dive_speed : float
-@export var direction : Sprite2D
-
 var velocity
 
 
 func on_enter():
 	player.velocity.y = 0
-	player.velocity.x = dive_speed * player.moving_direction
+	player.velocity.x = player.DIVESPEED * player.acceleration_direction
 	$DiveTimer.start()
 	player.can_dive = false
 
 func state_process(_delta):
-	player.velocity.x = dive_speed * player.moving_direction
+	player.velocity.x = player.DIVESPEED * player.acceleration_direction
 	
 # handle gravity 
 	if player.velocity.y < 0:

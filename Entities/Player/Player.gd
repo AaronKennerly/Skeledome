@@ -33,6 +33,8 @@ class_name Player
 @export var DASH_DURATION : float = .1
 @export var SPAWNPOINT : Node2D
 @export var BLOCKTIME : float = 5
+@export var DIVESPEED : float = 1200
+@export var WALLSLIDESPEED : float = 600
 
 @onready var collision_timer : Timer = $CollisionTimer
 
@@ -51,6 +53,7 @@ var can_block : bool = true
 var can_cancel : bool = true
 var can_dive : bool = true
 var can_jump : bool = true
+var can_move : bool = true
 
 var dash_cooldown : float = 3.0
 var respawn_timer : Timer
@@ -61,9 +64,11 @@ var deaths : int = 3
 var dead : bool = false
 var is_dashing : bool = false
 var momentum_direction : Vector2 # what direction player is being actively going
-var acceleration_direction : int	# what direction player is trying to go
+var acceleration_direction : int # what direction player is trying to go
 var player_joined : bool = false
 var is_colliding : bool = false
+var which_wall : int = 0 # 1 for right 2 for left
+var last_wall : int = 0
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -87,25 +92,31 @@ func _physics_process(delta) -> void:
 	if Input.is_action_pressed(right.action):
 		acceleration_direction = 1
 	
+	if is_on_floor():
+		which_wall = 0
+		last_wall = 0
 	
-	#TODO: Change to timer node
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
-	
-	if is_on_wall_only():
-		state_machine.set_state(wall_state)
 
-	#TODO: Chnage to timer node
 	if Input.is_action_just_pressed(jump.action):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 
 	# calculating Base Movement
-	if state_machine.get_can_move() && state_machine.get_state() != block_state:
+	if state_machine.get_can_move() && can_move && state_machine.get_state() != block_state:
+		
 		if Input.is_action_pressed(left.action):
+			if is_on_wall_only():
+				state_machine.set_state(wall_state)
+				which_wall = 2
 			if velocity.x > 0:
 				velocity.x *= 0.75 #If changing direction, happens slightly faster, feeling better
 			velocity.x = max(velocity.x - ACCELERATION, -SPEED)
+			
 		elif Input.is_action_pressed(right.action):
+			if is_on_wall_only():
+				state_machine.set_state(wall_state)
+				which_wall = 1
 			if velocity.x < 0:
 				velocity.x *= 0.75
 			velocity.x = min(velocity.x + ACCELERATION, SPEED)

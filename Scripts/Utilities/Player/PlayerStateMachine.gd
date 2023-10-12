@@ -4,7 +4,7 @@ class_name PlayerStateMachine
 
 var states : Array[PlayerState]
 
-@export var player : CharacterBody2D
+@export var player : Player
 @export var current_state : PlayerState
 
 func _ready() -> void:

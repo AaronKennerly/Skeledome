@@ -20,7 +20,7 @@ func state_process(delta) -> void:
 		next_state = stun_state
 		$BlockCooldown.start()
 
-func state_input(event : InputEvent) -> void:
+func state_input(_event : InputEvent) -> void:
 	if !Input.is_action_just_pressed(player.block.action):
 		next_state = air_state
 

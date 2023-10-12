@@ -10,7 +10,7 @@ func on_enter() -> void:
 
 
 func state_process(_delta) -> void:
-	if player.direction.x > 0:
+	if player.momentum_direction.x > 0:
 		player.velocity.x = max(player.velocity.x - deceleration, 0)
 	else:
 		player.velocity.x = min(player.velocity.x + deceleration, 0)

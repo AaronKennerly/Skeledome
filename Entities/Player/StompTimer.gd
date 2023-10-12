@@ -2,11 +2,11 @@ extends Timer
 
 class_name StompTimer
 
-@export var player : CharacterBody2D
+@export var state_machine : PlayerStateMachine
 
 func _on_time_out():
-	player.can_dash = true
-	player.can_jump = true
-	player.can_move = true
-	player.can_block = true
-	player.can_dive = true
+	state_machine.can_dash = true
+	state_machine.can_jump = true
+	state_machine.can_move = true
+	state_machine.can_block = true
+	state_machine.can_dive = true

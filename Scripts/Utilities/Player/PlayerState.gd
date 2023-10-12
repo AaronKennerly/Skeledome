@@ -51,12 +51,10 @@ func on_exit() -> void:
 
 # all Player states have access to the jump function
 func jump() -> void:
-#	height = player.position.y
 	player.jump_count += 1
 	player.jump_bool = true
 	player.velocity.y = player.JUMP_VELOCITY
 
-# TODO: player bounce
 # BUG: game collisions prioritizes player 1. if equal collide, player 2 is bumped
 # handle collisions
 func collide(body) -> void:
