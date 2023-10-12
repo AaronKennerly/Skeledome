@@ -3,11 +3,13 @@ class_name Player
 
 # Exported variables
 @export var state_machine : PlayerStateMachine
-@export var jump_state: PlayerState
+@export var air_state: PlayerState
 @export var dash_state : PlayerState
 @export var respawn_state : PlayerState
 @export var block_state : PlayerState
 @export var cancel_state : PlayerState
+@export var wall_state : PlayerState
+
 @export var right : PlayerAction
 @export var left : PlayerAction
 @export var jump : PlayerAction
@@ -43,9 +45,13 @@ var jump_buffer_timer : float = -10.0
 var block_timer : float = BLOCKTIME
 var jump_bool : bool = false
 var jump_count : int = 0
+
 var can_dash : bool = true
 var can_block : bool = true
 var can_cancel : bool = true
+var can_dive : bool = true
+var can_jump : bool = true
+
 var dash_cooldown : float = 3.0
 var respawn_timer : Timer
 var touch : Area2D
@@ -54,7 +60,8 @@ var mass : float = 60.0
 var deaths : int = 3
 var dead : bool = false
 var is_dashing : bool = false
-var direction : Vector2
+var momentum_direction : Vector2 # what direction player is being actively going
+var moving_direction : int	# what direction player is trying to go
 var player_joined : bool = false
 var is_colliding : bool = false
 
@@ -71,19 +78,27 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	velocity = get_velocity()
 	if velocity.x != 0:
-		direction.x = velocity.x / abs(velocity.x)
+		momentum_direction.x = velocity.x / abs(velocity.x)
 	if velocity.y != 0:
-		direction.y = velocity.y / abs(velocity.y)
+		momentum_direction.y = velocity.y / abs(velocity.y)
+		
+	if Input.is_action_pressed(left.action):
+		moving_direction = -1
+	if Input.is_action_pressed(right.action):
+		moving_direction = 1
 	
 	
 	#TODO: Change to timer node
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
+	
+	if is_on_wall_only():
+		state_machine.set_state(wall_state)
 
 	#TODO: Chnage to timer node
 	if Input.is_action_just_pressed(jump.action):
 		jump_buffer_timer = JUMP_BUFFER_TIME
-	
+
 	# calculating Base Movement
 	if state_machine.get_can_move() && state_machine.get_state() != block_state:
 		if Input.is_action_pressed(left.action):
@@ -107,17 +122,17 @@ func _physics_process(delta) -> void:
 					velocity.x -= gravity * delta
 		
 		if Input.is_action_pressed(dash.action) and can_dash:
-			state_machine.switch_states(dash_state)
+			state_machine.set_state(dash_state)
 		
 		if Input.is_action_pressed(block.action) and can_block:
-			state_machine.switch_states(block_state)
+			state_machine.set_state(block_state)
 		
 		if Input.is_action_pressed(cancel.action) and can_cancel:
-			state_machine.switch_states(cancel_state)
+			state_machine.set_state(cancel_state)
 
 	# if the player goes out of bounds kill them
 	if (position.y >= 955 or position.x <= -575 or position.x >= 1735) and player_joined:
-		state_machine.switch_states(respawn_state)
+		state_machine.set_state(respawn_state)
 
 	if state_machine.get_state() != block_state and can_block:
 		if block_timer < BLOCKTIME:

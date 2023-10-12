@@ -22,7 +22,7 @@ func _ready() -> void:
 # check if state needs to change, else do state process
 func _physics_process(delta) -> void:
 	if(current_state.next_state != null):
-		switch_states(current_state.next_state)
+		set_state(current_state.next_state)
 	
 	current_state.state_process(delta)
 
@@ -34,7 +34,7 @@ func get_state() -> PlayerState:
 	return current_state
 
 # switch states to new_state defined by current_state
-func switch_states(new_state : PlayerState) -> void:
+func set_state(new_state : PlayerState) -> void:
 	if(current_state != null):
 		current_state.on_exit()
 		current_state.next_state = null
