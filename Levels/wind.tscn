@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds7kug08dq2nf"]
+[gd_scene load_steps=7 format=3 uid="uid://ds7kug08dq2nf"]
 
-[ext_resource type="Texture2D" uid="uid://dugvlsuvdpgv1" path="res://Assets/Art/Obstacles/wind.png" id="1_l0lu5"]
+[ext_resource type="Texture2D" uid="uid://nsvb03gk3ex6" path="res://Assets/Art/Obstacles/Wind stuff/wind1.png" id="1_coa1w"]
+[ext_resource type="Texture2D" uid="uid://v4rk3k32w1a" path="res://Assets/Art/Obstacles/Wind stuff/wind2.png" id="2_uuh1g"]
+[ext_resource type="Texture2D" uid="uid://se0gwyq3p87v" path="res://Assets/Art/Obstacles/Wind stuff/wind3.png" id="3_wi8ik"]
+[ext_resource type="Texture2D" uid="uid://bgdlgvmkvt2n7" path="res://Assets/Art/Obstacles/Wind stuff/wind4.png" id="4_yxxlw"]
+[ext_resource type="Texture2D" uid="uid://f4q5uiu0nit" path="res://Assets/Art/Obstacles/Wind stuff/wind6.png" id="6_uwsa6"]
 
 [sub_resource type="GDScript" id="GDScript_7q6j4"]
 script/source = "extends ParallaxBackground
@@ -15,10 +19,59 @@ func _process(delta):
 script = SubResource("GDScript_7q6j4")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1153, 0)
+
+[node name="Wind1" type="Sprite2D" parent="ParallaxLayer"]
+modulate = Color(1, 1, 1, 0.509804)
+position = Vector2(197, 217.5)
+scale = Vector2(0.845, 1.015)
+texture = ExtResource("1_coa1w")
+
+[node name="Wind7" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(197, 217.5)
+scale = Vector2(0.845, 1.015)
+texture = ExtResource("1_coa1w")
+
+[node name="Wind2" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(755, 414.5)
+scale = Vector2(0.455, 0.605)
+texture = ExtResource("2_uuh1g")
+
+[node name="Wind3" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(835.5, 163.5)
+scale = Vector2(0.6625, 0.665)
+texture = ExtResource("3_wi8ik")
+
+[node name="Wind3" type="Sprite2D" parent="ParallaxLayer/Wind3"]
+position = Vector2(-462.641, 274.436)
+scale = Vector2(0.6625, 0.665)
+texture = ExtResource("3_wi8ik")
+
+[node name="Wind4" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(241, 502.5)
+scale = Vector2(0.885, 0.565)
+texture = ExtResource("4_yxxlw")
+
+[node name="Wind5" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(518, 137)
+scale = Vector2(0.3775, 0.415)
+texture = ExtResource("2_uuh1g")
+
+[node name="Wind6" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(867.962, 542.3)
+scale = Vector2(0.779512, 1.015)
+texture = ExtResource("1_coa1w")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 0.8)
 motion_mirroring = Vector2(1152, 0)
 
-[node name="Wind" type="Sprite2D" parent="ParallaxLayer"]
-modulate = Color(1, 1, 1, 0.745098)
-position = Vector2(581.5, 326)
-scale = Vector2(0.594271, 0.603704)
-texture = ExtResource("1_l0lu5")
+[node name="Wind6" type="Sprite2D" parent="ParallaxLayer2"]
+position = Vector2(545, 321)
+scale = Vector2(1.03993, 1.01235)
+texture = ExtResource("6_uwsa6")
+
+[node name="Wind7" type="Sprite2D" parent="ParallaxLayer2"]
+position = Vector2(546.5, 320)
+scale = Vector2(1.0408, 1.01235)
+texture = ExtResource("6_uwsa6")

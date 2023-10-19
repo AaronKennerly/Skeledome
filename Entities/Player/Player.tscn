@@ -85,10 +85,20 @@ scale = Vector2(0.2, 0.15)
 texture = SubResource("CanvasTexture_5y63k")
 
 [node name="JumpBuffer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 
+[node name="WallCoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [node name="CollisionTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="WallJumpBuffer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
@@ -162,13 +172,7 @@ one_shot = true
 
 [node name="RunState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("4_wvjsy")
-can_move = null
-can_jump = null
-can_dash = null
-can_slide = null
 can_stomp = false
-can_cancel = null
-can_block = null
 
 [node name="SlideState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_th6x2")
