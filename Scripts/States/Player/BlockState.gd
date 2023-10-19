@@ -9,10 +9,9 @@ func state_process(delta) -> void:
 		else:
 			player.velocity.x = min(player.velocity.x + player.DECELERATION * 2, 0)
 	else:
-		if player.velocity.x < 0:
-			player.velocity.x += player.gravity * 2 * delta
-		else:
-			player.velocity.x -= player.gravity * 2 * delta
+		#player.velocity.y *= 0.5
+		player.velocity.x += player.gravity * -player.momentum_direction.x * 2 * delta
+		player.velocity.y += player.gravity * 2 * delta
 	
 	player.block_timer -= delta
 	
@@ -21,7 +20,7 @@ func state_process(delta) -> void:
 		$BlockCooldown.start()
 
 func state_input(_event : InputEvent) -> void:
-	if !Input.is_action_just_pressed(player.block.action):
+	if !player.block.is_holding():
 		next_state = air_state
 
 

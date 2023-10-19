@@ -11,7 +11,7 @@ var target : Vector2
 func on_enter() -> void:
 	if (player.can_dash):
 		player.is_dashing = true
-W		target = direction.global_position
+		target = direction.global_position
 		velocity = player.position.direction_to(target) * player.DASH_SPEED
 		start_dash(player.DASH_DURATION)
 	else:

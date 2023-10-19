@@ -70,6 +70,7 @@ var is_colliding : bool = false
 var which_wall : int = 0 # 1 for right 2 for left
 var last_wall : int = 0
 var is_wall_jumping : bool = false
+var is_blocking : bool = false
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.

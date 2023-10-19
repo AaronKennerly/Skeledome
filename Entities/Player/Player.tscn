@@ -129,16 +129,12 @@ wait_time = 10.0
 one_shot = true
 script = ExtResource("11_motqc")
 
-[node name="DashState" type="Node" parent="PlayerStateMachine"]
+[node name="DashState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("direction")]
 script = ExtResource("6_sgl47")
+direction = NodePath("../../Body/Pivot/Hand")
 can_move = false
 can_jump = false
-can_dash = null
 can_slide = false
-can_stomp = null
-can_cancel = null
-can_block = null
-can_dive = null
 
 [node name="DashTimer" type="Timer" parent="PlayerStateMachine/DashState"]
 one_shot = true
@@ -165,13 +161,7 @@ one_shot = true
 
 [node name="RunState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("4_wvjsy")
-can_move = null
-can_jump = null
-can_dash = null
-can_slide = null
 can_stomp = false
-can_cancel = null
-can_block = null
 
 [node name="SlideState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_th6x2")
