@@ -37,6 +37,8 @@ class_name Player
 @export var WALLSLIDESPEED : float = 600
 
 @onready var collision_timer : Timer = $CollisionTimer
+@onready var wall_coyote_timer : Timer = $WallCoyoteTimer
+@onready var wall_jump_buffer : Timer = $WallJumpBuffer
 
 # Constants
 const COYOTE_TIME : float = 0.2
@@ -104,6 +106,7 @@ func _physics_process(delta) -> void:
 
 	if Input.is_action_just_pressed(jump.action):
 		jump_buffer_timer = JUMP_BUFFER_TIME
+		wall_jump_buffer.start()
 
 	# calculating Base Movement
 	if state_machine.get_can_move() && can_move && state_machine.get_state() != block_state:

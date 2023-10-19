@@ -18,7 +18,7 @@ func state_process(_delta) -> void:
 		player.velocity.y += player.gravity * _delta
 	else:
 		player.velocity.y += player.gravity * 2 * _delta
-			
+	
 	#TODO: Look at janky solution
 	# When jump button is released (Janky solution. Reassess)
 	if (not Input.is_action_pressed(player.jump.action) or player.position.y <= height) and player.jump_bool:
@@ -27,9 +27,17 @@ func state_process(_delta) -> void:
 		player.jump_bool = false
 
 
-func state_input(_event : InputEvent) -> void:
+
+func state_input(_event : InputEvent) -> void:	
+	if Input.is_action_just_pressed(player.jump.action) and !player.wall_coyote_timer.is_stopped():
+		player.is_wall_jumping = true
+		player.last_wall = player.which_wall
+		# I don't know why acceleration_direction needs to be negative here. Please don't ask
+		player.velocity.x = player.JUMP_VELOCITY * 3 * -player.acceleration_direction
+		player.velocity.y = player.JUMP_VELOCITY * 0.8
+		$"../WallState/WallJumpTimer".start()
 	# handle jump
-	if Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2):
+	elif Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2):
 		height = player.position.y + player.JUMP_HEIGHT
 		if player.coyote_timer < 0:
 			player.jump_count += 1

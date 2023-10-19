@@ -31,7 +31,7 @@ project/assembly_name="Welcome to the Skeledome"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/better_top_bar/plugin.cfg", "res://addons/horizontal_file_system/plugin.cfg", "res://addons/imrp/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
