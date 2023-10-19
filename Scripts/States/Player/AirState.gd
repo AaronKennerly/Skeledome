@@ -14,10 +14,6 @@ func state_process(_delta) -> void:
 		player.coyote_timer -= _delta
 
 	# handle gravity 
-	if player.is_wall_jumping:
-		if player.acceleration_direction != player.momentum_direction.x:
-			player.velocity.x += player.ACCELERATION * player.momentum_direction.x
-		player.velocity.x = lerp(player.velocity.x, player.acceleration_direction * player.ACCELERATION * _delta, 0.1)
 	if player.velocity.y < 0:
 		player.velocity.y += player.gravity * _delta
 	else:
