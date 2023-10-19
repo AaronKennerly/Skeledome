@@ -203,6 +203,7 @@ can_block = false
 script = ExtResource("19_hht18")
 
 [node name="WallJumpTimer" type="Timer" parent="PlayerStateMachine/WallState" node_paths=PackedStringArray("player")]
+wait_time = 0.2
 one_shot = true
 script = ExtResource("20_klxxm")
 player = NodePath("../../..")

@@ -96,6 +96,7 @@ func _physics_process(delta) -> void:
 	if is_on_floor():
 		which_wall = 0
 		last_wall = 0
+		is_wall_jumping = false
 	
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
@@ -149,6 +150,9 @@ func _physics_process(delta) -> void:
 	if state_machine.get_state() != block_state and can_block:
 		if block_timer < BLOCKTIME:
 			block_timer += delta
+	
+	if is_wall_jumping:
+		velocity.x = lerp(velocity.x, acceleration_direction * ACCELERATION * delta, 0.1)
 	
 	set_velocity(velocity)
 	move_and_slide()
