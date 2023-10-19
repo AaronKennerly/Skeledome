@@ -14,7 +14,7 @@ func state_process(_delta) -> void:
 		jump()
 	
 	# leave to AirState if player leaves ground
-	if not player.is_on_floor():
+	if not player.is_on_floor() and !player.is_blocking:
 		next_state = air_state
 
 
