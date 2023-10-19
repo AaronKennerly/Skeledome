@@ -142,6 +142,9 @@ func _physics_process(delta) -> void:
 		
 		if Input.is_action_pressed(cancel.action) and can_cancel:
 			state_machine.set_state(cancel_state)
+			
+		if Input.is_action_just_pressed(stomp.action) and is_on_floor():
+			position.y += 1
 
 	# if the player goes out of bounds kill them
 	if (position.y >= 955 or position.x <= -575 or position.x >= 1735) and player_joined:

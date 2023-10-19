@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_5bg56"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_pn10h"]
 [ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assets/Art/Obstacles/tileset.png" id="4_hm6uc"]
-[ext_resource type="PackedScene" uid="uid://2ykj5dthpi8i" path="res://Levels/moving_platform.tscn" id="5_cjv33"]
+[ext_resource type="PackedScene" path="res://Levels/moving_platform.tscn" id="5_cjv33"]
 [ext_resource type="Texture2D" uid="uid://bw7fe5a6u78or" path="res://Assets/Art/Obstacles/bone_platform.png" id="6_oid53"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3iij4"]
@@ -447,6 +447,13 @@ position = Vector2(574, 324)
 position = Vector2(145, 230)
 SPAWNPOINT = NodePath("../Spawnpoint1")
 
+[node name="DashState" parent="Player1/PlayerStateMachine" index="3"]
+can_dash = true
+can_stomp = true
+can_cancel = true
+can_block = true
+can_dive = true
+
 [node name="RunState" parent="Player1/PlayerStateMachine" index="6"]
 can_move = true
 can_jump = true
@@ -496,6 +503,13 @@ modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(420, 230)
 SPAWNPOINT = NodePath("../Spawnpoint2")
 
+[node name="DashState" parent="Player2/PlayerStateMachine" index="3"]
+can_dash = true
+can_stomp = true
+can_cancel = true
+can_block = true
+can_dive = true
+
 [node name="RunState" parent="Player2/PlayerStateMachine" index="6"]
 can_move = true
 can_jump = true
@@ -544,6 +558,13 @@ action = "aim_right_2"
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(761, 229)
 
+[node name="DashState" parent="Player3/PlayerStateMachine" index="3"]
+can_dash = true
+can_stomp = true
+can_cancel = true
+can_block = true
+can_dive = true
+
 [node name="RunState" parent="Player3/PlayerStateMachine" index="6"]
 can_move = true
 can_jump = true
@@ -591,6 +612,13 @@ action = "aim_right_3"
 [node name="Player4" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(1020, 229)
+
+[node name="DashState" parent="Player4/PlayerStateMachine" index="3"]
+can_dash = true
+can_stomp = true
+can_cancel = true
+can_block = true
+can_dive = true
 
 [node name="RunState" parent="Player4/PlayerStateMachine" index="6"]
 can_move = true
