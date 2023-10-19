@@ -133,7 +133,12 @@ script = ExtResource("11_motqc")
 script = ExtResource("6_sgl47")
 can_move = false
 can_jump = false
+can_dash = null
 can_slide = false
+can_stomp = null
+can_cancel = null
+can_block = null
+can_dive = null
 
 [node name="DashTimer" type="Timer" parent="PlayerStateMachine/DashState"]
 one_shot = true
@@ -184,9 +189,8 @@ script = ExtResource("15_0xohy")
 wait_time = 0.1
 one_shot = true
 
-[node name="StompTimer" type="Timer" parent="PlayerStateMachine/StompState" node_paths=PackedStringArray("state_machine")]
+[node name="StompTimer" type="Timer" parent="PlayerStateMachine/StompState"]
 script = ExtResource("17_kehe0")
-state_machine = NodePath("../..")
 
 [node name="StunnedState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("13_vjhep")
