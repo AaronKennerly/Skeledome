@@ -15,7 +15,7 @@ func state_process(_delta) -> void:
 		player.last_wall = player.which_wall
 		player.velocity.x = player.JUMP_VELOCITY * 3 * player.acceleration_direction
 		player.velocity.y = player.JUMP_VELOCITY * 0.8
-		$WallJumpTimer.start
+		$WallJumpTimer.start()
 		
 	if player.is_wall_jumping && player.acceleration_direction != player.momentum_direction.x:
 		player.velocity.x += player.ACCELERATION * player.momentum_direction.x

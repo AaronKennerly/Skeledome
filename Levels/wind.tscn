@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds7kug08dq2nf"]
+
+[ext_resource type="Texture2D" uid="uid://dugvlsuvdpgv1" path="res://Assets/Art/Obstacles/wind.png" id="1_l0lu5"]
+
+[sub_resource type="GDScript" id="GDScript_7q6j4"]
+script/source = "extends ParallaxBackground
+
+var scrolling_speed = 300
+
+func _process(delta):
+	scroll_offset.x += scrolling_speed * delta
+"
+
+[node name="wind" type="ParallaxBackground"]
+script = SubResource("GDScript_7q6j4")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Wind" type="Sprite2D" parent="ParallaxLayer"]
+modulate = Color(1, 1, 1, 0.745098)
+position = Vector2(581.5, 326)
+scale = Vector2(0.594271, 0.603704)
+texture = ExtResource("1_l0lu5")

@@ -124,10 +124,11 @@ can_block = false
 wait_time = 0.5
 one_shot = true
 
-[node name="CancelCooldown" type="Timer" parent="PlayerStateMachine/CancelState"]
+[node name="CancelCooldown" type="Timer" parent="PlayerStateMachine/CancelState" node_paths=PackedStringArray("player")]
 wait_time = 10.0
 one_shot = true
 script = ExtResource("11_motqc")
+player = NodePath("../../..")
 
 [node name="DashState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("direction")]
 script = ExtResource("6_sgl47")
