@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=35 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_3sdl6"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/Aim.gd" id="2_374lj"]
@@ -22,6 +22,14 @@
 [ext_resource type="Script" path="res://Entities/Player/StompTimer.gd" id="17_kehe0"]
 [ext_resource type="Script" path="res://Scripts/States/Player/WallState.gd" id="19_hht18"]
 [ext_resource type="Script" path="res://Entities/Player/WallJumpTimer.gd" id="20_klxxm"]
+[ext_resource type="PackedScene" uid="uid://b6fdn1lmswbc5" path="res://Entities/Sound/SoundQueue.tscn" id="23_1ao3c"]
+[ext_resource type="PackedScene" uid="uid://cojtecypovawj" path="res://Entities/Sound/SoundPool.tscn" id="23_gcqha"]
+[ext_resource type="AudioStream" uid="uid://6vuokqk8xsng" path="res://Assets/Sound/Player/Spawn/spawn01.wav" id="24_813uj"]
+[ext_resource type="AudioStream" uid="uid://brik54g8mvp0m" path="res://Assets/Sound/Player/Spawn/spawn02.wav" id="26_48gca"]
+[ext_resource type="AudioStream" uid="uid://hh8le34205mh" path="res://Assets/Sound/Player/Spawn/spawn03.wav" id="27_lgitg"]
+[ext_resource type="AudioStream" uid="uid://cvlnqqcnq317q" path="res://Assets/Sound/Player/Spawn/spawn04.wav" id="28_64oac"]
+[ext_resource type="AudioStream" uid="uid://hvuodygqkb7r" path="res://Assets/Sound/Player/Spawn/spawn05.wav" id="29_str1r"]
+[ext_resource type="AudioStream" uid="uid://c5hr0apil0tdy" path="res://Assets/Sound/Player/Spawn/spawn06.wav" id="30_fd4oy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -271,6 +279,44 @@ action = null
 [node name="LookRightAction" type="Node" parent="Controls"]
 script = ExtResource("15_af7lr")
 action = null
+
+[node name="RespawnSoundPool" parent="." instance=ExtResource("23_gcqha")]
+
+[node name="RespawnSoundQueue1" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
+count = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue1"]
+stream = ExtResource("24_813uj")
+
+[node name="RespawnSoundQueue2" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
+count = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue2"]
+stream = ExtResource("26_48gca")
+
+[node name="RespawnSoundQueue3" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
+count = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue3"]
+stream = ExtResource("27_lgitg")
+
+[node name="RespawnSoundQueue4" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
+count = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue4"]
+stream = ExtResource("28_64oac")
+
+[node name="RespawnSoundQueue5" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
+count = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue5"]
+stream = ExtResource("29_str1r")
+
+[node name="RespawnSoundQueue6" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
+count = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue6"]
+stream = ExtResource("30_fd4oy")
 
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="PlayerStateMachine/BlockState/BlockCooldown" to="PlayerStateMachine/BlockState/BlockCooldown" method="on_timeout"]

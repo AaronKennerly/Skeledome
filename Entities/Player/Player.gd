@@ -73,6 +73,9 @@ var which_wall : int = 0 # 1 for right 2 for left
 var last_wall : int = 0
 var is_wall_jumping : bool = false
 var is_blocking : bool = false
+var momentum_tracker : float = 0
+var is_on_fire : bool = false
+var is_in_big_mode : bool = false
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -160,6 +163,9 @@ func _physics_process(delta) -> void:
 	
 	if is_wall_jumping:
 		velocity.x = lerp(velocity.x, acceleration_direction * ACCELERATION * delta, 0.1)
+	
+	if abs(velocity.x) == SPEED:
+		momentum_tracker += delta 
 	
 	set_velocity(velocity)
 	move_and_slide()
