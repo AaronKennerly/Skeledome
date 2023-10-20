@@ -2,6 +2,8 @@ extends PlayerState
 
 class_name RespawnState
 
+@onready var respawn_sounds = $"../../RespawnSoundPool"
+
 func on_enter() -> void:
 	# stop physics and hide the player
 	player.set_collision_layer_value(1, false)
@@ -26,6 +28,7 @@ func state_process(_delta) -> void:
 
 func _on_respawn_timer_timeout() -> void:
 	# set the velocities to 0
+	respawn_sounds.play_random()
 	player.velocity.y = 0
 	player.velocity.x = 0
 	# move and resume the player

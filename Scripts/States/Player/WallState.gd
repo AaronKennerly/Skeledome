@@ -2,7 +2,7 @@ extends PlayerState
 
 class_name WallState
 
-func on_enter():
+func on_enter() -> void:
 	# I do not understand why this is necessary, but it is
 	if player.velocity.y < 0:
 		player.velocity.y *= 0.95
@@ -34,11 +34,11 @@ func state_process(_delta) -> void:
 		player.velocity.x += player.ACCELERATION * player.momentum_direction.x
 
 
-func end_jump():
+func end_jump() -> void:
 	if !player.is_on_wall_only():
 		next_state = air_state
 
-func wall_jump():
+func wall_jump() -> void:
 	player.is_wall_jumping = true
 	player.last_wall = player.which_wall
 	player.velocity.x = player.JUMP_VELOCITY * 3 * player.acceleration_direction
