@@ -85,7 +85,7 @@ scale = Vector2(0.2, 0.15)
 texture = SubResource("CanvasTexture_5y63k")
 
 [node name="JumpBuffer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
@@ -208,7 +208,7 @@ can_block = false
 script = ExtResource("19_hht18")
 
 [node name="WallJumpTimer" type="Timer" parent="PlayerStateMachine/WallState" node_paths=PackedStringArray("player")]
-wait_time = 0.2
+wait_time = 0.4
 one_shot = true
 script = ExtResource("20_klxxm")
 player = NodePath("../../..")
