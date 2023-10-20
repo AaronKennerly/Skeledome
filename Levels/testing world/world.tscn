@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 [ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assets/Art/Obstacles/tileset.png" id="5_4de22"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
-[ext_resource type="PackedScene" uid="uid://calobleasn223" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
+[ext_resource type="PackedScene" uid="uid://cmw6hfxhhwq4c" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
 [ext_resource type="PackedScene" uid="uid://f80j0gfcnh7k" path="res://Levels/saw_blade.tscn" id="8_dsy71"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
