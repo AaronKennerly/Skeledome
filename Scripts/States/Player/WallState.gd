@@ -6,7 +6,7 @@ func on_enter():
 	# I do not understand why this is necessary, but it is
 	if player.velocity.y < 0:
 		player.velocity.y *= 0.95
-	if !player.wall_jump_buffer.is_stopped() and player.momentum_direction.x != player.acceleration_direction and player.which_wall != player.last_wall:
+	if !player.wall_jump_buffer.is_stopped() and player.coyote_timer <= 0 and player.momentum_direction.x != player.acceleration_direction and player.which_wall != player.last_wall:
 		player.acceleration_direction *= -1
 		wall_jump()
 
@@ -22,8 +22,10 @@ func state_process(_delta) -> void:
 		else:
 			player.velocity.y += (player.gravity * 0.5 * _delta)
 	else:
-		player.wall_coyote_timer.start()
 		next_state = air_state
+		if player.momentum_direction.x == player.acceleration_direction:
+			player.wall_coyote_timer.start()
+		
 	
 	if Input.is_action_just_pressed(player.jump.action) and player.which_wall != player.last_wall:
 		wall_jump()
@@ -42,3 +44,4 @@ func wall_jump():
 	player.velocity.x = player.JUMP_VELOCITY * 3 * player.acceleration_direction
 	player.velocity.y = player.JUMP_VELOCITY * 0.8
 	$WallJumpTimer.start()
+

@@ -37,11 +37,19 @@ func state_input(_event : InputEvent) -> void:
 		player.velocity.y = player.JUMP_VELOCITY * 0.8
 		$"../WallState/WallJumpTimer".start()
 	# handle jump
-	elif Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2):
+	elif Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2) and !player.is_wall_jumping:
 		height = player.position.y + player.JUMP_HEIGHT
 		if player.coyote_timer < 0:
 			player.jump_count += 1
 		jump()
+	elif Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2) and player.is_wall_jumping:
+		height = player.position.y + player.JUMP_HEIGHT
+		if player.coyote_timer < 0:
+			player.jump_count += 1
+		player.jump_count += 1
+		player.jump_bool = true
+		player.velocity.y = lerp(player.velocity.y, player.JUMP_VELOCITY, 0.8)
+		player.velocity.x = lerp(player.velocity.x, player.SPEED * player.acceleration_direction, 0.1)
 	
 	# handle stomp
 	if Input.is_action_just_pressed(player.stomp.action):
