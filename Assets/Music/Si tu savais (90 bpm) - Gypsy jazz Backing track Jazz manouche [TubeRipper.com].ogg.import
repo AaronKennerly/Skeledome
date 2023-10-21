@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://us4en1m403i4"
+path="res://.godot/imported/Si tu savais (90 bpm) - Gypsy jazz Backing track Jazz manouche [TubeRipper.com].ogg-501cdb5e264dd5ea6cb76fb0717bfe88.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Music/Si tu savais (90 bpm) - Gypsy jazz Backing track Jazz manouche [TubeRipper.com].ogg"
+dest_files=["res://.godot/imported/Si tu savais (90 bpm) - Gypsy jazz Backing track Jazz manouche [TubeRipper.com].ogg-501cdb5e264dd5ea6cb76fb0717bfe88.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
