@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://civdvavn15jjh"]
+
+[ext_resource type="Script" path="res://Entities/Sound/MusicManager.gd" id="1_lfjfa"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_lfjfa")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
