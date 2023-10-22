@@ -10,7 +10,8 @@ var numWords : Array = ["One", "Two", "Three", "Four"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	MusicManager.play_game()
+	if MusicManager.song_name != "game":
+		MusicManager.play_game()
 	#player1 = get_node("Player1")
 	for i in count:
 		var player = get_node("Player" + str(player_vals[i]))
