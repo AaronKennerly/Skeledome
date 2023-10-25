@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://coeghcr4hdtor"]
+[gd_scene load_steps=18 format=3 uid="uid://coeghcr4hdtor"]
 
 [ext_resource type="Script" path="res://Levels/testing world/world.gd" id="1_ng5tp"]
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_7c503"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 [ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assets/Art/Obstacles/tileset.png" id="5_4de22"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
-[ext_resource type="PackedScene" uid="uid://calobleasn223" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
+[ext_resource type="PackedScene" uid="uid://cmw6hfxhhwq4c" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
 [ext_resource type="PackedScene" uid="uid://f80j0gfcnh7k" path="res://Levels/saw_blade.tscn" id="8_dsy71"]
+[ext_resource type="Texture2D" uid="uid://bjlsngghjfgaf" path="res://Assets/Art/backgrounds/level1_background.jpg" id="9_qlg0q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
 bg_color = Color(0.682353, 0.576471, 0.513726, 1)
@@ -519,6 +520,13 @@ sources/0 = SubResource("TileSetAtlasSource_1n63v")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ng5tp")
+
+[node name="Level1Background" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -4096
+position = Vector2(574, 303)
+scale = Vector2(2.28809, 1.3125)
+texture = ExtResource("9_qlg0q")
 
 [node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_7c503")]
 position = Vector2(-2782, -2989)

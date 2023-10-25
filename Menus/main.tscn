@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccq2ci8mmi5sc"]
+[gd_scene load_steps=3 format=3 uid="uid://ccq2ci8mmi5sc"]
 
 [ext_resource type="Script" path="res://Menus/Main.gd" id="1_ag8ry"]
+[ext_resource type="Texture2D" uid="uid://ckyjmfrpkk2ki" path="res://Assets/Art/backgrounds/skeledome_background.png" id="2_1f55k"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ag8ry")
@@ -28,6 +29,8 @@ theme_override_constants/separation = 200
 
 [node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/Rows"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 50
 text = "Welcome to The Skeledome"
 horizontal_alignment = 1
@@ -49,6 +52,12 @@ text = "  Battle  "
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = " Exit Game  "
+
+[node name="SkeledomeBackground" type="Sprite2D" parent="CanvasLayer/PanelContainer"]
+show_behind_parent = true
+position = Vector2(574, 323)
+scale = Vector2(0.989583, 0.885417)
+texture = ExtResource("2_1f55k")
 
 [connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
