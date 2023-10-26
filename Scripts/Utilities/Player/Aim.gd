@@ -10,6 +10,8 @@ var look_axis : Vector2
 var distance
 
 func _process(_delta) -> void:
+	
 	look_axis = Input.get_vector(player.look_right.action, player.look_left.action, player.look_up.action, player.look_down.action)
-	direction = Vector2.ZERO.direction_to(look_axis)
+	if look_axis.x != 0 && look_axis.y != 0:
+		direction = Vector2.ZERO.direction_to(look_axis)
 	child.position = direction
