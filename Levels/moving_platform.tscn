@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://2ykj5dthpi8i"]
 
-[ext_resource type="Texture2D" uid="uid://btyl62l8410u4" path="res://Assets/Art/Obstacles/tileset.png" id="1_sblap"]
+[ext_resource type="Texture2D" uid="uid://mt6qofr2m3j3" path="res://Assets/Art/Obstacles/tileset.png" id="1_sblap"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lo3jf"]
 size = Vector2(79, 10.5)

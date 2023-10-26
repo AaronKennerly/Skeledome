@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccq2ci8mmi5sc"]
+[gd_scene load_steps=4 format=3 uid="uid://ccq2ci8mmi5sc"]
 
 [ext_resource type="Script" path="res://Menus/Main.gd" id="1_ag8ry"]
 [ext_resource type="Texture2D" uid="uid://ckyjmfrpkk2ki" path="res://Assets/Art/backgrounds/skeledome_background.png" id="2_1f55k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wv4f4"]
+bg_color = Color(0.129412, 0.129412, 0.129412, 0.498039)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ag8ry")
@@ -29,9 +32,10 @@ theme_override_constants/separation = 200
 
 [node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/Rows"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_wv4f4")
 text = "Welcome to The Skeledome"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -45,6 +49,9 @@ theme_override_constants/separation = 40
 
 [node name="Button" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.298039, 0.298039, 0.298039, 1)
+theme_override_colors/font_hover_color = Color(0.717647, 0.717647, 0.717647, 1)
 theme_override_font_sizes/font_size = 35
 text = "  Battle  "
 
