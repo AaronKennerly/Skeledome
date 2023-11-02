@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds7kug08dq2nf"]
+[gd_scene load_steps=9 format=3 uid="uid://2g4garwe8q8x"]
 
 [ext_resource type="Texture2D" uid="uid://nsvb03gk3ex6" path="res://Assets/Art/Obstacles/Wind stuff/wind1.png" id="1_coa1w"]
 [ext_resource type="Texture2D" uid="uid://v4rk3k32w1a" path="res://Assets/Art/Obstacles/Wind stuff/wind2.png" id="2_uuh1g"]
@@ -10,7 +10,7 @@
 script/source = "extends Node2D
 
 var players : Array = []
-var windStrength = 20.0
+var windStrength = 10.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
@@ -18,15 +18,19 @@ func _process(_delta):
 	for i in range(players.size()):
 		# Calculate the wind force based on wind direction and strength
 		var windForce = windStrength * players[i].acceleration_direction
-		if players[i].acceleration_direction < 0 && players[i].velocity.x < 0:
-			players[i].velocity.x = (players[i].velocity.x - windStrength) * _delta
-		else:
+		if players[i].acceleration_direction < 0:
+			players[i].velocity.x = (players[i].velocity.x - (windForce / 2.5))
+		elif players[i].acceleration_direction > 0:
 			# Apply the wind force to the player's velocity
 			players[i].velocity.x = (players[i].velocity.x + windForce)
-
+		elif players[i].acceleration_direction == 0:
+			if (players[i].is_on_floor()):
+				players[i].velocity.x = (players[i].velocity.x + (windStrength * 1.9))
+			else:
+				players[i].velocity.x = (players[i].velocity.x + windStrength)
 
 func _on_area_2d_body_entered(body):
-	if body.is_in_group(\"Player\"):
+	if body.is_in_group(\"Player\") && body.player_joined:
 		var player = body
 		players.append(player)
 "

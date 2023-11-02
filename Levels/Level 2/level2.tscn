@@ -1,0 +1,528 @@
+[gd_scene load_steps=15 format=3 uid="uid://d4nt1r7mi8n50"]
+
+[ext_resource type="Script" path="res://Levels/Level 2/level2.gd" id="1_hki6u"]
+[ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_feump"]
+[ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_ubnn1"]
+[ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_edaan"]
+[ext_resource type="TileSet" uid="uid://bjr6u4ciq7p8w" path="res://Assets/Art/Obstacles/world.tres" id="5_f0wup"]
+[ext_resource type="Texture2D" uid="uid://bw7fe5a6u78or" path="res://Assets/Art/Obstacles/bone_platform.png" id="6_vr61x"]
+
+[sub_resource type="GDScript" id="GDScript_i213s"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
+bg_color = Color(0.682353, 0.576471, 0.513726, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.137255, 0.137255, 0.137255, 1)
+border_blend = true
+
+[sub_resource type="Theme" id="Theme_7dss5"]
+Label/styles/normal = SubResource("StyleBoxFlat_qlkcc")
+
+[sub_resource type="GDScript" id="GDScript_ixj8c"]
+script/source = "extends Label
+
+var player : Player
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_node(\"/root/level2/Player1\")
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if player.deaths == 0:
+		text = \"Player 1 Out\"
+	else:
+		text = \"Player 1\\n Lives: \" + str(player.deaths)
+		
+	if player.player_joined && !self.visible:
+		self.visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_vb1ts"]
+script/source = "extends Label
+
+var player : Player
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_node(\"/root/level2/Player2\")
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if player.deaths == 0:
+		text = \"Player 2 Out\"
+	else:
+		text = \"Player 2\\n Lives: \" + str(player.deaths)
+	
+	if player.player_joined && !self.visible:
+		self.visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_xyb1x"]
+script/source = "extends Label
+
+var player : Player
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_node(\"/root/level2/Player3\")
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if player.deaths == 0:
+		text = \"Player 3 Out\"
+	else:
+		text = \"Player 3\\n Lives: \" + str(player.deaths)
+		
+	if player.player_joined && !self.visible:
+		self.visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_a80ch"]
+script/source = "extends Label
+
+var player : Player
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_node(\"/root/level2/Player4\")
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if player.deaths == 0:
+		text = \"Player 4 Out\"
+	else:
+		text = \"Player 4\\n Lives: \" + str(player.deaths)
+		
+	if player.player_joined && !self.visible:
+		self.visible = true
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6aue"]
+size = Vector2(64, 6.39999)
+
+[node name="level2" type="Node2D"]
+script = ExtResource("1_hki6u")
+
+[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
+position = Vector2(-2431, -2849)
+SPAWNPOINT = NodePath("../Spawnpoint")
+metadata/_edit_group_ = true
+
+[node name="MoveLeftAction" parent="Player1/Controls" index="0"]
+action = "move_left_1"
+
+[node name="MoveRightAction" parent="Player1/Controls" index="1"]
+action = "move_right_1"
+
+[node name="JumpAction" parent="Player1/Controls" index="2"]
+action = "jump_1"
+
+[node name="DashAction" parent="Player1/Controls" index="3"]
+action = "dash_1"
+
+[node name="SlideAction" parent="Player1/Controls" index="4"]
+action = "slide_1"
+
+[node name="StompAction" parent="Player1/Controls" index="5"]
+action = "stomp_1"
+
+[node name="BlockAction" parent="Player1/Controls" index="6"]
+action = "block_1"
+
+[node name="CancelAction" parent="Player1/Controls" index="7"]
+action = "cancel_1"
+
+[node name="LookUpAction" parent="Player1/Controls" index="8"]
+action = "aim_up_1"
+
+[node name="LookDownAction" parent="Player1/Controls" index="9"]
+action = "aim_down_1"
+
+[node name="LookLeftAction" parent="Player1/Controls" index="10"]
+action = "aim_left_1"
+
+[node name="LookRightAction" parent="Player1/Controls" index="11"]
+action = "aim_right_1"
+
+[node name="Player2" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") instance=ExtResource("2_feump")]
+modulate = Color(0.486275, 0.945098, 0.878431, 1)
+position = Vector2(-2272, -2838)
+state_machine = NodePath("../Player1/PlayerStateMachine")
+air_state = NodePath("../Player1/PlayerStateMachine/AirState")
+dash_state = NodePath("../Player1/PlayerStateMachine/DashState")
+respawn_state = NodePath("../Player1/PlayerStateMachine/RespawnState")
+block_state = NodePath("../Player1/PlayerStateMachine/BlockState")
+cancel_state = NodePath("../Player1/PlayerStateMachine/CancelState")
+wall_state = NodePath("../Player1/PlayerStateMachine/WallState")
+right = NodePath("../Player1/Controls/MoveRightAction")
+left = NodePath("../Player1/Controls/MoveLeftAction")
+jump = NodePath("../Player1/Controls/JumpAction")
+dash = NodePath("../Player1/Controls/DashAction")
+slide = NodePath("../Player1/Controls/SlideAction")
+stomp = NodePath("../Player1/Controls/StompAction")
+block = NodePath("../Player1/Controls/BlockAction")
+cancel = NodePath("../Player1/Controls/CancelAction")
+look_up = NodePath("../Player1/Controls/LookUpAction")
+look_down = NodePath("../Player1/Controls/LookDownAction")
+look_left = NodePath("../Player1/Controls/LookLeftAction")
+look_right = NodePath("../Player1/Controls/LookRightAction")
+SPAWNPOINT = NodePath("../Spawnpoint2")
+metadata/_edit_group_ = true
+
+[node name="PlayerStateMachine" parent="Player2" index="8" node_paths=PackedStringArray("current_state")]
+current_state = NodePath("../../Player1/PlayerStateMachine/AirState")
+
+[node name="DashState" parent="Player2/PlayerStateMachine" index="3" node_paths=PackedStringArray("direction")]
+direction = NodePath("../../../Player1/Body/Pivot/Hand")
+
+[node name="MoveLeftAction" parent="Player2/Controls" index="0"]
+action = "move_left_2"
+
+[node name="MoveRightAction" parent="Player2/Controls" index="1"]
+action = "move_right_2"
+
+[node name="JumpAction" parent="Player2/Controls" index="2"]
+action = "jump_2"
+
+[node name="DashAction" parent="Player2/Controls" index="3"]
+action = "dash_2"
+
+[node name="SlideAction" parent="Player2/Controls" index="4"]
+action = "slide_2"
+
+[node name="StompAction" parent="Player2/Controls" index="5"]
+action = "stomp_2"
+
+[node name="BlockAction" parent="Player2/Controls" index="6"]
+action = "block_2"
+
+[node name="CancelAction" parent="Player2/Controls" index="7"]
+action = "cancel_2"
+
+[node name="LookUpAction" parent="Player2/Controls" index="8"]
+action = "aim_up_2"
+
+[node name="LookDownAction" parent="Player2/Controls" index="9"]
+action = "aim_down_2"
+
+[node name="LookLeftAction" parent="Player2/Controls" index="10"]
+action = "aim_left_2"
+
+[node name="LookRightAction" parent="Player2/Controls" index="11"]
+action = "aim_right_2"
+
+[node name="Player3" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") instance=ExtResource("2_feump")]
+modulate = Color(0.807843, 0.211765, 0.192157, 1)
+position = Vector2(-2096, -2855)
+state_machine = NodePath("../Player1/PlayerStateMachine")
+air_state = NodePath("../Player1/PlayerStateMachine/AirState")
+dash_state = NodePath("../Player1/PlayerStateMachine/DashState")
+respawn_state = NodePath("../Player1/PlayerStateMachine/RespawnState")
+block_state = NodePath("../Player1/PlayerStateMachine/BlockState")
+cancel_state = NodePath("../Player1/PlayerStateMachine/CancelState")
+wall_state = NodePath("../Player1/PlayerStateMachine/WallState")
+right = NodePath("../Player1/Controls/MoveRightAction")
+left = NodePath("../Player1/Controls/MoveLeftAction")
+jump = NodePath("../Player1/Controls/JumpAction")
+dash = NodePath("../Player1/Controls/DashAction")
+slide = NodePath("../Player1/Controls/SlideAction")
+stomp = NodePath("../Player1/Controls/StompAction")
+block = NodePath("../Player1/Controls/BlockAction")
+cancel = NodePath("../Player1/Controls/CancelAction")
+look_up = NodePath("../Player1/Controls/LookUpAction")
+look_down = NodePath("../Player1/Controls/LookDownAction")
+look_left = NodePath("../Player1/Controls/LookLeftAction")
+look_right = NodePath("../Player1/Controls/LookRightAction")
+SPAWNPOINT = NodePath("../Spawnpoint3")
+metadata/_edit_group_ = true
+
+[node name="PlayerStateMachine" parent="Player3" index="8" node_paths=PackedStringArray("current_state")]
+current_state = NodePath("../../Player1/PlayerStateMachine/AirState")
+
+[node name="DashState" parent="Player3/PlayerStateMachine" index="3" node_paths=PackedStringArray("direction")]
+direction = NodePath("../../../Player1/Body/Pivot/Hand")
+
+[node name="MoveLeftAction" parent="Player3/Controls" index="0"]
+action = "move_left_3"
+
+[node name="MoveRightAction" parent="Player3/Controls" index="1"]
+action = "move_right_3"
+
+[node name="JumpAction" parent="Player3/Controls" index="2"]
+action = "jump_3"
+
+[node name="DashAction" parent="Player3/Controls" index="3"]
+action = "dash_3"
+
+[node name="SlideAction" parent="Player3/Controls" index="4"]
+action = "slide_3"
+
+[node name="StompAction" parent="Player3/Controls" index="5"]
+action = "stomp_3"
+
+[node name="BlockAction" parent="Player3/Controls" index="6"]
+action = "block_3"
+
+[node name="CancelAction" parent="Player3/Controls" index="7"]
+action = "cancel_3"
+
+[node name="LookUpAction" parent="Player3/Controls" index="8"]
+action = "aim_up_3"
+
+[node name="LookDownAction" parent="Player3/Controls" index="9"]
+action = "aim_down_3"
+
+[node name="LookLeftAction" parent="Player3/Controls" index="10"]
+action = "aim_left_3"
+
+[node name="LookRightAction" parent="Player3/Controls" index="11"]
+action = "aim_right_3"
+
+[node name="Player4" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") instance=ExtResource("2_feump")]
+modulate = Color(0.254902, 0.564706, 0.337255, 1)
+position = Vector2(-1863, -2832)
+state_machine = NodePath("../Player1/PlayerStateMachine")
+air_state = NodePath("../Player1/PlayerStateMachine/AirState")
+dash_state = NodePath("../Player1/PlayerStateMachine/DashState")
+respawn_state = NodePath("../Player1/PlayerStateMachine/RespawnState")
+block_state = NodePath("../Player1/PlayerStateMachine/BlockState")
+cancel_state = NodePath("../Player1/PlayerStateMachine/CancelState")
+wall_state = NodePath("../Player1/PlayerStateMachine/WallState")
+right = NodePath("../Player1/Controls/MoveRightAction")
+left = NodePath("../Player1/Controls/MoveLeftAction")
+jump = NodePath("../Player1/Controls/JumpAction")
+dash = NodePath("../Player1/Controls/DashAction")
+slide = NodePath("../Player1/Controls/SlideAction")
+stomp = NodePath("../Player1/Controls/StompAction")
+block = NodePath("../Player1/Controls/BlockAction")
+cancel = NodePath("../Player1/Controls/CancelAction")
+look_up = NodePath("../Player1/Controls/LookUpAction")
+look_down = NodePath("../Player1/Controls/LookDownAction")
+look_left = NodePath("../Player1/Controls/LookLeftAction")
+look_right = NodePath("../Player1/Controls/LookRightAction")
+SPAWNPOINT = NodePath("../Spawnpoint4")
+metadata/_edit_group_ = true
+
+[node name="PlayerStateMachine" parent="Player4" index="8" node_paths=PackedStringArray("current_state")]
+current_state = NodePath("../../Player1/PlayerStateMachine/AirState")
+
+[node name="DashState" parent="Player4/PlayerStateMachine" index="3" node_paths=PackedStringArray("direction")]
+direction = NodePath("../../../Player1/Body/Pivot/Hand")
+
+[node name="MoveLeftAction" parent="Player4/Controls" index="0"]
+action = "move_left_4"
+
+[node name="MoveRightAction" parent="Player4/Controls" index="1"]
+action = "move_right_4"
+
+[node name="JumpAction" parent="Player4/Controls" index="2"]
+action = "jump_4"
+
+[node name="DashAction" parent="Player4/Controls" index="3"]
+action = "dash_4"
+
+[node name="SlideAction" parent="Player4/Controls" index="4"]
+action = "slide_4"
+
+[node name="StompAction" parent="Player4/Controls" index="5"]
+action = "stomp_4"
+
+[node name="BlockAction" parent="Player4/Controls" index="6"]
+action = "block_4"
+
+[node name="CancelAction" parent="Player4/Controls" index="7"]
+action = "cancel_4"
+
+[node name="LookUpAction" parent="Player4/Controls" index="8"]
+action = "aim_up_4"
+
+[node name="LookDownAction" parent="Player4/Controls" index="9"]
+action = "aim_down_4"
+
+[node name="LookLeftAction" parent="Player4/Controls" index="10"]
+action = "aim_left_4"
+
+[node name="LookRightAction" parent="Player4/Controls" index="11"]
+action = "aim_right_4"
+
+[node name="Respawn" parent="." instance=ExtResource("3_ubnn1")]
+position = Vector2(578, 304)
+
+[node name="Spawnpoint" parent="." instance=ExtResource("3_ubnn1")]
+position = Vector2(110, 169)
+
+[node name="Spawnpoint2" parent="." instance=ExtResource("3_ubnn1")]
+position = Vector2(978, 608)
+
+[node name="Spawnpoint3" parent="." instance=ExtResource("3_ubnn1")]
+position = Vector2(984, 167)
+
+[node name="Spawnpoint4" parent="." instance=ExtResource("3_ubnn1")]
+position = Vector2(128, 605)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 304)
+zoom = Vector2(0.5, 0.5)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.5
+offset_right = 50.5
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Next Wind Storm in
+2:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_i213s")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_top = 0.869
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 19.888
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_7dss5")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 210
+
+[node name="P1Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
+script = SubResource("GDScript_ixj8c")
+
+[node name="P2Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
+script = SubResource("GDScript_vb1ts")
+
+[node name="P3Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
+script = SubResource("GDScript_xyb1x")
+
+[node name="P4Score" type="Label" parent="UI/PanelContainer/MarginContainer/CenterContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Test"
+script = SubResource("GDScript_a80ch")
+
+[node name="GameOverScreen" parent="." instance=ExtResource("4_edaan")]
+visible = false
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("5_f0wup")
+cell_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(2686976, 851968, 1, 2752512, 851968, 2, 2686977, 917504, 1, 2752513, 917504, 2, 2686978, 1048576, 1, 2752514, 1048576, 2, 2686979, 1114112, 1, 2752515, 1114112, 2, 2686980, 1048576, 1, 2752516, 1048576, 2, 2686981, 1114112, 1, 2752517, 1114112, 2, 2686982, 1048576, 1, 2752518, 1048576, 2, 2686983, 1114112, 1, 2752519, 1114112, 2, 2686984, 1048576, 1, 2752520, 1048576, 2, 2686985, 1114112, 1, 2752521, 1114112, 2, 2686986, 1048576, 1, 2752522, 1048576, 2, 2686987, 1114112, 1, 2752523, 1114112, 2, 2686988, 1048576, 1, 2752524, 1048576, 2, 2686989, 1114112, 1, 2752525, 1114112, 2, 2686990, 1048576, 1, 2752526, 1048576, 2, 2686991, 1114112, 1, 2752527, 1114112, 2, 2686992, 1048576, 1, 2752528, 1048576, 2, 2686993, 1114112, 1, 2752529, 1114112, 2, 2686994, 1048576, 1, 2752530, 1048576, 2, 2686995, 1114112, 1, 2752531, 1114112, 2, 2686996, 1048576, 1, 2752532, 1048576, 2, 2686997, 1114112, 1, 2752533, 1114112, 2, 2686998, 1048576, 1, 2752534, 1048576, 2, 2686999, 1114112, 1, 2752535, 1114112, 2, 2687000, 1048576, 1, 2752536, 1048576, 2, 2687001, 1114112, 1, 2752537, 1114112, 2, 2687002, 1048576, 1, 2752538, 1048576, 2, 2687003, 1114112, 1, 2752539, 1114112, 2, 2687004, 1048576, 1, 2752540, 1048576, 2, 2687005, 1114112, 1, 2752541, 1114112, 2, 2687006, 1048576, 1, 2752542, 1048576, 2, 2687007, 1114112, 1, 2752543, 1114112, 2, 2687008, 1048576, 1, 2752544, 1048576, 2, 2687009, 1114112, 1, 2752545, 1114112, 2, 2687010, 1048576, 1, 2752546, 1048576, 2, 2687011, 1114112, 1, 2752547, 1114112, 2, 2687012, 1048576, 1, 2752548, 1048576, 2, 2687013, 1114112, 1, 2752549, 1114112, 2, 2687014, 1048576, 1, 2752550, 1048576, 2, 2687015, 1114112, 1, 2752551, 1114112, 2, 2687016, 1048576, 1, 2752552, 1048576, 2, 2687017, 1114112, 1, 2752553, 1114112, 2, 2687018, 1048576, 1, 2752554, 1048576, 2, 2687019, 1114112, 1, 2752555, 1114112, 2, 2687020, 1048576, 1, 2752556, 1048576, 2, 2687021, 1114112, 1, 2752557, 1114112, 2, 2687022, 1048576, 1, 2752558, 1048576, 2, 2687023, 1114112, 1, 2752559, 1114112, 2, 2687024, 1048576, 1, 2752560, 1048576, 2, 2687025, 1114112, 1, 2752561, 1114112, 2, 2687026, 1048576, 1, 2752562, 1048576, 2, 2687027, 1114112, 1, 2752563, 1114112, 2, 2687028, 1048576, 1, 2752564, 1048576, 2, 2687029, 1114112, 1, 2752565, 1114112, 2, 2687030, 1048576, 1, 2752566, 1048576, 2, 2687031, 1114112, 1, 2752567, 1114112, 2, 2687032, 1048576, 1, 2752568, 1048576, 2, 2687033, 1114112, 1, 2752569, 1114112, 2, 2687034, 1048576, 1, 2752570, 1048576, 2, 2687035, 1114112, 1, 2752571, 1114112, 2, 2687036, 1048576, 1, 2752572, 1048576, 2, 2687037, 1114112, 1, 2752573, 1114112, 2, 2687038, 1048576, 1, 2752574, 1048576, 2, 2687039, 1114112, 1, 2752575, 1114112, 2, 2687040, 1048576, 1, 2752576, 1048576, 2, 2687041, 1114112, 1, 2752577, 1114112, 2, 2687042, 1048576, 1, 2752578, 1048576, 2, 2687043, 1114112, 1, 2752579, 1114112, 2, 2687044, 1245184, 1, 2752580, 1245184, 2, 2687045, 1048576, 1, 2752581, 1048576, 2, 2687046, 1245184, 1, 2752582, 1245184, 2, 2687047, 1310720, 1, 2752583, 1310720, 2, 2031616, 851968, 1, 2097152, 851968, 2, 2031617, 1114112, 1, 2097153, 1114112, 2, 2031618, 1048576, 1, 2097154, 1048576, 2, 2031619, 1114112, 1, 2097155, 1114112, 2, 2031620, 1048576, 1, 2097156, 1048576, 2, 2031621, 1114112, 1, 2097157, 1114112, 2, 2031622, 1048576, 1, 2097158, 1048576, 2, 2031623, 1114112, 1, 2097159, 1114112, 2, 2031624, 1048576, 1, 2097160, 1048576, 2, 2031625, 1114112, 1, 2097161, 1114112, 2, 2031626, 1048576, 1, 2097162, 1048576, 2, 2031627, 1114112, 1, 2097163, 1114112, 2, 2031628, 1048576, 1, 2097164, 1048576, 2, 2031629, 1114112, 1, 2097165, 1114112, 2, 2031630, 1048576, 1, 2097166, 1048576, 2, 2031631, 1114112, 1, 2097167, 1114112, 2, 2031632, 1048576, 1, 2097168, 1048576, 2, 2031633, 1114112, 1, 2097169, 1114112, 2, 2031634, 1048576, 1, 2097170, 1048576, 2, 2031635, 1114112, 1, 2097171, 1114112, 2, 2031636, 1048576, 1, 2097172, 1048576, 2, 2031637, 1114112, 1, 2097173, 1114112, 2, 2031638, 1048576, 1, 2097174, 1048576, 2, 2031639, 1114112, 1, 2097175, 1114112, 2, 2031640, 1048576, 1, 2097176, 1048576, 2, 2031641, 1114112, 1, 2097177, 1114112, 2, 2031642, 1048576, 1, 2097178, 1048576, 2, 2031643, 1114112, 1, 2097179, 1114112, 2, 2031644, 1048576, 1, 2097180, 1048576, 2, 2031645, 1048576, 1, 2097181, 1048576, 2, 2031658, 917504, 1, 2097194, 917504, 2, 2031659, 1114112, 1, 2097195, 1114112, 2, 2031660, 1048576, 1, 2097196, 1048576, 2, 2031661, 1114112, 1, 2097197, 1114112, 2, 2031662, 1048576, 1, 2097198, 1048576, 2, 2031663, 1114112, 1, 2097199, 1114112, 2, 2031664, 1048576, 1, 2097200, 1048576, 2, 2031665, 1114112, 1, 2097201, 1114112, 2, 2031666, 1048576, 1, 2097202, 1048576, 2, 2031667, 1114112, 1, 2097203, 1114112, 2, 2031668, 1048576, 1, 2097204, 1048576, 2, 2031669, 1114112, 1, 2097205, 1114112, 2, 2031670, 1048576, 1, 2097206, 1048576, 2, 2031671, 1114112, 1, 2097207, 1114112, 2, 2031672, 1048576, 1, 2097208, 1048576, 2, 2031673, 1114112, 1, 2097209, 1114112, 2, 2031674, 1048576, 1, 2097210, 1048576, 2, 2031675, 1114112, 1, 2097211, 1114112, 2, 2031676, 1048576, 1, 2097212, 1048576, 2, 2031677, 1114112, 1, 2097213, 1114112, 2, 2031678, 1048576, 1, 2097214, 1048576, 2, 2031679, 1114112, 1, 2097215, 1114112, 2, 2031680, 1048576, 1, 2097216, 1048576, 2, 2031681, 1114112, 1, 2097217, 1114112, 2, 2031682, 1048576, 1, 2097218, 1048576, 2, 2031683, 1114112, 1, 2097219, 1114112, 2, 2031684, 1048576, 1, 2097220, 1048576, 2, 2031685, 1114112, 1, 2097221, 1114112, 2, 2031686, 1048576, 1, 2097222, 1048576, 2, 2031687, 1310720, 1, 2097223, 1310720, 2, 1114154, 917504, 1, 1179690, 917504, 2, 1114155, 1310720, 1, 1179691, 1310720, 2, 1245226, 917504, 1, 1310762, 917504, 2, 1245227, 1310720, 1, 1310763, 1310720, 2, 1376298, 917504, 1, 1441834, 917504, 2, 1376299, 1310720, 1, 1441835, 1310720, 2, 1507370, 917504, 1, 1572906, 917504, 2, 1507371, 1310720, 1, 1572907, 1310720, 2, 1638442, 917504, 1, 1703978, 917504, 2, 1638443, 1310720, 1, 1703979, 1310720, 2, 1769514, 917504, 1, 1835050, 917504, 2, 1769515, 1310720, 1, 1835051, 1310720, 2, 1900586, 917504, 1, 1966122, 917504, 2, 1900587, 1310720, 1, 1966123, 1310720, 2, 1114140, 851968, 1, 1179676, 851968, 2, 1114141, 1048576, 1, 1179677, 1048576, 2, 1245212, 851968, 1, 1310748, 851968, 2, 1245213, 1048576, 1, 1310749, 1048576, 2, 1376284, 851968, 1, 1441820, 851968, 2, 1376285, 1048576, 1, 1441821, 1048576, 2, 1507356, 851968, 1, 1572892, 851968, 2, 1507357, 1048576, 1, 1572893, 1048576, 2, 1638428, 851968, 1, 1703964, 851968, 2, 1638429, 1048576, 1, 1703965, 1048576, 2, 1769500, 851968, 1, 1835036, 851968, 2, 1769501, 1048576, 1, 1835037, 1048576, 2, 1900572, 851968, 1, 1966108, 851968, 2, 1900573, 1048576, 1, 1966109, 1048576, 2, 983040, 851968, 1, 1048576, 851968, 2, 983041, 1114112, 1, 1048577, 1114112, 2, 983042, 1048576, 1, 1048578, 1048576, 2, 983043, 1114112, 1, 1048579, 1114112, 2, 983044, 1048576, 1, 1048580, 1048576, 2, 983045, 1114112, 1, 1048581, 1114112, 2, 983046, 1048576, 1, 1048582, 1048576, 2, 983047, 1114112, 1, 1048583, 1114112, 2, 983048, 1048576, 1, 1048584, 1048576, 2, 983049, 1114112, 1, 1048585, 1114112, 2, 983050, 1048576, 1, 1048586, 1048576, 2, 983051, 1114112, 1, 1048587, 1114112, 2, 983052, 1048576, 1, 1048588, 1048576, 2, 983053, 1114112, 1, 1048589, 1114112, 2, 983054, 1048576, 1, 1048590, 1048576, 2, 983055, 1114112, 1, 1048591, 1114112, 2, 983056, 1048576, 1, 1048592, 1048576, 2, 983057, 1114112, 1, 1048593, 1114112, 2, 983058, 1048576, 1, 1048594, 1048576, 2, 983059, 1114112, 1, 1048595, 1114112, 2, 983060, 1048576, 1, 1048596, 1048576, 2, 983061, 1114112, 1, 1048597, 1114112, 2, 983062, 1048576, 1, 1048598, 1048576, 2, 983063, 1114112, 1, 1048599, 1114112, 2, 983064, 1048576, 1, 1048600, 1048576, 2, 983065, 1114112, 1, 1048601, 1114112, 2, 983066, 1048576, 1, 1048602, 1048576, 2, 983067, 1114112, 1, 1048603, 1114112, 2, 983068, 1048576, 1, 1048604, 1048576, 2, 983069, 1048576, 1, 1048605, 1048576, 2, 983082, 917504, 1, 1048618, 917504, 2, 983083, 1114112, 1, 1048619, 1114112, 2, 983084, 1048576, 1, 1048620, 1048576, 2, 983085, 1114112, 1, 1048621, 1114112, 2, 983086, 1048576, 1, 1048622, 1048576, 2, 983087, 1114112, 1, 1048623, 1114112, 2, 983088, 1048576, 1, 1048624, 1048576, 2, 983089, 1114112, 1, 1048625, 1114112, 2, 983090, 1048576, 1, 1048626, 1048576, 2, 983091, 1114112, 1, 1048627, 1114112, 2, 983092, 1048576, 1, 1048628, 1048576, 2, 983093, 1114112, 1, 1048629, 1114112, 2, 983094, 1048576, 1, 1048630, 1048576, 2, 983095, 1114112, 1, 1048631, 1114112, 2, 983096, 1048576, 1, 1048632, 1048576, 2, 983097, 1114112, 1, 1048633, 1114112, 2, 983098, 1048576, 1, 1048634, 1048576, 2, 983099, 1114112, 1, 1048635, 1114112, 2, 983100, 1048576, 1, 1048636, 1048576, 2, 983101, 1114112, 1, 1048637, 1114112, 2, 983102, 1048576, 1, 1048638, 1048576, 2, 983103, 1114112, 1, 1048639, 1114112, 2, 983104, 1048576, 1, 1048640, 1048576, 2, 983105, 1114112, 1, 1048641, 1114112, 2, 983106, 1048576, 1, 1048642, 1048576, 2, 983107, 1114112, 1, 1048643, 1114112, 2, 983108, 1048576, 1, 1048644, 1048576, 2, 983109, 1114112, 1, 1048645, 1114112, 2, 983110, 1048576, 1, 1048646, 1048576, 2, 983111, 1310720, 1, 1048647, 1310720, 2, 983081, 851968, 1, 1048617, 851968, 2, 1114153, 851968, 1, 1179689, 851968, 2, 1245225, 851968, 1, 1310761, 851968, 2, 1376297, 851968, 1, 1441833, 851968, 2, 1507369, 851968, 1, 1572905, 851968, 2, 1638441, 851968, 1, 1703977, 851968, 2, 1769513, 851968, 1, 1835049, 851968, 2, 1900585, 851968, 1, 1966121, 851968, 2, 2031657, 851968, 1, 2097193, 851968, 2, 983070, 1310720, 1, 1048606, 1310720, 2, 1114142, 1310720, 1, 1179678, 1310720, 2, 1245214, 1310720, 1, 1310750, 1310720, 2, 1376286, 1310720, 1, 1441822, 1310720, 2, 1507358, 1310720, 1, 1572894, 1310720, 2, 1638430, 1310720, 1, 1703966, 1310720, 2, 1769502, 1310720, 1, 1835038, 1310720, 2, 1900574, 1310720, 1, 1966110, 1310720, 2, 2031646, 1310720, 1, 2097182, 1310720, 2, 327720, 1048576, 1, 393256, 1048576, 2, 327721, 1114112, 1, 393257, 1114112, 2, 327722, 1048576, 1, 393258, 1048576, 2, 327723, 1114112, 1, 393259, 1114112, 2, 327724, 1048576, 1, 393260, 1048576, 2, 327725, 1114112, 1, 393261, 1114112, 2, 327726, 1048576, 1, 393262, 1048576, 2, 327727, 1114112, 1, 393263, 1114112, 2, 327728, 1048576, 1, 393264, 1048576, 2, 327729, 1114112, 1, 393265, 1114112, 2, 327730, 1048576, 1, 393266, 1048576, 2, 327731, 1114112, 1, 393267, 1114112, 2, 327732, 1048576, 1, 393268, 1048576, 2, 327733, 1114112, 1, 393269, 1114112, 2, 327734, 1048576, 1, 393270, 1048576, 2, 327735, 1114112, 1, 393271, 1114112, 2, 327736, 1048576, 1, 393272, 1048576, 2, 327737, 1114112, 1, 393273, 1114112, 2, 327738, 1048576, 1, 393274, 1048576, 2, 327739, 1114112, 1, 393275, 1114112, 2, 327740, 1048576, 1, 393276, 1048576, 2, 327741, 1114112, 1, 393277, 1114112, 2, 327742, 1048576, 1, 393278, 1048576, 2, 327743, 1114112, 1, 393279, 1114112, 2, 327744, 1048576, 1, 393280, 1048576, 2, 327745, 1114112, 1, 393281, 1114112, 2, 327746, 1048576, 1, 393282, 1048576, 2, 327747, 1114112, 1, 393283, 1114112, 2, 327748, 1048576, 1, 393284, 1048576, 2, 327749, 1114112, 1, 393285, 1114112, 2, 327750, 1048576, 1, 393286, 1048576, 2, 327751, 1310720, 1, 393287, 1310720, 2, 327680, 851968, 1, 393216, 851968, 2, 327681, 1114112, 1, 393217, 1114112, 2, 327682, 1048576, 1, 393218, 1048576, 2, 327683, 1114112, 1, 393219, 1114112, 2, 327684, 1048576, 1, 393220, 1048576, 2, 327685, 1114112, 1, 393221, 1114112, 2, 327686, 1048576, 1, 393222, 1048576, 2, 327687, 1114112, 1, 393223, 1114112, 2, 327688, 1048576, 1, 393224, 1048576, 2, 327689, 1114112, 1, 393225, 1114112, 2, 327690, 1048576, 1, 393226, 1048576, 2, 327691, 1114112, 1, 393227, 1114112, 2, 327692, 1048576, 1, 393228, 1048576, 2, 327693, 1114112, 1, 393229, 1114112, 2, 327694, 1048576, 1, 393230, 1048576, 2, 327695, 1114112, 1, 393231, 1114112, 2, 327696, 1048576, 1, 393232, 1048576, 2, 327697, 1114112, 1, 393233, 1114112, 2, 327698, 1048576, 1, 393234, 1048576, 2, 327699, 1114112, 1, 393235, 1114112, 2, 327700, 1048576, 1, 393236, 1048576, 2, 327701, 1114112, 1, 393237, 1114112, 2, 327702, 1048576, 1, 393238, 1048576, 2, 327703, 1114112, 1, 393239, 1114112, 2, 327704, 1048576, 1, 393240, 1048576, 2, 327705, 1114112, 1, 393241, 1114112, 2, 327706, 1048576, 1, 393242, 1048576, 2, 327707, 1114112, 1, 393243, 1114112, 2, 327708, 1048576, 1, 393244, 1048576, 2, 327709, 1114112, 1, 393245, 1114112, 2, 327710, 1048576, 1, 393246, 1048576, 2, 327711, 1114112, 1, 393247, 1114112, 2, 327712, 1048576, 1, 393248, 1048576, 2, 327713, 1114112, 1, 393249, 1114112, 2, 327714, 1048576, 1, 393250, 1048576, 2, 327715, 1114112, 1, 393251, 1114112, 2, 327716, 1048576, 1, 393252, 1048576, 2, 327717, 1114112, 1, 393253, 1114112, 2, 327718, 1048576, 1, 393254, 1048576, 2, 327719, 1114112, 1, 393255, 1114112, 2)
+
+[node name="BonePlatform" type="Sprite2D" parent="."]
+position = Vector2(578, 388)
+scale = Vector2(2.48438, 1.875)
+texture = ExtResource("6_vr61x")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BonePlatform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BonePlatform/StaticBody2D"]
+position = Vector2(0, 0.800003)
+shape = SubResource("RectangleShape2D_h6aue")
+one_way_collision = true
+
+[node name="BonePlatform2" type="Sprite2D" parent="."]
+position = Vector2(575, 521)
+scale = Vector2(2.48438, 1.875)
+texture = ExtResource("6_vr61x")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BonePlatform2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BonePlatform2/StaticBody2D"]
+position = Vector2(0, 0.800003)
+shape = SubResource("RectangleShape2D_h6aue")
+one_way_collision = true
+
+[node name="BonePlatform3" type="Sprite2D" parent="."]
+position = Vector2(576, 246)
+scale = Vector2(2.48438, 1.875)
+texture = ExtResource("6_vr61x")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BonePlatform3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BonePlatform3/StaticBody2D"]
+position = Vector2(0, 0.800003)
+shape = SubResource("RectangleShape2D_h6aue")
+one_way_collision = true
+
+[node name="WindStartTimer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
+
+[node name="WindEndTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="timeout" from="WindStartTimer" to="." method="_on_wind_start_timer_timeout"]
+[connection signal="timeout" from="WindEndTimer" to="." method="_on_wind_end_timer_timeout"]
+
+[editable path="Player1"]
+[editable path="Player2"]
+[editable path="Player3"]
+[editable path="Player4"]
