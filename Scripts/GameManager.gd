@@ -2,6 +2,7 @@ extends Node
 
 # Declare a static variable for the spawnpoint
 var player_count : int = 0
+var level : int = 1
 var player_nums : Array = []
 var actions : Array = InputMap.get_actions()
 

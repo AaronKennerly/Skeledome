@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2g4garwe8q8x"]
+[gd_scene load_steps=9 format=3 uid="uid://ds7kug08dq2nf"]
 
 [ext_resource type="Texture2D" uid="uid://nsvb03gk3ex6" path="res://Assets/Art/Obstacles/Wind stuff/wind1.png" id="1_coa1w"]
 [ext_resource type="Texture2D" uid="uid://v4rk3k32w1a" path="res://Assets/Art/Obstacles/Wind stuff/wind2.png" id="2_uuh1g"]
@@ -19,15 +19,15 @@ func _process(_delta):
 		# Calculate the wind force based on wind direction and strength
 		var windForce = windStrength * players[i].acceleration_direction
 		if players[i].acceleration_direction < 0:
-			players[i].velocity.x = (players[i].velocity.x - (windForce / 2.5))
-		elif players[i].acceleration_direction > 0:
+			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x - (windForce / 2.5)), 1.1)
+		elif players[i].acceleration_direction > 0 and players[i].velocity.x < 0:
 			# Apply the wind force to the player's velocity
-			players[i].velocity.x = (players[i].velocity.x + windForce)
-		elif players[i].acceleration_direction == 0:
+			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + windForce), 1.5)
+		else:
 			if (players[i].is_on_floor()):
-				players[i].velocity.x = (players[i].velocity.x + (windStrength * 1.9))
+				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength * 5.0)), 1.2)
 			else:
-				players[i].velocity.x = (players[i].velocity.x + windStrength)
+				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength * 3.5)), 1.0)
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group(\"Player\") && body.player_joined:
@@ -40,12 +40,12 @@ script/source = "extends ParallaxBackground
 
 var scrolling_speed = 300
 
-func _process(delta):
-	scroll_offset.x += scrolling_speed * delta
+func _process(_delta):
+	scroll_offset.x += scrolling_speed * _delta
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhyy7"]
-size = Vector2(2209, 1392)
+size = Vector2(3726, 1950)
 
 [node name="Wind" type="Node2D"]
 script = SubResource("GDScript_308lq")
@@ -114,7 +114,7 @@ texture = ExtResource("6_uwsa6")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(647.5, 323)
+position = Vector2(690, 253)
 shape = SubResource("RectangleShape2D_bhyy7")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

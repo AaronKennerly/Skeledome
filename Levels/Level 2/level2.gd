@@ -13,6 +13,7 @@ var minutes : int
 @onready var windStart : Timer = $WindStartTimer
 @onready var windEnd : Timer = $WindEndTimer
 @onready var timeLabel : Label = $UI/Label
+@onready var wind : Node2D = $Wind
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +27,7 @@ func _ready():
 		player.SPAWNPOINT = get_node("Respawn")
 		players.append(player)
 		
-	
+	#wind.set_process(false)
 	endScreen = get_node("GameOverScreen")
 	
 
@@ -73,7 +74,9 @@ func _process(_delta):
 
 func _on_wind_start_timer_timeout():
 	windEnd.start()
+	#wind.set_process(true)
 
 
 func _on_wind_end_timer_timeout():
 	windStart.start()
+	#wind.set_process(false)

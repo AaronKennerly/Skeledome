@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://d4nt1r7mi8n50"]
+[gd_scene load_steps=17 format=3 uid="uid://d4nt1r7mi8n50"]
 
 [ext_resource type="Script" path="res://Levels/Level 2/level2.gd" id="1_hki6u"]
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_feump"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_ubnn1"]
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_edaan"]
-[ext_resource type="TileSet" uid="uid://bjr6u4ciq7p8w" path="res://Assets/Art/Obstacles/world.tres" id="5_f0wup"]
+[ext_resource type="TileSet" uid="uid://c1b3nrd1eqdnb" path="res://Assets/Art/Obstacles/world.tres" id="5_f0wup"]
 [ext_resource type="Texture2D" uid="uid://bw7fe5a6u78or" path="res://Assets/Art/Obstacles/bone_platform.png" id="6_vr61x"]
+[ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="7_cf0gq"]
+[ext_resource type="PackedScene" uid="uid://ds7kug08dq2nf" path="res://Levels/wind.tscn" id="8_7lg8j"]
 
 [sub_resource type="GDScript" id="GDScript_i213s"]
 script/source = "extends Label
@@ -128,7 +130,7 @@ size = Vector2(64, 6.39999)
 script = ExtResource("1_hki6u")
 
 [node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
-position = Vector2(-2431, -2849)
+position = Vector2(-2823, -3437)
 SPAWNPOINT = NodePath("../Spawnpoint")
 metadata/_edit_group_ = true
 
@@ -168,36 +170,11 @@ action = "aim_left_1"
 [node name="LookRightAction" parent="Player1/Controls" index="11"]
 action = "aim_right_1"
 
-[node name="Player2" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") instance=ExtResource("2_feump")]
+[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
-position = Vector2(-2272, -2838)
-state_machine = NodePath("../Player1/PlayerStateMachine")
-air_state = NodePath("../Player1/PlayerStateMachine/AirState")
-dash_state = NodePath("../Player1/PlayerStateMachine/DashState")
-respawn_state = NodePath("../Player1/PlayerStateMachine/RespawnState")
-block_state = NodePath("../Player1/PlayerStateMachine/BlockState")
-cancel_state = NodePath("../Player1/PlayerStateMachine/CancelState")
-wall_state = NodePath("../Player1/PlayerStateMachine/WallState")
-right = NodePath("../Player1/Controls/MoveRightAction")
-left = NodePath("../Player1/Controls/MoveLeftAction")
-jump = NodePath("../Player1/Controls/JumpAction")
-dash = NodePath("../Player1/Controls/DashAction")
-slide = NodePath("../Player1/Controls/SlideAction")
-stomp = NodePath("../Player1/Controls/StompAction")
-block = NodePath("../Player1/Controls/BlockAction")
-cancel = NodePath("../Player1/Controls/CancelAction")
-look_up = NodePath("../Player1/Controls/LookUpAction")
-look_down = NodePath("../Player1/Controls/LookDownAction")
-look_left = NodePath("../Player1/Controls/LookLeftAction")
-look_right = NodePath("../Player1/Controls/LookRightAction")
+position = Vector2(-2544, -3413)
 SPAWNPOINT = NodePath("../Spawnpoint2")
 metadata/_edit_group_ = true
-
-[node name="PlayerStateMachine" parent="Player2" index="8" node_paths=PackedStringArray("current_state")]
-current_state = NodePath("../../Player1/PlayerStateMachine/AirState")
-
-[node name="DashState" parent="Player2/PlayerStateMachine" index="3" node_paths=PackedStringArray("direction")]
-direction = NodePath("../../../Player1/Body/Pivot/Hand")
 
 [node name="MoveLeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
@@ -235,36 +212,11 @@ action = "aim_left_2"
 [node name="LookRightAction" parent="Player2/Controls" index="11"]
 action = "aim_right_2"
 
-[node name="Player3" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") instance=ExtResource("2_feump")]
+[node name="Player3" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
-position = Vector2(-2096, -2855)
-state_machine = NodePath("../Player1/PlayerStateMachine")
-air_state = NodePath("../Player1/PlayerStateMachine/AirState")
-dash_state = NodePath("../Player1/PlayerStateMachine/DashState")
-respawn_state = NodePath("../Player1/PlayerStateMachine/RespawnState")
-block_state = NodePath("../Player1/PlayerStateMachine/BlockState")
-cancel_state = NodePath("../Player1/PlayerStateMachine/CancelState")
-wall_state = NodePath("../Player1/PlayerStateMachine/WallState")
-right = NodePath("../Player1/Controls/MoveRightAction")
-left = NodePath("../Player1/Controls/MoveLeftAction")
-jump = NodePath("../Player1/Controls/JumpAction")
-dash = NodePath("../Player1/Controls/DashAction")
-slide = NodePath("../Player1/Controls/SlideAction")
-stomp = NodePath("../Player1/Controls/StompAction")
-block = NodePath("../Player1/Controls/BlockAction")
-cancel = NodePath("../Player1/Controls/CancelAction")
-look_up = NodePath("../Player1/Controls/LookUpAction")
-look_down = NodePath("../Player1/Controls/LookDownAction")
-look_left = NodePath("../Player1/Controls/LookLeftAction")
-look_right = NodePath("../Player1/Controls/LookRightAction")
+position = Vector2(-2177, -3433)
 SPAWNPOINT = NodePath("../Spawnpoint3")
 metadata/_edit_group_ = true
-
-[node name="PlayerStateMachine" parent="Player3" index="8" node_paths=PackedStringArray("current_state")]
-current_state = NodePath("../../Player1/PlayerStateMachine/AirState")
-
-[node name="DashState" parent="Player3/PlayerStateMachine" index="3" node_paths=PackedStringArray("direction")]
-direction = NodePath("../../../Player1/Body/Pivot/Hand")
 
 [node name="MoveLeftAction" parent="Player3/Controls" index="0"]
 action = "move_left_3"
@@ -302,36 +254,11 @@ action = "aim_left_3"
 [node name="LookRightAction" parent="Player3/Controls" index="11"]
 action = "aim_right_3"
 
-[node name="Player4" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") instance=ExtResource("2_feump")]
+[node name="Player4" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
-position = Vector2(-1863, -2832)
-state_machine = NodePath("../Player1/PlayerStateMachine")
-air_state = NodePath("../Player1/PlayerStateMachine/AirState")
-dash_state = NodePath("../Player1/PlayerStateMachine/DashState")
-respawn_state = NodePath("../Player1/PlayerStateMachine/RespawnState")
-block_state = NodePath("../Player1/PlayerStateMachine/BlockState")
-cancel_state = NodePath("../Player1/PlayerStateMachine/CancelState")
-wall_state = NodePath("../Player1/PlayerStateMachine/WallState")
-right = NodePath("../Player1/Controls/MoveRightAction")
-left = NodePath("../Player1/Controls/MoveLeftAction")
-jump = NodePath("../Player1/Controls/JumpAction")
-dash = NodePath("../Player1/Controls/DashAction")
-slide = NodePath("../Player1/Controls/SlideAction")
-stomp = NodePath("../Player1/Controls/StompAction")
-block = NodePath("../Player1/Controls/BlockAction")
-cancel = NodePath("../Player1/Controls/CancelAction")
-look_up = NodePath("../Player1/Controls/LookUpAction")
-look_down = NodePath("../Player1/Controls/LookDownAction")
-look_left = NodePath("../Player1/Controls/LookLeftAction")
-look_right = NodePath("../Player1/Controls/LookRightAction")
+position = Vector2(-1824, -3544)
 SPAWNPOINT = NodePath("../Spawnpoint4")
 metadata/_edit_group_ = true
-
-[node name="PlayerStateMachine" parent="Player4" index="8" node_paths=PackedStringArray("current_state")]
-current_state = NodePath("../../Player1/PlayerStateMachine/AirState")
-
-[node name="DashState" parent="Player4/PlayerStateMachine" index="3" node_paths=PackedStringArray("direction")]
-direction = NodePath("../../../Player1/Body/Pivot/Hand")
 
 [node name="MoveLeftAction" parent="Player4/Controls" index="0"]
 action = "move_left_4"
@@ -373,13 +300,13 @@ action = "aim_right_4"
 position = Vector2(578, 304)
 
 [node name="Spawnpoint" parent="." instance=ExtResource("3_ubnn1")]
-position = Vector2(110, 169)
+position = Vector2(113, 8)
 
 [node name="Spawnpoint2" parent="." instance=ExtResource("3_ubnn1")]
 position = Vector2(978, 608)
 
 [node name="Spawnpoint3" parent="." instance=ExtResource("3_ubnn1")]
-position = Vector2(984, 167)
+position = Vector2(989, 11)
 
 [node name="Spawnpoint4" parent="." instance=ExtResource("3_ubnn1")]
 position = Vector2(128, 605)
@@ -408,10 +335,11 @@ script = SubResource("GDScript_i213s")
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = -1
-anchor_top = 0.869
+anchor_top = 0.975
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 19.888
+offset_top = -13.8
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_7dss5")
@@ -421,7 +349,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_bottom = 5
 
 [node name="CenterContainer" type="CenterContainer" parent="UI/PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -531,6 +459,17 @@ autostart = true
 [node name="WindEndTimer" type="Timer" parent="."]
 wait_time = 30.0
 one_shot = true
+
+[node name="Spikes" parent="." instance=ExtResource("7_cf0gq")]
+position = Vector2(1633, 47)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="." instance=ExtResource("7_cf0gq")]
+position = Vector2(1631, 623)
+rotation = 3.14159
+scale = Vector2(2, 2)
+
+[node name="Wind" parent="." instance=ExtResource("8_7lg8j")]
 
 [connection signal="timeout" from="WindStartTimer" to="." method="_on_wind_start_timer_timeout"]
 [connection signal="timeout" from="WindEndTimer" to="." method="_on_wind_end_timer_timeout"]

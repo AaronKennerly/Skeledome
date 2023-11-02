@@ -474,7 +474,7 @@ Player One press Enter or Select to Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_5bg56")]
+[node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_5bg56")]
 position = Vector2(145, 230)
 SPAWNPOINT = NodePath("../Spawnpoint1")
 
@@ -514,7 +514,7 @@ action = "aim_left_1"
 [node name="LookRightAction" parent="Player1/Controls" index="11"]
 action = "aim_right_1"
 
-[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") groups=["Player"] instance=ExtResource("2_5bg56")]
+[node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_5bg56")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(420, 230)
 SPAWNPOINT = NodePath("../Spawnpoint2")
