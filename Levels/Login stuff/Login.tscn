@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b41jwtbu0dvdu"]
+[gd_scene load_steps=11 format=3 uid="uid://b41jwtbu0dvdu"]
 
 [ext_resource type="Script" path="res://Levels/Login stuff/Login.gd" id="1_ki8xt"]
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_5bg56"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mt6qofr2m3j3" path="res://Assets/Art/Obstacles/tileset.png" id="4_hm6uc"]
 [ext_resource type="PackedScene" uid="uid://2ykj5dthpi8i" path="res://Levels/moving_platform.tscn" id="5_cjv33"]
 [ext_resource type="Texture2D" uid="uid://bw7fe5a6u78or" path="res://Assets/Art/Obstacles/bone_platform.png" id="6_oid53"]
+[ext_resource type="PackedScene" uid="uid://ds7kug08dq2nf" path="res://Levels/wind.tscn" id="7_cbt22"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3iij4"]
 texture = ExtResource("4_hm6uc")
@@ -666,6 +667,8 @@ texture = ExtResource("6_oid53")
 position = Vector2(0, 0.800003)
 shape = SubResource("RectangleShape2D_1qyfi")
 one_way_collision = true
+
+[node name="wind" parent="." instance=ExtResource("7_cbt22")]
 
 [editable path="Player1"]
 [editable path="Player2"]
