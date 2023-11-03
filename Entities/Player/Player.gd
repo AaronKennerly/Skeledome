@@ -96,8 +96,10 @@ func _physics_process(delta) -> void:
 		
 	if Input.is_action_pressed(left.action):
 		acceleration_direction = -1
-	if Input.is_action_pressed(right.action):
+	elif Input.is_action_pressed(right.action):
 		acceleration_direction = 1
+	else:
+		acceleration_direction = 0
 	
 	if is_on_floor():
 		which_wall = 0

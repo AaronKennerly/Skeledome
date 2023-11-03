@@ -3,9 +3,14 @@
 [sub_resource type="GDScript" id="GDScript_egx1j"]
 script/source = "extends CanvasLayer
 
-
 func _on_rematch_button_pressed():
 	get_tree().reload_current_scene()
+	if (GameManager.level == 1):
+		get_tree().change_scene_to_file(\"res://Levels/Level 2/level2.tscn\")
+		GameManager.level = 2
+	elif (GameManager.level == 2):
+		get_tree().change_scene_to_file(\"res://Levels/testing world/world.tscn\")
+		GameManager.level = 1
 
 
 func _on_quit_button_pressed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://calobleasn223"]
+[gd_scene load_steps=4 format=3 uid="uid://cmw6hfxhhwq4c"]
 
 [ext_resource type="Texture2D" uid="uid://ccams1i4idh4x" path="res://Assets/Art/Obstacles/jumpPad.png" id="1_j3s16"]
 
@@ -7,7 +7,14 @@ script/source = "extends Node2D
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group(\"Player\"):
-		body.velocity.y = body.JUMP_VELOCITY * 1.6
+		if (rad_to_deg(rotation) == 0):
+			body.velocity.y = body.JUMP_VELOCITY * 1.6
+		elif (rad_to_deg(rotation) <= 0):
+			body.velocity.x = body.JUMP_VELOCITY * 3
+			body.velocity.y = body.JUMP_VELOCITY / 2
+		elif (rad_to_deg(rotation) >= 0):
+			body.velocity.x = -1 * (body.JUMP_VELOCITY * 3)
+			body.velocity.y = body.JUMP_VELOCITY / 2
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pf81v"]

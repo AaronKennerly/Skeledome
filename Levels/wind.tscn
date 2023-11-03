@@ -1,77 +1,76 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds7kug08dq2nf"]
+[gd_scene load_steps=4 format=3 uid="uid://ds7kug08dq2nf"]
 
-[ext_resource type="Texture2D" uid="uid://nsvb03gk3ex6" path="res://Assets/Art/Obstacles/Wind stuff/wind1.png" id="1_coa1w"]
-[ext_resource type="Texture2D" uid="uid://v4rk3k32w1a" path="res://Assets/Art/Obstacles/Wind stuff/wind2.png" id="2_uuh1g"]
-[ext_resource type="Texture2D" uid="uid://se0gwyq3p87v" path="res://Assets/Art/Obstacles/Wind stuff/wind3.png" id="3_wi8ik"]
-[ext_resource type="Texture2D" uid="uid://bgdlgvmkvt2n7" path="res://Assets/Art/Obstacles/Wind stuff/wind4.png" id="4_yxxlw"]
-[ext_resource type="Texture2D" uid="uid://f4q5uiu0nit" path="res://Assets/Art/Obstacles/Wind stuff/wind6.png" id="6_uwsa6"]
+[sub_resource type="GDScript" id="GDScript_308lq"]
+script/source = "extends Node2D
 
-[sub_resource type="GDScript" id="GDScript_7q6j4"]
-script/source = "extends ParallaxBackground
+var players : Array = []
+var windStrength = 10.0
+@onready var particles = $particles
 
-var scrolling_speed = 300
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 
-func _process(delta):
-	scroll_offset.x += scrolling_speed * delta
+func _process(_delta):
+	for i in range(players.size()):
+		# Calculate the wind force based on wind direction and strength
+		var windForce = windStrength * players[i].acceleration_direction
+		if players[i].acceleration_direction < 0:
+			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x - (windForce / 2.5)), 1.1)
+		elif players[i].acceleration_direction > 0 and players[i].velocity.x < 0:
+			# Apply the wind force to the player's velocity
+			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + windForce), 1.5)
+		else:
+			if (players[i].is_on_floor()):
+				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength * 2.0)), 1.0)
+			else:
+				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength)), 1.0)
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group(\"Player\") && body.player_joined:
+		var player = body
+		players.append(player)
+
+
+func _on_area_2d_body_exited(body):
+	if players.has(body):
+		players.erase(body)
+
+func setWind(emit : bool):
+	particles.emitting = emit
 "
 
-[node name="wind" type="ParallaxBackground"]
-script = SubResource("GDScript_7q6j4")
+[sub_resource type="Gradient" id="Gradient_c11od"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.00662252, 0.397351, 0.701987)
+colors = PackedColorArray(1, 1, 1, 1, 0.800491, 0.800491, 0.80049, 1, 0.625597, 0.625597, 0.625597, 1)
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(1153, 0)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhyy7"]
+size = Vector2(3726, 1950)
 
-[node name="Wind1" type="Sprite2D" parent="ParallaxLayer"]
-modulate = Color(1, 1, 1, 0.509804)
-position = Vector2(197, 217.5)
-scale = Vector2(0.845, 1.015)
-texture = ExtResource("1_coa1w")
+[node name="Wind" type="Node2D"]
+script = SubResource("GDScript_308lq")
 
-[node name="Wind7" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(197, 217.5)
-scale = Vector2(0.845, 1.015)
-texture = ExtResource("1_coa1w")
+[node name="particles" type="CPUParticles2D" parent="."]
+position = Vector2(-700, 347)
+amount = 1000
+lifetime = 3.0
+randomness = 0.1
+emission_shape = 3
+emission_rect_extents = Vector2(1, 800)
+spread = 14.09
+gravity = Vector2(500, 0)
+initial_velocity_min = 102.01
+initial_velocity_max = 495.95
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color = Color(0.698039, 0.698039, 0.698039, 1)
+color_ramp = SubResource("Gradient_c11od")
 
-[node name="Wind2" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(755, 414.5)
-scale = Vector2(0.455, 0.605)
-texture = ExtResource("2_uuh1g")
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
 
-[node name="Wind3" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(835.5, 163.5)
-scale = Vector2(0.6625, 0.665)
-texture = ExtResource("3_wi8ik")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(690, 253)
+shape = SubResource("RectangleShape2D_bhyy7")
 
-[node name="Wind3" type="Sprite2D" parent="ParallaxLayer/Wind3"]
-position = Vector2(-462.641, 274.436)
-scale = Vector2(0.6625, 0.665)
-texture = ExtResource("3_wi8ik")
-
-[node name="Wind4" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(241, 502.5)
-scale = Vector2(0.885, 0.565)
-texture = ExtResource("4_yxxlw")
-
-[node name="Wind5" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(518, 137)
-scale = Vector2(0.3775, 0.415)
-texture = ExtResource("2_uuh1g")
-
-[node name="Wind6" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(867.962, 542.3)
-scale = Vector2(0.779512, 1.015)
-texture = ExtResource("1_coa1w")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.8, 0.8)
-motion_mirroring = Vector2(1152, 0)
-
-[node name="Wind6" type="Sprite2D" parent="ParallaxLayer2"]
-position = Vector2(545, 321)
-scale = Vector2(1.03993, 1.01235)
-texture = ExtResource("6_uwsa6")
-
-[node name="Wind7" type="Sprite2D" parent="ParallaxLayer2"]
-position = Vector2(546.5, 320)
-scale = Vector2(1.0408, 1.01235)
-texture = ExtResource("6_uwsa6")
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

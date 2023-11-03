@@ -37,13 +37,13 @@ height = 64.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eceab"]
 radius = 12.0
-height = 38.0
+height = 32.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_70t8f"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5y63k"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right") groups=["Player"]]
 script = ExtResource("1_3sdl6")
 state_machine = NodePath("PlayerStateMachine")
 air_state = NodePath("PlayerStateMachine/AirState")
