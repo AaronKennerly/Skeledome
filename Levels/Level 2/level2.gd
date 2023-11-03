@@ -26,8 +26,9 @@ func _ready():
 		player.position = player.SPAWNPOINT.global_position
 		player.SPAWNPOINT = get_node("Respawn")
 		players.append(player)
-		
-	#wind.set_process(false)
+	
+	wind.setWind(false)
+	wind.set_process(false)
 	endScreen = get_node("GameOverScreen")
 	
 
@@ -74,9 +75,11 @@ func _process(_delta):
 
 func _on_wind_start_timer_timeout():
 	windEnd.start()
-	#wind.set_process(true)
+	wind.set_process(true)
+	wind.setWind(true)
 
 
 func _on_wind_end_timer_timeout():
 	windStart.start()
-	#wind.set_process(false)
+	wind.setWind(false)
+	wind.set_process(false)

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
 [ext_resource type="TileSet" uid="uid://c1b3nrd1eqdnb" path="res://Assets/Art/Obstacles/world.tres" id="6_kagxu"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
-[ext_resource type="PackedScene" uid="uid://calobleasn223" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
+[ext_resource type="PackedScene" uid="uid://cmw6hfxhhwq4c" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
 [ext_resource type="PackedScene" uid="uid://f80j0gfcnh7k" path="res://Levels/saw_blade.tscn" id="8_dsy71"]
 [ext_resource type="Texture2D" uid="uid://bjlsngghjfgaf" path="res://Assets/Art/backgrounds/level1_background.jpg" id="9_qlg0q"]
 [ext_resource type="Texture2D" uid="uid://chlf8qbxkyrsp" path="res://Assets/Art/Obstacles/sawBlade.png" id="10_j12nj"]
