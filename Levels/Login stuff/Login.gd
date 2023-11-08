@@ -36,4 +36,4 @@ func _input(event:InputEvent) -> void:
 	if event.is_action_pressed("start_1") && player_count >= 2:
 		GameManager.player_count = player_count
 		GameManager.player_nums = player_nums
-		get_tree().change_scene_to_file("res://Levels/testing world/world.tscn")
+		get_tree().change_scene_to_file("res://Levels/Login stuff/level_select.tscn")
