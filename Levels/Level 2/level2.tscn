@@ -175,7 +175,6 @@ script = ExtResource("1_hki6u")
 [node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 position = Vector2(-2823, -3437)
 SPAWNPOINT = NodePath("../Spawnpoint")
-metadata/_edit_group_ = true
 
 [node name="MoveLeftAction" parent="Player1/Controls" index="0"]
 action = "move_left_1"
@@ -217,7 +216,6 @@ action = "aim_right_1"
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(-2544, -3413)
 SPAWNPOINT = NodePath("../Spawnpoint2")
-metadata/_edit_group_ = true
 
 [node name="MoveLeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
@@ -259,7 +257,6 @@ action = "aim_right_2"
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-2177, -3433)
 SPAWNPOINT = NodePath("../Spawnpoint3")
-metadata/_edit_group_ = true
 
 [node name="MoveLeftAction" parent="Player3/Controls" index="0"]
 action = "move_left_3"
@@ -301,7 +298,6 @@ action = "aim_right_3"
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-1824, -3544)
 SPAWNPOINT = NodePath("../Spawnpoint4")
-metadata/_edit_group_ = true
 
 [node name="MoveLeftAction" parent="Player4/Controls" index="0"]
 action = "move_left_4"
@@ -512,10 +508,6 @@ position = Vector2(1633, 624)
 rotation = 3.14159
 scale = Vector2(2, 2)
 
-[node name="Wind" parent="." instance=ExtResource("8_7lg8j")]
-z_index = -7
-position = Vector2(32, -2)
-
 [node name="JumpPad" parent="." instance=ExtResource("9_nesl8")]
 position = Vector2(1603, 337)
 rotation = -1.5708
@@ -533,7 +525,6 @@ scale = Vector2(5, 1)
 
 [node name="moving_platform" type="Node2D" parent="."]
 position = Vector2(-476, 800)
-metadata/_edit_group_ = true
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="moving_platform"]
 position = Vector2(2000, 0)
@@ -555,6 +546,10 @@ autoplay = "move"
 libraries = {
 "": SubResource("AnimationLibrary_xrgsg")
 }
+
+[node name="Wind" parent="." instance=ExtResource("8_7lg8j")]
+z_index = -7
+position = Vector2(32, -2)
 
 [connection signal="timeout" from="WindStartTimer" to="." method="_on_wind_start_timer_timeout"]
 [connection signal="timeout" from="WindEndTimer" to="." method="_on_wind_end_timer_timeout"]
