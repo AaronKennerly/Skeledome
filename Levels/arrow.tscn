@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnu3q5vhto8m5"]
+[gd_scene load_steps=7 format=3 uid="uid://b0focgih5ymhv"]
 
 [ext_resource type="Texture2D" uid="uid://cyybr5ku7668m" path="res://Assets/Art/Obstacles/arrow.png" id="1_ip5pl"]
 
@@ -6,12 +6,9 @@
 script/source = "extends CharacterBody2D
 
 
-const SPEED = 300.0
-var directionY
-var directionX
-var accelerationX
-var accelerationY
-var speed = 200
+var directionY = 0.0
+var directionX = 0.0
+var speed = 800.0
 var colide = false
 @onready var shotTime = $ShotTime
 @onready var sprite = $Sprite2D
@@ -20,8 +17,8 @@ var colide = false
 var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 
 func _ready():
-	velocity.x += SPEED * directionX
-	velocity.y += SPEED * directionY
+	velocity.x += speed * directionX
+	velocity.y += speed * directionY
 	sprite.rotation = atan2(velocity.y, velocity.x)
 	shotTime.start()
 
@@ -95,9 +92,9 @@ script = SubResource("GDScript_mscdt")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ip5pl")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
 position = Vector2(0, -0.0151272)
 shape = SubResource("RectangleShape2D_pjgbu")
 
@@ -114,4 +111,4 @@ shape = SubResource("RectangleShape2D_rhtlv")
 wait_time = 0.2
 one_shot = true
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]

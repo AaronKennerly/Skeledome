@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm0ljhltwaoef"]
+[gd_scene load_steps=4 format=3 uid="uid://bpvd665rejrsu"]
 
 [ext_resource type="Script" path="res://Levels/centaur.gd" id="1_lahso"]
 [ext_resource type="Texture2D" uid="uid://co3t6d7lkxivs" path="res://Assets/Art/Obstacles/spikes.png" id="2_1j2wj"]
