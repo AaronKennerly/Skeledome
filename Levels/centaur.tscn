@@ -18,9 +18,14 @@ position = Vector2(8.9797, -8.27816)
 scale = Vector2(1, -1)
 
 [node name="FireRate" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1j2wj")
 
+[node name="VolleyTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
+[connection signal="timeout" from="VolleyTimer" to="." method="_on_volley_timer_timeout"]

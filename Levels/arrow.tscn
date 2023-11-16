@@ -18,7 +18,7 @@ var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 
 func _ready():
 	velocity.x += speed * directionX
-	velocity.y += speed * directionY
+	velocity.y += (1100) * directionY
 	sprite.rotation = atan2(velocity.y, velocity.x)
 	shotTime.start()
 
@@ -39,7 +39,7 @@ func die():
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group(\"Player\"):
-		body.velocity = velocity * 3
+		body.velocity = velocity * 1.5
 	
 	die()
 "
@@ -86,6 +86,7 @@ _data = {
 size = Vector2(14.9649, 7.87976)
 
 [node name="Arrow" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 collision_layer = 4096
 script = SubResource("GDScript_mscdt")
 

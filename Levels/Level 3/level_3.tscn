@@ -144,7 +144,7 @@ func _process(_delta):
 script = ExtResource("1_bx22k")
 
 [node name="Player1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
-position = Vector2(-1269, -2016)
+position = Vector2(-1274.12, -2007.8)
 script = ExtResource("1_pawnv")
 state_machine = NodePath("PlayerStateMachine")
 air_state = NodePath("PlayerStateMachine/AirState")
