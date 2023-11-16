@@ -10,6 +10,8 @@ class_name Player
 @export var cancel_state : PlayerState
 @export var wall_state : PlayerState
 
+@export var hand : Sprite2D
+
 @export var right : PlayerAction
 @export var left : PlayerAction
 @export var jump : PlayerAction
@@ -76,6 +78,8 @@ var is_blocking : bool = false
 var momentum_tracker : float = 0
 var is_on_fire : bool = false
 var is_in_big_mode : bool = false
+
+var current_item : Item
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -180,3 +184,8 @@ func update_force(_velocity) -> void:
 func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
+
+func area_entered(body) -> void:
+	if body.is_in_group("item"):
+		hand.item_pickup()
+	

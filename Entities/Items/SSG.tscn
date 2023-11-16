@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d24e8r3fc3qyn"]
+
+[ext_resource type="Texture2D" uid="uid://b6081sbjejble" path="res://Assets/Art/Items/ssg.png" id="1_tnj68"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c682b"]
+size = Vector2(264.5, 73)
+
+[node name="SSG" type="Node2D" groups=["item"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["item"]]
+texture = ExtResource("1_tnj68")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" groups=["item"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" groups=["item"]]
+shape = SubResource("RectangleShape2D_c682b")
