@@ -26,7 +26,7 @@ func _process(_delta):
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlkcc"]
-bg_color = Color(0.682353, 0.576471, 0.513726, 1)
+bg_color = Color(0.372549, 0.360784, 0.384314, 0.870588)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5

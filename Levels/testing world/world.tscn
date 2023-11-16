@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://chlf8qbxkyrsp" path="res://Assets/Art/Obstacles/sawBlade.png" id="10_j12nj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1mvf"]
-bg_color = Color(0.682353, 0.576471, 0.513726, 1)
+bg_color = Color(0.372549, 0.360784, 0.384314, 0.870588)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
