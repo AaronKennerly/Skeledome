@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnu3q5vhto8m5"]
+
+[ext_resource type="Texture2D" uid="uid://cyybr5ku7668m" path="res://Assets/Art/Obstacles/arrow.png" id="1_ip5pl"]
+
+[sub_resource type="GDScript" id="GDScript_mscdt"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+var directionY
+var directionX
+var accelerationX
+var accelerationY
+var speed = 200
+var colide = false
+@onready var shotTime = $ShotTime
+@onready var sprite = $Sprite2D
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+func _ready():
+	velocity.x += SPEED * directionX
+	velocity.y += SPEED * directionY
+	sprite.rotation = atan2(velocity.y, velocity.x)
+	shotTime.start()
+
+func _physics_process(delta):
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
+	sprite.rotation = atan2(velocity.y, velocity.x)
+	move_and_slide()
+
+
+func die():
+	colide = true
+	speed = 0
+	$AnimationPlayer.play(\"death\")
+	
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group(\"Player\"):
+		body.velocity = velocity * 3
+	
+	die()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjgbu"]
+size = Vector2(16, 9.00544)
+
+[sub_resource type="Animation" id="Animation_temcv"]
+resource_name = "death"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nxxms"]
+_data = {
+"death": SubResource("Animation_temcv")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhtlv"]
+size = Vector2(14.9649, 7.87976)
+
+[node name="Arrow" type="CharacterBody2D"]
+collision_layer = 4096
+script = SubResource("GDScript_mscdt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ip5pl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.0151272)
+shape = SubResource("RectangleShape2D_pjgbu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nxxms")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.00231552, 0.0179806)
+shape = SubResource("RectangleShape2D_rhtlv")
+
+[node name="ShotTime" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
