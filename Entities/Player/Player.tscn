@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_3sdl6"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/Aim.gd" id="2_374lj"]
 [ext_resource type="Script" path="res://Entities/Player/Hand.gd" id="3_51uqc"]
-[ext_resource type="Script" path="res://Scripts/Utilities/Player/PlayerStateMachine.gd" id="3_r4oka"]
+[ext_resource type="Script" path="res://Scripts/Utilities/StateMachine.gd" id="4_omoaf"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="4_wvjsy"]
 [ext_resource type="Script" path="res://Scripts/States/Player/BlockState.gd" id="5_8jnx5"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="5_3321d"]
@@ -45,23 +45,29 @@ height = 32.0
 [sub_resource type="CanvasTexture" id="CanvasTexture_5y63k"]
 
 [sub_resource type="GDScript" id="GDScript_fr00e"]
-script/source = "extends Item
+script/source = "extends ItemState
 
-class_name SSG
+class_name None
 
 func action():
 	pass
+
+func throw():
+	pass
 "
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "hand", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "item_state_machine", "none", "ssg", "hand", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right") groups=["Player"]]
 script = ExtResource("1_3sdl6")
-state_machine = NodePath("PlayerStateMachine")
+player_state_machine = NodePath("PlayerStateMachine")
 air_state = NodePath("PlayerStateMachine/AirState")
 dash_state = NodePath("PlayerStateMachine/DashState")
 respawn_state = NodePath("PlayerStateMachine/RespawnState")
 block_state = NodePath("PlayerStateMachine/BlockState")
 cancel_state = NodePath("PlayerStateMachine/CancelState")
 wall_state = NodePath("PlayerStateMachine/WallState")
+item_state_machine = NodePath("ItemStateMachine")
+none = NodePath("ItemStateMachine/None")
+ssg = NodePath("ItemStateMachine/SSG")
 hand = NodePath("Body/Pivot/Hand")
 right = NodePath("Controls/MoveRightAction")
 left = NodePath("Controls/MoveLeftAction")
@@ -124,7 +130,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
-script = ExtResource("3_r4oka")
+script = ExtResource("4_omoaf")
 player = NodePath("..")
 current_state = NodePath("AirState")
 
@@ -331,9 +337,13 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_fd4oy")
 
-[node name="Items" type="Node" parent="."]
+[node name="ItemStateMachine" type="Node" parent="."]
+script = ExtResource("4_omoaf")
 
-[node name="SSG" type="Node" parent="Items"]
+[node name="SSG" type="Node" parent="ItemStateMachine"]
+script = SubResource("GDScript_fr00e")
+
+[node name="None" type="Node" parent="ItemStateMachine"]
 script = SubResource("GDScript_fr00e")
 
 [connection signal="area_entered" from="Touch" to="." method="area_entered"]
