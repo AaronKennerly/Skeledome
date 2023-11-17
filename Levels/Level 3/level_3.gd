@@ -7,6 +7,10 @@ var endText : String
 var count : int = GameManager.player_count
 var player_vals : Array = GameManager.player_nums
 var numWords : Array = ["One", "Two", "Three", "Four"]
+var arrowCycle = 1
+@onready var centaurL = $Centaur
+@onready var centaurR = $Centaur2
+@onready var arrowTimer = $ArrowTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +24,7 @@ func _ready():
 		player.SPAWNPOINT = get_node("Respawn")
 		players.append(player)
 		
-		
+	arrowTimer.start()
 	endScreen = get_node("GameOverScreen")
 
 
@@ -48,3 +52,17 @@ func _process(_delta):
 		endScreen.get_node("PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton").disabled = false
 		endScreen.get_node("PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RematchButton").disabled = false
 
+
+# this func will make the centaurs shoot at the players
+func _on_arrow_timer_timeout():
+	centaurL.shooting = true
+	centaurR.shooting = true
+	
+	if (arrowCycle == 1):
+		centaurL.volley()
+		centaurR.lowShot()
+		arrowCycle = 2
+	elif (arrowCycle == 2):
+		centaurL.lowShot()
+		centaurR.volley()
+		arrowCycle = 1
