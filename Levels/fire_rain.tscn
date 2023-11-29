@@ -1,32 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0focgih5ymhv"]
+[gd_scene load_steps=7 format=3 uid="uid://dxdkty8cj6142"]
 
-[ext_resource type="Texture2D" uid="uid://cyybr5ku7668m" path="res://Assets/Art/Obstacles/arrow.png" id="1_ip5pl"]
+[ext_resource type="Texture2D" uid="uid://bcsxo01hd0fx6" path="res://Assets/Art/Obstacles/fireball.png" id="1_cara5"]
 
-[sub_resource type="GDScript" id="GDScript_mscdt"]
+[sub_resource type="GDScript" id="GDScript_0i8ht"]
 script/source = "extends CharacterBody2D
 
-
 var directionY : float = 0.0
-var directionX : float = 0.0
 var yHeight : float = 1100
 var speed : float = 800.0
 var colide : bool = false
-@onready var shotTime = $ShotTime
+var time : float = 10.0
+@onready var lifeTime = $LifeTimer
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 
 func _ready():
-	velocity.x += speed * directionX
-	velocity.y += (yHeight) * directionY
+	velocity.x = 0.0
+	velocity.y += speed * directionY
 	rotation = atan2(velocity.y, velocity.x)
-	shotTime.start()
+	lifeTime.start()
+	
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	
+		
 	rotation = atan2(velocity.y, velocity.x)
 	move_and_slide()
 
@@ -37,22 +37,24 @@ func die():
 	$AnimationPlayer.play(\"death\")
 	
 
+
 func _on_area_2d_body_entered(body):
 	if body.is_in_group(\"Player\"):
 		body.hits += 1
-		body.velocity += velocity * 0.7
+		body.velocity += velocity * 1.2
 	
 	die()
 
 
-func _on_shot_time_timeout():
+func _on_life_timer_timeout():
 	die()
 "
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjgbu"]
-size = Vector2(17.1637, 9.7228)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_owms6"]
+radius = 6.44958
+height = 22.2121
 
-[sub_resource type="Animation" id="Animation_temcv"]
+[sub_resource type="Animation" id="Animation_d82s1"]
 resource_name = "death"
 length = 0.2
 tracks/0/type = "value"
@@ -74,7 +76,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -82,40 +84,39 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nxxms"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_854wr"]
 _data = {
-"death": SubResource("Animation_temcv")
+"death": SubResource("Animation_d82s1")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhtlv"]
-size = Vector2(7.83777, 2.52991)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ow0rk"]
+radius = 3.01665
+height = 15.3977
 
-[node name="Arrow" type="CharacterBody2D"]
+[node name="fire_rain" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 collision_layer = 4096
-script = SubResource("GDScript_mscdt")
+script = SubResource("GDScript_0i8ht")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ip5pl")
+texture = ExtResource("1_cara5")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.0539637, -0.0337677)
-shape = SubResource("RectangleShape2D_pjgbu")
+shape = SubResource("CapsuleShape2D_owms6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_nxxms")
+"": SubResource("AnimationLibrary_854wr")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.301994, -0.00896454)
-shape = SubResource("RectangleShape2D_rhtlv")
+shape = SubResource("CapsuleShape2D_ow0rk")
 
-[node name="ShotTime" type="Timer" parent="."]
+[node name="LifeTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="ShotTime" to="." method="_on_shot_time_timeout"]
+[connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]

@@ -1,9 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpvd665rejrsu"]
 
 [ext_resource type="Script" path="res://Levels/centaur.gd" id="1_lahso"]
-[ext_resource type="Texture2D" uid="uid://co3t6d7lkxivs" path="res://Assets/Art/Obstacles/spikes.png" id="2_1j2wj"]
+[ext_resource type="Texture2D" uid="uid://c3ubdko7gojjj" path="res://Assets/Art/Obstacles/centaur.png" id="2_6ikrl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrime"]
+size = Vector2(123.472, 95.754)
 
 [node name="Centaur" type="StaticBody2D"]
 position = Vector2(405.249, 483.063)
@@ -11,6 +12,7 @@ collision_layer = 4096
 script = ExtResource("1_lahso")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-54.3889, 17.2237)
 shape = SubResource("RectangleShape2D_lrime")
 
 [node name="Shot_Direction" type="Marker2D" parent="."]
@@ -22,6 +24,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_1j2wj")
+position = Vector2(-51.6567, -1.25992)
+texture = ExtResource("2_6ikrl")
 
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

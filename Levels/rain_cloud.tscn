@@ -1,0 +1,165 @@
+[gd_scene load_steps=8 format=3 uid="uid://y8bf38td0g5b"]
+
+[ext_resource type="Texture2D" uid="uid://dq34h00gi77n6" path="res://Assets/Art/Obstacles/FireCloud.png" id="1_wc3ry"]
+
+[sub_resource type="GDScript" id="GDScript_482c3"]
+script/source = "extends Node2D
+
+var fireBall = load(\"res://Levels/fire_rain.tscn\")
+
+var raining : bool = false
+var canRain : bool = false
+var startRain : bool = false
+var rng = RandomNumberGenerator.new()
+
+@onready var rainTime = $RainTimer
+@onready var cooldown = $CooldownTimer
+@onready var dropTime = $DropTimer
+@onready var move = $AnimatableBody2D/AnimationPlayer
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	# get a random int for the first cooldown
+	cooldown.wait_time = rng.randi_range(10, 40)
+	cooldown.start()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if (raining && dropTime.is_stopped()):
+		move.pause()
+		rainTime.start()
+		dropTime.start()
+		
+
+
+# when the rain is down set raining to false and start the cooldown
+func _on_rain_timer_timeout():
+	dropTime.stop()
+	raining = false
+	canRain = false
+	move.play()
+	cooldown.wait_time = rng.randi_range(5, 50)
+	cooldown.start()
+
+# when the cooldown is up set canRain to true
+func _on_cooldown_timer_timeout():
+	canRain = true
+
+
+func _on_drop_timer_timeout():
+	var spawned_fire = fireBall.instantiate()
+	var fireLocation = get_node(\"AnimatableBody2D/fire_point\" + str(rng.randi_range(1,5)))
+	spawned_fire.global_position = fireLocation.position
+	add_child(spawned_fire)
+
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group(\"Player\") && canRain:
+		startRain = true
+		canRain = false
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vma7"]
+radius = 145.37
+
+[sub_resource type="Animation" id="Animation_l7ukc"]
+resource_name = "move"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10, 20),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1300, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dujec"]
+_data = {
+"move": SubResource("Animation_l7ukc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rce2u"]
+size = Vector2(286.991, 900.895)
+
+[sub_resource type="Gradient" id="Gradient_vyetv"]
+offsets = PackedFloat32Array(0, 0.472393, 0.809816, 1)
+colors = PackedColorArray(0.734649, 0.149373, 3.85046e-07, 1, 0.802759, 0.315913, 0.0405164, 1, 0.905944, 0.797694, 0.261381, 1, 1, 1, 1, 1)
+
+[node name="Rain_Cloud" type="Node2D"]
+script = SubResource("GDScript_482c3")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_layer = 4096
+
+[node name="fire_point1" type="Marker2D" parent="AnimatableBody2D"]
+position = Vector2(-132.57, 26.5)
+
+[node name="fire_point2" type="Marker2D" parent="AnimatableBody2D"]
+position = Vector2(-92.57, -13.5)
+
+[node name="fire_point3" type="Marker2D" parent="AnimatableBody2D"]
+position = Vector2(-17.57, 27.5)
+
+[node name="fire_point4" type="Marker2D" parent="AnimatableBody2D"]
+position = Vector2(59.43, 34)
+
+[node name="fire_point5" type="Marker2D" parent="AnimatableBody2D"]
+position = Vector2(113.43, -27)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("CircleShape2D_5vma7")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D"]
+autoplay = "move"
+libraries = {
+"": SubResource("AnimationLibrary_dujec")
+}
+
+[node name="RainTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 31)
+scale = Vector2(2.53125, 3.17188)
+texture = ExtResource("1_wc3ry")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 15.0
+
+[node name="DropTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.77557, 440.447)
+shape = SubResource("RectangleShape2D_rce2u")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 15
+lifetime = 4.0
+randomness = 0.7
+lifetime_randomness = 0.33
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 0.01
+initial_velocity_max = 57.14
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_vyetv")
+
+[connection signal="timeout" from="RainTimer" to="." method="_on_rain_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

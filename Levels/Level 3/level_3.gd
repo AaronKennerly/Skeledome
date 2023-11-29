@@ -11,6 +11,7 @@ var arrowCycle = 1
 @onready var centaurL = $Centaur
 @onready var centaurR = $Centaur2
 @onready var arrowTimer = $ArrowTimer
+@onready var rainCloud = $Rain_Cloud
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +31,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	
+	# check if the rain_cloud can start if so start the rain
+	if (rainCloud.startRain):
+		rainCloud.raining = true
+		rainCloud.startRain = false
 	
 	# check how many players are dead if the number is 1 less 
 	# than the total we have a winner
