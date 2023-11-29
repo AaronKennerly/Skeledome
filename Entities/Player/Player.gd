@@ -63,6 +63,7 @@ var touch : Area2D
 var force : Vector2
 var mass : float = 60.0
 var deaths : int = 3
+var hits : int = 0
 var dead : bool = false
 var is_dashing : bool = false
 var momentum_direction : Vector2 # what direction player is being actively going
@@ -168,6 +169,11 @@ func _physics_process(delta) -> void:
 	
 	if abs(velocity.x) == SPEED:
 		momentum_tracker += delta 
+		
+	if (hits >= 3 && !dead): 
+		hits = 0
+		state_machine.set_state(respawn_state)
+	
 	
 	set_velocity(velocity)
 	move_and_slide()
