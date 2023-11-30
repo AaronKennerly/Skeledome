@@ -185,7 +185,7 @@ func _physics_process(delta) -> void:
 		
 	if (hits >= 3 && !dead): 
 		hits = 0
-		state_machine.set_state(respawn_state)
+		player_state_machine.set_state(respawn_state)
 	
 	
 	set_velocity(velocity)
@@ -212,14 +212,14 @@ func area_entered(body) -> void:
 	if body.is_in_group("item"):
 		item_state_machine.set_state(ssg)
 
-		state_machine.get_state().collide(body)
-		var tempDeaths = body.deaths
-		if (kill_timer.is_stopped()):
-			kill_timer.start()
-			await kill_timer.timeout
-			if (body.deaths < tempDeaths):
-				kills += 1
-				print(kills)
+#player_state_machine.get_state().collide(body)
+#var tempDeaths = body.deaths
+#if (kill_timer.is_stopped()):
+#	kill_timer.start()
+#	await kill_timer.timeout
+#	if (body.deaths < tempDeaths):
+#		kills += 1
+#		print(kills)
 			
 
 

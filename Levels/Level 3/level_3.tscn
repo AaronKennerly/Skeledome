@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="2_rhg3j"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/Aim.gd" id="2_spsag"]
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="3_k5ify"]
-[ext_resource type="Script" path="res://Scripts/Utilities/Player/PlayerStateMachine.gd" id="3_xko26"]
+[ext_resource type="Script" path="res://Scripts/Utilities/StateMachine.gd" id="3_xko26"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="4_tkh6m"]
 [ext_resource type="Script" path="res://Scripts/States/Player/BlockState.gd" id="5_153dx"]
 [ext_resource type="Script" path="res://Scripts/Timers/Player/BlockCooldown.gd" id="6_8scxb"]
@@ -148,36 +148,35 @@ size = Vector2(176.673, 137.57)
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_bx22k")
 
-[node name="Player1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
+[node name="Player1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
 position = Vector2(-1274.12, -2007.8)
 collision_mask = 3
 script = ExtResource("1_pawnv")
-state_machine = NodePath("PlayerStateMachine")
-air_state = NodePath("PlayerStateMachine/AirState")
-dash_state = NodePath("PlayerStateMachine/DashState")
-respawn_state = NodePath("PlayerStateMachine/RespawnState")
-block_state = NodePath("PlayerStateMachine/BlockState")
-cancel_state = NodePath("PlayerStateMachine/CancelState")
-wall_state = NodePath("PlayerStateMachine/WallState")
-right = NodePath("Controls/MoveRightAction")
-left = NodePath("Controls/MoveLeftAction")
-jump = NodePath("Controls/JumpAction")
-dash = NodePath("Controls/DashAction")
-slide = NodePath("Controls/SlideAction")
-stomp = NodePath("Controls/StompAction")
-block = NodePath("Controls/BlockAction")
-cancel = NodePath("Controls/CancelAction")
-look_up = NodePath("Controls/LookUpAction")
-look_down = NodePath("Controls/LookDownAction")
-look_left = NodePath("Controls/LookLeftAction")
-look_right = NodePath("Controls/LookRightAction")
+air_state = NodePath("")
+dash_state = NodePath("")
+respawn_state = NodePath("")
+block_state = NodePath("")
+cancel_state = NodePath("")
+wall_state = NodePath("")
+right = NodePath("")
+left = NodePath("")
+jump = NodePath("")
+dash = NodePath("")
+slide = NodePath("")
+stomp = NodePath("")
+block = NodePath("")
+cancel = NodePath("")
+look_up = NodePath("")
+look_down = NodePath("")
+look_left = NodePath("")
+look_right = NodePath("")
 SPEED = 800.0
 ACCELERATION = 15.0
 DECELERATION = 50.0
 JUMP_HEIGHT = -100
 DASH_SPEED = 1000
 DASH_DURATION = 0.2
-SPAWNPOINT = NodePath("../Spawnpoint1")
+SPAWNPOINT = NodePath("")
 metadata/_edit_group_ = true
 
 [node name="Touch" type="Area2D" parent="Player1"]
@@ -393,6 +392,10 @@ action = "aim_left_1"
 script = ExtResource("22_rin3p")
 action = "aim_right_1"
 
+[node name="ItemAction" type="Node" parent="Player1/Controls"]
+script = ExtResource("22_rin3p")
+action = "use_item_1"
+
 [node name="RespawnSoundPool" parent="Player1" instance=ExtResource("23_2prug")]
 
 [node name="RespawnSoundQueue1" parent="Player1/RespawnSoundPool" instance=ExtResource("24_h2dx4")]
@@ -431,37 +434,36 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player1/RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_oiqoa")
 
-[node name="Player2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
+[node name="Player2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(-1085, -2017)
 collision_mask = 3
 script = ExtResource("1_pawnv")
-state_machine = NodePath("PlayerStateMachine")
-air_state = NodePath("PlayerStateMachine/AirState")
-dash_state = NodePath("PlayerStateMachine/DashState")
-respawn_state = NodePath("PlayerStateMachine/RespawnState")
-block_state = NodePath("PlayerStateMachine/BlockState")
-cancel_state = NodePath("PlayerStateMachine/CancelState")
-wall_state = NodePath("PlayerStateMachine/WallState")
-right = NodePath("Controls/MoveRightAction")
-left = NodePath("Controls/MoveLeftAction")
-jump = NodePath("Controls/JumpAction")
-dash = NodePath("Controls/DashAction")
-slide = NodePath("Controls/SlideAction")
-stomp = NodePath("Controls/StompAction")
-block = NodePath("Controls/BlockAction")
-cancel = NodePath("Controls/CancelAction")
-look_up = NodePath("Controls/LookUpAction")
-look_down = NodePath("Controls/LookDownAction")
-look_left = NodePath("Controls/LookLeftAction")
-look_right = NodePath("Controls/LookRightAction")
+air_state = NodePath("")
+dash_state = NodePath("")
+respawn_state = NodePath("")
+block_state = NodePath("")
+cancel_state = NodePath("")
+wall_state = NodePath("")
+right = NodePath("")
+left = NodePath("")
+jump = NodePath("")
+dash = NodePath("")
+slide = NodePath("")
+stomp = NodePath("")
+block = NodePath("")
+cancel = NodePath("")
+look_up = NodePath("")
+look_down = NodePath("")
+look_left = NodePath("")
+look_right = NodePath("")
 SPEED = 800.0
 ACCELERATION = 15.0
 DECELERATION = 50.0
 JUMP_HEIGHT = -100
 DASH_SPEED = 1000
 DASH_DURATION = 0.2
-SPAWNPOINT = NodePath("../Spawnpoint2")
+SPAWNPOINT = NodePath("")
 metadata/_edit_group_ = true
 
 [node name="Touch" type="Area2D" parent="Player2"]
@@ -677,6 +679,10 @@ action = "aim_left_2"
 script = ExtResource("22_rin3p")
 action = "aim_right_2"
 
+[node name="ItemAction" type="Node" parent="Player2/Controls"]
+script = ExtResource("22_rin3p")
+action = "use_item_2"
+
 [node name="RespawnSoundPool" parent="Player2" instance=ExtResource("23_2prug")]
 
 [node name="RespawnSoundQueue1" parent="Player2/RespawnSoundPool" instance=ExtResource("24_h2dx4")]
@@ -715,37 +721,36 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player2/RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_oiqoa")
 
-[node name="Player3" type="CharacterBody2D" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
+[node name="Player3" type="CharacterBody2D" parent="." node_paths=PackedStringArray("air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-894, -2009)
 collision_mask = 3
 script = ExtResource("1_pawnv")
-state_machine = NodePath("PlayerStateMachine")
-air_state = NodePath("PlayerStateMachine/AirState")
-dash_state = NodePath("PlayerStateMachine/DashState")
-respawn_state = NodePath("PlayerStateMachine/RespawnState")
-block_state = NodePath("PlayerStateMachine/BlockState")
-cancel_state = NodePath("PlayerStateMachine/CancelState")
-wall_state = NodePath("PlayerStateMachine/WallState")
-right = NodePath("Controls/MoveRightAction")
-left = NodePath("Controls/MoveLeftAction")
-jump = NodePath("Controls/JumpAction")
-dash = NodePath("Controls/DashAction")
-slide = NodePath("Controls/SlideAction")
-stomp = NodePath("Controls/StompAction")
-block = NodePath("Controls/BlockAction")
-cancel = NodePath("Controls/CancelAction")
-look_up = NodePath("Controls/LookUpAction")
-look_down = NodePath("Controls/LookDownAction")
-look_left = NodePath("Controls/LookLeftAction")
-look_right = NodePath("Controls/LookRightAction")
+air_state = NodePath("")
+dash_state = NodePath("")
+respawn_state = NodePath("")
+block_state = NodePath("")
+cancel_state = NodePath("")
+wall_state = NodePath("")
+right = NodePath("")
+left = NodePath("")
+jump = NodePath("")
+dash = NodePath("")
+slide = NodePath("")
+stomp = NodePath("")
+block = NodePath("")
+cancel = NodePath("")
+look_up = NodePath("")
+look_down = NodePath("")
+look_left = NodePath("")
+look_right = NodePath("")
 SPEED = 800.0
 ACCELERATION = 15.0
 DECELERATION = 50.0
 JUMP_HEIGHT = -100
 DASH_SPEED = 1000
 DASH_DURATION = 0.2
-SPAWNPOINT = NodePath("../Spawnpoint3")
+SPAWNPOINT = NodePath("")
 metadata/_edit_group_ = true
 
 [node name="Touch" type="Area2D" parent="Player3"]
@@ -961,6 +966,10 @@ action = "aim_left_3"
 script = ExtResource("22_rin3p")
 action = "aim_right_3"
 
+[node name="ItemAction" type="Node" parent="Player3/Controls"]
+script = ExtResource("22_rin3p")
+action = "use_item_3"
+
 [node name="RespawnSoundPool" parent="Player3" instance=ExtResource("23_2prug")]
 
 [node name="RespawnSoundQueue1" parent="Player3/RespawnSoundPool" instance=ExtResource("24_h2dx4")]
@@ -999,37 +1008,36 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player3/RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_oiqoa")
 
-[node name="Player4" type="CharacterBody2D" parent="." node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
+[node name="Player4" type="CharacterBody2D" parent="." node_paths=PackedStringArray("air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "SPAWNPOINT") groups=["Player"]]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-738, -2007)
 collision_mask = 3
 script = ExtResource("1_pawnv")
-state_machine = NodePath("PlayerStateMachine")
-air_state = NodePath("PlayerStateMachine/AirState")
-dash_state = NodePath("PlayerStateMachine/DashState")
-respawn_state = NodePath("PlayerStateMachine/RespawnState")
-block_state = NodePath("PlayerStateMachine/BlockState")
-cancel_state = NodePath("PlayerStateMachine/CancelState")
-wall_state = NodePath("PlayerStateMachine/WallState")
-right = NodePath("Controls/MoveRightAction")
-left = NodePath("Controls/MoveLeftAction")
-jump = NodePath("Controls/JumpAction")
-dash = NodePath("Controls/DashAction")
-slide = NodePath("Controls/SlideAction")
-stomp = NodePath("Controls/StompAction")
-block = NodePath("Controls/BlockAction")
-cancel = NodePath("Controls/CancelAction")
-look_up = NodePath("Controls/LookUpAction")
-look_down = NodePath("Controls/LookDownAction")
-look_left = NodePath("Controls/LookLeftAction")
-look_right = NodePath("Controls/LookRightAction")
+air_state = NodePath("")
+dash_state = NodePath("")
+respawn_state = NodePath("")
+block_state = NodePath("")
+cancel_state = NodePath("")
+wall_state = NodePath("")
+right = NodePath("")
+left = NodePath("")
+jump = NodePath("")
+dash = NodePath("")
+slide = NodePath("")
+stomp = NodePath("")
+block = NodePath("")
+cancel = NodePath("")
+look_up = NodePath("")
+look_down = NodePath("")
+look_left = NodePath("")
+look_right = NodePath("")
 SPEED = 800.0
 ACCELERATION = 15.0
 DECELERATION = 50.0
 JUMP_HEIGHT = -100
 DASH_SPEED = 1000
 DASH_DURATION = 0.2
-SPAWNPOINT = NodePath("../Spawnpoint4")
+SPAWNPOINT = NodePath("")
 metadata/_edit_group_ = true
 
 [node name="Touch" type="Area2D" parent="Player4"]
@@ -1244,6 +1252,10 @@ action = "aim_left_4"
 [node name="LookRightAction" type="Node" parent="Player4/Controls"]
 script = ExtResource("22_rin3p")
 action = "aim_right_4"
+
+[node name="ItemAction" type="Node" parent="Player4/Controls"]
+script = ExtResource("22_rin3p")
+action = "use_item_4"
 
 [node name="RespawnSoundPool" parent="Player4" instance=ExtResource("23_2prug")]
 

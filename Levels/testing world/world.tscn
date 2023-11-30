@@ -189,6 +189,9 @@ action = "aim_left_1"
 [node name="LookRightAction" parent="Player1/Controls" index="11"]
 action = "aim_right_1"
 
+[node name="ItemAction" parent="Player1/Controls" index="12"]
+action = "use_item_1"
+
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(-2619, -2993)
@@ -229,6 +232,9 @@ action = "aim_left_2"
 
 [node name="LookRightAction" parent="Player2/Controls" index="11"]
 action = "aim_right_2"
+
+[node name="ItemAction" parent="Player2/Controls" index="12"]
+action = "use_item_2"
 
 [node name="Player3" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
@@ -274,6 +280,9 @@ action = "aim_left_3"
 [node name="LookRightAction" parent="Player3/Controls" index="11"]
 action = "aim_right_3"
 
+[node name="ItemAction" parent="Player3/Controls" index="12"]
+action = "use_item_3"
+
 [node name="Player4" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_7c503")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-2284, -2984)
@@ -317,6 +326,9 @@ action = "aim_left_4"
 
 [node name="LookRightAction" parent="Player4/Controls" index="11"]
 action = "aim_right_4"
+
+[node name="ItemAction" parent="Player4/Controls" index="12"]
+action = "use_item_4"
 
 [node name="Respawn" parent="." instance=ExtResource("3_n4iwg")]
 position = Vector2(582, 92)
