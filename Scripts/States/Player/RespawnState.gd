@@ -10,6 +10,7 @@ func on_enter() -> void:
 	player.set_collision_mask_value(1, false)
 	player.set_physics_process(false)
 	player.hide()
+	player.hits = 0
 	# decrease the death count and start the timer
 	player.deaths -= 1
 	if player.deaths == 0:

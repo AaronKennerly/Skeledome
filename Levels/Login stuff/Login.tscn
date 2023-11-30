@@ -477,12 +477,7 @@ vertical_alignment = 1
 
 [node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_5bg56")]
 position = Vector2(145, 230)
-JUMP_BUFFER_TIME = 0.1
-JUMP_VELOCITY = -600.0
 SPAWNPOINT = NodePath("../Spawnpoint1")
-BLOCKTIME = 5.0
-DIVESPEED = 1200.0
-WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player1/Controls" index="0"]
 action = "move_left_1"
@@ -526,12 +521,7 @@ action = "use_item_1"
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_5bg56")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(420, 230)
-JUMP_BUFFER_TIME = 0.1
-JUMP_VELOCITY = -600.0
 SPAWNPOINT = NodePath("../Spawnpoint2")
-BLOCKTIME = 5.0
-DIVESPEED = 1200.0
-WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
@@ -575,11 +565,6 @@ action = "use_item_2"
 [node name="Player3" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(761, 229)
-JUMP_BUFFER_TIME = 0.1
-JUMP_VELOCITY = -600.0
-BLOCKTIME = 5.0
-DIVESPEED = 1200.0
-WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player3/Controls" index="0"]
 action = "move_left_3"
@@ -623,11 +608,6 @@ action = "use_item_3"
 [node name="Player4" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(1020, 229)
-JUMP_BUFFER_TIME = 0.1
-JUMP_VELOCITY = -600.0
-BLOCKTIME = 5.0
-DIVESPEED = 1200.0
-WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player4/Controls" index="0"]
 action = "move_left_4"

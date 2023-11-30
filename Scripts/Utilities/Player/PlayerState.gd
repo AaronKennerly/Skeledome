@@ -36,6 +36,7 @@ func jump() -> void:
 # handle collisions
 func collide(body) -> void:
 	player.is_colliding = true
+
 	if body.velocity.x == 0:
 		body.velocity.x = player.velocity.x * 1.5
 	if abs(player.velocity.x) - abs(body.velocity.x) < 100 && (player.velocity.x / body.velocity.x <= 1) && abs(player.velocity.x) >= 100:
