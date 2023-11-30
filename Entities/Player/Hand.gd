@@ -15,7 +15,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	direction = Input.get_vector(player.look_right.action, player.look_left.action, player.look_up.action, player.look_down.action)
 	rotation = atan2(direction.x, direction.y)
 

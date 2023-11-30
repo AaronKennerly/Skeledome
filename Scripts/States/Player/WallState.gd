@@ -9,7 +9,7 @@ func on_enter() -> void:
 	$WallJumpTimer._on_timeout()
 	$WallJumpTimer.stop()
 	if !wall_coyote_timer.is_stopped():
-		wall_coyote_timer.stop
+		wall_coyote_timer.stop()
 	if player.velocity.y < 0:
 		player.velocity.y *= 0.95
 	if !player.wall_jump_buffer.is_stopped() and player.coyote_timer <= 0 and player.momentum_direction.x != player.acceleration_direction and player.which_wall != player.last_wall:
