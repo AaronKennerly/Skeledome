@@ -5,6 +5,8 @@ var player_count : int = 0
 var level : int = 1
 var player_nums : Array = []
 var actions : Array = InputMap.get_actions()
+var player_kills : Array = []
+var player_wins : Array = []
 
 # Function to respawn the player
 func respawn_player(player):
@@ -21,3 +23,4 @@ func set_controls():
 				var events = InputMap.action_get_events(actions[n])
 				for j in events.size():
 					events[j].set_device(device_nums[i])
+

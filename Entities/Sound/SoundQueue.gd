@@ -23,9 +23,9 @@ func _ready() -> void:
 		
 		# add remaining children
 		for n in count:
-			var duplicate : AudioStreamPlayer = child.duplicate() as AudioStreamPlayer
-			add_child(duplicate)
-			audio_stream_players.append(duplicate)
+			var copy : AudioStreamPlayer = child.duplicate() as AudioStreamPlayer
+			add_child(copy)
+			audio_stream_players.append(copy)
 			
 func play_sound() -> void:
 	if !audio_stream_players[next].is_playing():

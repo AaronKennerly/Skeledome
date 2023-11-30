@@ -121,6 +121,10 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("4_bbi2u")
 player = NodePath("..")

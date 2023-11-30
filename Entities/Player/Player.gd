@@ -46,6 +46,7 @@ class_name Player
 @onready var collision_timer : Timer = $CollisionTimer
 @onready var wall_coyote_timer : Timer = $WallCoyoteTimer
 @onready var wall_jump_buffer : Timer = $WallJumpBuffer
+@onready var kill_timer : Timer = $KillTimer
 
 # Constants
 const COYOTE_TIME : float = 0.2
@@ -70,6 +71,9 @@ var touch : Area2D
 var force : Vector2
 var mass : float = 60.0
 var deaths : int = 3
+var hits : int = 0
+var kills : int = 0
+var wins : int = 0
 var dead : bool = false
 var is_dashing : bool = false
 var momentum_direction : Vector2 # what direction player is being actively going
@@ -178,6 +182,11 @@ func _physics_process(delta) -> void:
 	
 	if abs(velocity.x) == SPEED:
 		momentum_tracker += delta 
+		
+	if (hits >= 3 && !dead): 
+		hits = 0
+		state_machine.set_state(respawn_state)
+	
 	
 	set_velocity(velocity)
 	move_and_slide()
@@ -189,6 +198,7 @@ func update_force(_velocity) -> void:
 # handle colision
 func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
+
 		player_state_machine.get_state().collide(body)
 
 func can_wall_jump() -> bool:
@@ -201,3 +211,17 @@ func can_wall_jump() -> bool:
 func area_entered(body) -> void:
 	if body.is_in_group("item"):
 		item_state_machine.set_state(ssg)
+
+		state_machine.get_state().collide(body)
+		var tempDeaths = body.deaths
+		if (kill_timer.is_stopped()):
+			kill_timer.start()
+			await kill_timer.timeout
+			if (body.deaths < tempDeaths):
+				kills += 1
+				print(kills)
+			
+
+
+func _on_kill_timer_timeout():
+	pass # Replace with function body.

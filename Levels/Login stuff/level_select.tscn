@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cj5iothjqmmtf"]
+[gd_scene load_steps=9 format=3 uid="uid://cj5iothjqmmtf"]
 
 [ext_resource type="Texture2D" uid="uid://coeid8ovnxmga" path="res://Assets/Art/backgrounds/Limbotest.png" id="1_3qh0r"]
 [ext_resource type="StyleBox" uid="uid://btcesjsb4x2an" path="res://Assets/Art/Styles/buttonStyleN.tres" id="1_6ponw"]
 [ext_resource type="Texture2D" uid="uid://cuq5yihe43x6h" path="res://Assets/Art/backgrounds/lusttest.png" id="2_kbhgs"]
+[ext_resource type="Texture2D" uid="uid://clbdy1vgfkdgk" path="res://Assets/Art/backgrounds/Wrathtest.png" id="4_13kck"]
 
 [sub_resource type="GDScript" id="GDScript_e41jv"]
 script/source = "extends Node2D
@@ -18,12 +19,19 @@ func _on_button_pressed():
 func _on_button_2_pressed():
 	GameManager.level = 2
 	get_tree().change_scene_to_file(\"res://Levels/Level 2/level2.tscn\")
+
+
+func _on_button_3_pressed():
+	get_tree().change_scene_to_file(\"res://Levels/Level 3/level_3.tscn\")
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyuvc"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 0.498039)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wd0lh"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.878431)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_of053"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 0.878431)
 
 [node name="Level_Select" type="Node2D"]
@@ -144,5 +152,42 @@ text = "Lust"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Button3" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("1_6ponw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_of053")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.99
+offset_right = 5.0
+offset_bottom = 0.999985
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button3/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button3/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button3/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_13kck")
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button3/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wrath"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

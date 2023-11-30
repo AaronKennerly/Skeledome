@@ -14,15 +14,15 @@ func _process(_delta):
 		# Calculate the wind force based on wind direction and strength
 		var windForce = windStrength * players[i].acceleration_direction
 		if players[i].acceleration_direction < 0:
-			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x - (windForce / 2.5)), 2.1)
+			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x - (windForce / 2.5)), 1.1)
 		elif players[i].acceleration_direction > 0 and players[i].velocity.x < 0:
 			# Apply the wind force to the player's velocity
-			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + windForce), 3.5)
+			players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + windForce), 1.5)
 		else:
 			if (players[i].is_on_floor()):
-				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength * 2.0)), 3.0)
+				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength * 2.0)), 1.0)
 			else:
-				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength)), 2.5)
+				players[i].velocity.x = lerp(players[i].velocity.x, (players[i].velocity.x + (windStrength)), 1.0)
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group(\"Player\") && body.player_joined:

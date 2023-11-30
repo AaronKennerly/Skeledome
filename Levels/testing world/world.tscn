@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_7c503"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_n4iwg"]
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_5d4y4"]
+[ext_resource type="StyleBox" uid="uid://knkq7kxc1u2g" path="res://Assets/Art/Styles/PlayerUi.tres" id="5_i6eil"]
 [ext_resource type="TileSet" uid="uid://c1b3nrd1eqdnb" path="res://Assets/Art/Obstacles/world.tres" id="6_kagxu"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="6_yhe1e"]
 [ext_resource type="PackedScene" uid="uid://cmw6hfxhhwq4c" path="res://Levels/jump_pad.tscn" id="7_3ol62"]
@@ -11,17 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bjlsngghjfgaf" path="res://Assets/Art/backgrounds/level1_background.jpg" id="9_qlg0q"]
 [ext_resource type="Texture2D" uid="uid://chlf8qbxkyrsp" path="res://Assets/Art/Obstacles/sawBlade.png" id="10_j12nj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1mvf"]
-bg_color = Color(0.372549, 0.360784, 0.384314, 0.870588)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.137255, 0.137255, 0.137255, 1)
-border_blend = true
-
 [sub_resource type="Theme" id="Theme_ea4v1"]
-Label/styles/normal = SubResource("StyleBoxFlat_v1mvf")
+Label/styles/normal = ExtResource("5_i6eil")
 
 [sub_resource type="GDScript" id="GDScript_0js7q"]
 script/source = "extends Label
@@ -243,7 +235,7 @@ modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-2489, -2992)
 SPAWNPOINT = NodePath("../Spawnpoint3")
 
-[node name="StateDubugLabel" parent="Player3" index="9"]
+[node name="StateDubugLabel" parent="Player3" index="10"]
 metadata/_edit_use_anchors_ = true
 
 [node name="MoveLeftAction" parent="Player3/Controls" index="0"]
@@ -287,7 +279,7 @@ modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-2284, -2984)
 SPAWNPOINT = NodePath("../Spawnpoint4")
 
-[node name="StateDubugLabel" parent="Player4" index="9"]
+[node name="StateDubugLabel" parent="Player4" index="10"]
 metadata/_edit_use_anchors_ = true
 
 [node name="MoveLeftAction" parent="Player4/Controls" index="0"]
