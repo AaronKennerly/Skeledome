@@ -340,7 +340,6 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_fd4oy")
 
-
 [node name="HorizontalRaycast" type="RayCast2D" parent="."]
 target_position = Vector2(-30, 0)
 
@@ -363,7 +362,6 @@ target_position = Vector2(30, 0)
 position = Vector2(0, -10)
 target_position = Vector2(30, 0)
 
-
 [node name="ItemStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("32_vy7ie")
 player = NodePath("..")
@@ -376,7 +374,6 @@ script = ExtResource("33_emrjs")
 script = ExtResource("34_b4ihh")
 
 [connection signal="area_entered" from="Touch" to="." method="area_entered"]
-
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="PlayerStateMachine/BlockState/BlockCooldown" to="PlayerStateMachine/BlockState/BlockCooldown" method="on_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/CancelState/CancelTimer" to="PlayerStateMachine/CancelState" method="end_cancel"]
