@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=3 format=3 uid="uid://d24e8r3fc3qyn"]
+
 
 [ext_resource type="Texture2D" uid="uid://b6081sbjejble" path="res://Assets/Art/Items/ssg.png" id="1_tnj68"]
 
@@ -14,3 +16,24 @@ texture = ExtResource("1_tnj68")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" groups=["item"]]
 shape = SubResource("RectangleShape2D_c682b")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(129, -24)
+target_position = Vector2(365, -167)
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(129, -24)
+target_position = Vector2(427, -79)
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+position = Vector2(129, -24)
+target_position = Vector2(420, 74)
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+position = Vector2(129, -24)
+target_position = Vector2(362, 184)
+
+[node name="RayCast2D5" type="RayCast2D" parent="."]
+position = Vector2(130, -22)
+target_position = Vector2(439, -15)
+

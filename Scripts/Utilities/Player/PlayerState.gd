@@ -1,4 +1,4 @@
-extends Node
+extends State
 
 class_name PlayerState
 
@@ -23,31 +23,8 @@ class_name PlayerState
 @onready var stun_state = get_node("../StunnedState")
 @onready var wall_state = get_node("../WallState")
 
-
-var player : Player
-var next_state : PlayerState
 var height
 
-
-# constant checks
-func _physics_process(_delta) -> void:
-	pass
-
-# checks unique for state
-func state_process(_delta) -> void:
-	pass
-
-# input handled while in state
-func state_input(_event : InputEvent) -> void:
-	pass
-
-# do when entering state
-func on_enter() -> void:
-	pass
-
-# do when leaving state
-func on_exit() -> void:
-	pass
 
 # all Player states have access to the jump function
 func jump() -> void:

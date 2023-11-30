@@ -571,6 +571,10 @@ libraries = {
 z_index = -7
 position = Vector2(32, -2)
 
+[connection signal="area_entered" from="Player1/Touch" to="Player1" method="area_entered" flags=18]
+[connection signal="area_entered" from="Player2/Touch" to="Player2" method="area_entered" flags=18]
+[connection signal="area_entered" from="Player3/Touch" to="Player3" method="area_entered" flags=18]
+[connection signal="area_entered" from="Player4/Touch" to="Player4" method="area_entered" flags=18]
 [connection signal="timeout" from="WindStartTimer" to="." method="_on_wind_start_timer_timeout"]
 [connection signal="timeout" from="WindEndTimer" to="." method="_on_wind_end_timer_timeout"]
 

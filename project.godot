@@ -328,3 +328,23 @@ aim_right_4={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":2,"axis_value":1.0,"script":null)
 ]
 }
+use_item_1={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":5,"axis_value":1.0,"script":null)
+]
+}
+use_item_2={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":5,"axis_value":1.0,"script":null)
+]
+}
+use_item_3={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":3,"axis":5,"axis_value":1.0,"script":null)
+]
+}
+use_item_4={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":5,"axis_value":1.0,"script":null)
+]
+}
