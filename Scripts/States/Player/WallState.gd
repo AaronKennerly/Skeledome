@@ -2,8 +2,14 @@ extends PlayerState
 
 class_name WallState
 
+@export var wall_coyote_timer : Timer
+
 func on_enter() -> void:
 	# I do not understand why this is necessary, but it is
+	$WallJumpTimer._on_timeout()
+	$WallJumpTimer.stop()
+	if !wall_coyote_timer.is_stopped():
+		wall_coyote_timer.stop
 	if player.velocity.y < 0:
 		player.velocity.y *= 0.95
 	if !player.wall_jump_buffer.is_stopped() and player.coyote_timer <= 0 and player.momentum_direction.x != player.acceleration_direction and player.which_wall != player.last_wall:
@@ -37,11 +43,20 @@ func state_process(_delta) -> void:
 func end_jump() -> void:
 	if !player.is_on_wall_only():
 		next_state = air_state
+		wall_coyote_timer.start()
+		
 
 func wall_jump() -> void:
 	player.is_wall_jumping = true
 	player.last_wall = player.which_wall
-	player.velocity.x = player.JUMP_VELOCITY * 3 * player.acceleration_direction
-	player.velocity.y = player.JUMP_VELOCITY * 0.8
+	if player.velocity.x == 0:
+		player.velocity.x = player.JUMP_VELOCITY * 1.2 * -player.acceleration_direction
+		player.velocity.y = player.JUMP_VELOCITY * 0.8
+	else:
+		player.velocity.x = player.JUMP_VELOCITY * 1.2 * player.acceleration_direction
+		player.velocity.y = player.JUMP_VELOCITY * 0.8
+	
+	if !$WallJumpTimer.is_stopped():
+		$WallJumpTimer.stop()
 	$WallJumpTimer.start()
 

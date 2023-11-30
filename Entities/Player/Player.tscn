@@ -1,8 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=39 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_3sdl6"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/Aim.gd" id="2_374lj"]
-[ext_resource type="Script" path="res://Scripts/Utilities/Player/PlayerStateMachine.gd" id="3_r4oka"]
+[ext_resource type="Script" path="res://Entities/Player/Hand.gd" id="3_51uqc"]
+[ext_resource type="Script" path="res://Entities/Player/PlayerStateMachine.gd" id="4_bbi2u"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="4_wvjsy"]
 [ext_resource type="Script" path="res://Scripts/States/Player/BlockState.gd" id="5_8jnx5"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="5_3321d"]
@@ -30,6 +31,9 @@
 [ext_resource type="AudioStream" uid="uid://cvlnqqcnq317q" path="res://Assets/Sound/Player/Spawn/spawn04.wav" id="28_64oac"]
 [ext_resource type="AudioStream" uid="uid://hvuodygqkb7r" path="res://Assets/Sound/Player/Spawn/spawn05.wav" id="29_str1r"]
 [ext_resource type="AudioStream" uid="uid://c5hr0apil0tdy" path="res://Assets/Sound/Player/Spawn/spawn06.wav" id="30_fd4oy"]
+[ext_resource type="Script" path="res://Entities/Player/ItemStateMachine.gd" id="32_vy7ie"]
+[ext_resource type="Script" path="res://Entities/Player/SSG.gd" id="33_emrjs"]
+[ext_resource type="Script" path="res://Entities/Player/None.gd" id="34_b4ihh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -43,15 +47,19 @@ height = 32.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5y63k"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "item_state_machine", "none", "ssg", "hand", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "item") groups=["Player"]]
 script = ExtResource("1_3sdl6")
-state_machine = NodePath("PlayerStateMachine")
+player_state_machine = NodePath("PlayerStateMachine")
 air_state = NodePath("PlayerStateMachine/AirState")
 dash_state = NodePath("PlayerStateMachine/DashState")
 respawn_state = NodePath("PlayerStateMachine/RespawnState")
 block_state = NodePath("PlayerStateMachine/BlockState")
 cancel_state = NodePath("PlayerStateMachine/CancelState")
 wall_state = NodePath("PlayerStateMachine/WallState")
+item_state_machine = NodePath("ItemStateMachine")
+none = NodePath("ItemStateMachine/None")
+ssg = NodePath("ItemStateMachine/SSG")
+hand = NodePath("Body/Pivot/Hand")
 right = NodePath("Controls/MoveRightAction")
 left = NodePath("Controls/MoveLeftAction")
 jump = NodePath("Controls/JumpAction")
@@ -64,6 +72,7 @@ look_up = NodePath("Controls/LookUpAction")
 look_down = NodePath("Controls/LookDownAction")
 look_left = NodePath("Controls/LookLeftAction")
 look_right = NodePath("Controls/LookRightAction")
+item = NodePath("Controls/ItemAction")
 SPEED = 800.0
 ACCELERATION = 15.0
 DECELERATION = 50.0
@@ -88,9 +97,11 @@ texture = SubResource("CanvasTexture_70t8f")
 script = ExtResource("2_374lj")
 player = NodePath("../..")
 
-[node name="Hand" type="Sprite2D" parent="Body/Pivot"]
+[node name="Hand" type="Sprite2D" parent="Body/Pivot" node_paths=PackedStringArray("player")]
 scale = Vector2(0.2, 0.15)
 texture = SubResource("CanvasTexture_5y63k")
+script = ExtResource("3_51uqc")
+player = NodePath("../../..")
 
 [node name="JumpBuffer" type="Timer" parent="."]
 wait_time = 0.1
@@ -107,7 +118,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="WallJumpBuffer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
 [node name="KillTimer" type="Timer" parent="."]
@@ -115,12 +126,14 @@ wait_time = 3.0
 one_shot = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
-script = ExtResource("3_r4oka")
+script = ExtResource("4_bbi2u")
 player = NodePath("..")
 current_state = NodePath("AirState")
 
-[node name="AirState" type="Node" parent="PlayerStateMachine"]
+[node name="AirState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("wall_jump_buffer", "wall_coyote_timer")]
 script = ExtResource("5_3321d")
+wall_jump_buffer = NodePath("../../WallJumpBuffer")
+wall_coyote_timer = NodePath("../../WallCoyoteTimer")
 can_slide = false
 
 [node name="BlockState" type="Node" parent="PlayerStateMachine"]
@@ -216,8 +229,9 @@ can_block = false
 
 [node name="StunTimer" type="Timer" parent="PlayerStateMachine/StunnedState"]
 
-[node name="WallState" type="Node" parent="PlayerStateMachine"]
+[node name="WallState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("wall_coyote_timer")]
 script = ExtResource("19_hht18")
+wall_coyote_timer = NodePath("../../WallCoyoteTimer")
 
 [node name="WallJumpTimer" type="Timer" parent="PlayerStateMachine/WallState" node_paths=PackedStringArray("player")]
 wait_time = 0.4
@@ -284,6 +298,10 @@ action = null
 script = ExtResource("15_af7lr")
 action = null
 
+[node name="ItemAction" type="Node" parent="Controls"]
+script = ExtResource("15_af7lr")
+action = "<null>"
+
 [node name="RespawnSoundPool" parent="." instance=ExtResource("23_gcqha")]
 
 [node name="RespawnSoundQueue1" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
@@ -321,6 +339,43 @@ count = 6
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_fd4oy")
+
+
+[node name="HorizontalRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(-30, 0)
+
+[node name="HorizontalRaycast2" type="RayCast2D" parent="."]
+position = Vector2(0, 10)
+target_position = Vector2(-30, 0)
+
+[node name="HorizontalRaycast3" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(-30, 0)
+
+[node name="HorizontalRaycast4" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+
+[node name="HorizontalRaycast5" type="RayCast2D" parent="."]
+position = Vector2(0, 10)
+target_position = Vector2(30, 0)
+
+[node name="HorizontalRaycast6" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(30, 0)
+
+
+[node name="ItemStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
+script = ExtResource("32_vy7ie")
+player = NodePath("..")
+current_state = NodePath("None")
+
+[node name="SSG" type="Node" parent="ItemStateMachine"]
+script = ExtResource("33_emrjs")
+
+[node name="None" type="Node" parent="ItemStateMachine"]
+script = ExtResource("34_b4ihh")
+
+[connection signal="area_entered" from="Touch" to="." method="area_entered"]
 
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="PlayerStateMachine/BlockState/BlockCooldown" to="PlayerStateMachine/BlockState/BlockCooldown" method="on_timeout"]

@@ -2,7 +2,7 @@ extends Timer
 
 class_name StompTimer
 
-@export var state_machine : PlayerStateMachine
+@export var state_machine : StateMachine
 
 func _on_time_out():
 	state_machine.can_dash = true

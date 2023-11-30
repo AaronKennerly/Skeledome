@@ -166,7 +166,12 @@ script = ExtResource("1_hki6u")
 
 [node name="Player1" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 position = Vector2(-2823, -3437)
+JUMP_BUFFER_TIME = 0.1
+JUMP_VELOCITY = -600.0
 SPAWNPOINT = NodePath("../Spawnpoint")
+BLOCKTIME = 5.0
+DIVESPEED = 1200.0
+WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player1/Controls" index="0"]
 action = "move_left_1"
@@ -207,7 +212,12 @@ action = "aim_right_1"
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(-2544, -3413)
+JUMP_BUFFER_TIME = 0.1
+JUMP_VELOCITY = -600.0
 SPAWNPOINT = NodePath("../Spawnpoint2")
+BLOCKTIME = 5.0
+DIVESPEED = 1200.0
+WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player2/Controls" index="0"]
 action = "move_left_2"
@@ -248,7 +258,12 @@ action = "aim_right_2"
 [node name="Player3" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-2177, -3433)
+JUMP_BUFFER_TIME = 0.1
+JUMP_VELOCITY = -600.0
 SPAWNPOINT = NodePath("../Spawnpoint3")
+BLOCKTIME = 5.0
+DIVESPEED = 1200.0
+WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player3/Controls" index="0"]
 action = "move_left_3"
@@ -289,7 +304,12 @@ action = "aim_right_3"
 [node name="Player4" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_feump")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-1824, -3544)
+JUMP_BUFFER_TIME = 0.1
+JUMP_VELOCITY = -600.0
 SPAWNPOINT = NodePath("../Spawnpoint4")
+BLOCKTIME = 5.0
+DIVESPEED = 1200.0
+WALLSLIDESPEED = 600.0
 
 [node name="MoveLeftAction" parent="Player4/Controls" index="0"]
 action = "move_left_4"
@@ -543,6 +563,10 @@ libraries = {
 z_index = -7
 position = Vector2(32, -2)
 
+[connection signal="area_entered" from="Player1/Touch" to="Player1" method="area_entered" flags=18]
+[connection signal="area_entered" from="Player2/Touch" to="Player2" method="area_entered" flags=18]
+[connection signal="area_entered" from="Player3/Touch" to="Player3" method="area_entered" flags=18]
+[connection signal="area_entered" from="Player4/Touch" to="Player4" method="area_entered" flags=18]
 [connection signal="timeout" from="WindStartTimer" to="." method="_on_wind_start_timer_timeout"]
 [connection signal="timeout" from="WindEndTimer" to="." method="_on_wind_end_timer_timeout"]
 

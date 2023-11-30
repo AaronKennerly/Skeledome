@@ -2,13 +2,19 @@ extends CharacterBody2D
 class_name Player
 
 # Exported variables
-@export var state_machine : PlayerStateMachine
+@export var player_state_machine : StateMachine
 @export var air_state: PlayerState
 @export var dash_state : PlayerState
 @export var respawn_state : PlayerState
 @export var block_state : PlayerState
 @export var cancel_state : PlayerState
 @export var wall_state : PlayerState
+
+@export var item_state_machine : StateMachine
+@export var none : ItemState
+@export var ssg : ItemState
+
+@export var hand : Sprite2D
 
 @export var right : PlayerAction
 @export var left : PlayerAction
@@ -22,6 +28,7 @@ class_name Player
 @export var look_down : PlayerAction
 @export var look_left : PlayerAction
 @export var look_right : PlayerAction
+@export var item : PlayerAction
 
 @export var SPEED : float = 300.0
 @export var ACCELERATION : float = 10.0
@@ -118,11 +125,11 @@ func _physics_process(delta) -> void:
 		wall_jump_buffer.start()
 
 	# calculating Base Movement
-	if state_machine.get_can_move() && can_move && state_machine.get_state() != block_state:
+	if player_state_machine.get_can_move() && can_move && player_state_machine.get_state() != block_state:
 		
 		if Input.is_action_pressed(left.action):
 			if is_on_wall_only():
-				state_machine.set_state(wall_state)
+				player_state_machine.set_state(wall_state)
 				which_wall = 2
 			if velocity.x > 0:
 				velocity.x *= 0.75 #If changing direction, happens slightly faster, feeling better
@@ -130,7 +137,7 @@ func _physics_process(delta) -> void:
 			
 		elif Input.is_action_pressed(right.action):
 			if is_on_wall_only():
-				state_machine.set_state(wall_state)
+				player_state_machine.set_state(wall_state)
 				which_wall = 1
 			if velocity.x < 0:
 				velocity.x *= 0.75
@@ -148,27 +155,30 @@ func _physics_process(delta) -> void:
 					velocity.x -= gravity * delta
 		
 		if Input.is_action_pressed(dash.action) and can_dash:
-			state_machine.set_state(dash_state)
+			player_state_machine.set_state(dash_state)
 		
 		if Input.is_action_pressed(block.action) and can_block:
-			state_machine.set_state(block_state)
+			player_state_machine.set_state(block_state)
 		
 		if Input.is_action_pressed(cancel.action) and can_cancel:
-			state_machine.set_state(cancel_state)
+			player_state_machine.set_state(cancel_state)
 			
 		if Input.is_action_just_pressed(stomp.action) and is_on_floor():
 			position.y += 1
+		
+		if Input.is_action_just_pressed(item.action):
+			item_state_machine.get_state().action()
 
 	# if the player goes out of bounds kill them
 	if (position.y >= 955 or position.x <= -575 or position.x >= 1735) and player_joined:
-		state_machine.set_state(respawn_state)
+		player_state_machine.set_state(respawn_state)
 
-	if state_machine.get_state() != block_state and can_block:
+	if player_state_machine.get_state() != block_state and can_block:
 		if block_timer < BLOCKTIME:
 			block_timer += delta
 	
 	if is_wall_jumping:
-		velocity.x = lerp(velocity.x, acceleration_direction * ACCELERATION * delta, 0.1)
+		velocity.x = lerp(velocity.x, acceleration_direction * ACCELERATION * delta, 0.01)
 	
 	if abs(velocity.x) == SPEED:
 		momentum_tracker += delta 
@@ -188,6 +198,20 @@ func update_force(_velocity) -> void:
 # handle colision
 func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
+
+		player_state_machine.get_state().collide(body)
+
+func can_wall_jump() -> bool:
+	if is_on_wall_only() or ($HorizontalRaycast.is_colliding() or $HorizontalRaycast2.is_colliding() or $HorizontalRaycast3.is_colliding()
+	   or $HorizontalRaycast4.is_colliding() or $HorizontalRaycast5.is_colliding() or $HorizontalRaycast6.is_colliding()):
+		return true
+	else:
+		return false
+
+func area_entered(body) -> void:
+	if body.is_in_group("item"):
+		item_state_machine.set_state(ssg)
+
 		state_machine.get_state().collide(body)
 		var tempDeaths = body.deaths
 		if (kill_timer.is_stopped()):
