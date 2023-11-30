@@ -235,7 +235,7 @@ modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(-2489, -2992)
 SPAWNPOINT = NodePath("../Spawnpoint3")
 
-[node name="StateDubugLabel" parent="Player3" index="9"]
+[node name="StateDubugLabel" parent="Player3" index="10"]
 metadata/_edit_use_anchors_ = true
 
 [node name="MoveLeftAction" parent="Player3/Controls" index="0"]
@@ -279,7 +279,7 @@ modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(-2284, -2984)
 SPAWNPOINT = NodePath("../Spawnpoint4")
 
-[node name="StateDubugLabel" parent="Player4" index="9"]
+[node name="StateDubugLabel" parent="Player4" index="10"]
 metadata/_edit_use_anchors_ = true
 
 [node name="MoveLeftAction" parent="Player4/Controls" index="0"]

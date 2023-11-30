@@ -39,6 +39,7 @@ class_name Player
 @onready var collision_timer : Timer = $CollisionTimer
 @onready var wall_coyote_timer : Timer = $WallCoyoteTimer
 @onready var wall_jump_buffer : Timer = $WallJumpBuffer
+@onready var kill_timer : Timer = $KillTimer
 
 # Constants
 const COYOTE_TIME : float = 0.2
@@ -64,6 +65,8 @@ var force : Vector2
 var mass : float = 60.0
 var deaths : int = 3
 var hits : int = 0
+var kills : int = 0
+var wins : int = 0
 var dead : bool = false
 var is_dashing : bool = false
 var momentum_direction : Vector2 # what direction player is being actively going
@@ -186,3 +189,15 @@ func update_force(_velocity) -> void:
 func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
+		var tempDeaths = body.deaths
+		if (kill_timer.is_stopped()):
+			kill_timer.start()
+			await kill_timer.timeout
+			if (body.deaths < tempDeaths):
+				kills += 1
+				print(kills)
+			
+
+
+func _on_kill_timer_timeout():
+	pass # Replace with function body.

@@ -8,6 +8,8 @@ var spawn4: Node2D
 var player_count: int = 0
 var players : Array = []
 var player_nums : Array = []
+var kills : Array = []
+var wins : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,6 +31,8 @@ func _input(event:InputEvent) -> void:
 		if players[i] != null && event.is_action_pressed("join_" + str(i + 1)) && !players[i].player_joined :
 			players[i].set_physics_process(true)
 			players[i].player_joined = true
+			kills.append(0)
+			wins.append(0)
 			player_count += 1
 			player_nums.append(i + 1)
 			return
@@ -36,4 +40,6 @@ func _input(event:InputEvent) -> void:
 	if event.is_action_pressed("start_1") && player_count >= 2:
 		GameManager.player_count = player_count
 		GameManager.player_nums = player_nums
+		GameManager.player_kills = kills
+		GameManager.player_wins = wins
 		get_tree().change_scene_to_file("res://Levels/Login stuff/level_select.tscn")

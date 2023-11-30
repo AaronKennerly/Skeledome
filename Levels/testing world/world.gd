@@ -16,6 +16,9 @@ func _ready():
 	for i in count:
 		var player = get_node("Player" + str(player_vals[i]))
 		player.player_joined = true
+		player.dead = false
+		player.kills = GameManager.player_kills[i]
+		player.wins = GameManager.player_wins[i]
 		player.position = player.SPAWNPOINT.global_position
 		player.SPAWNPOINT = get_node("Respawn")
 		players.append(player)
@@ -38,12 +41,17 @@ func _process(_delta):
 		
 	if gameOver:
 		for i in count:
+			GameManager.player_kills[i] = players[i].kills
 			if (!players[i].dead):
 				players[i].set_process(false)
 				players[i].set_physics_process(false)
+				players[i].wins += 1
 				endText = numWords[i]
+			GameManager.player_wins[i] = players[i].wins
 			
+		
 		endScreen.setText(endText)
 		endScreen.visible = true
 		endScreen.get_node("PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton").disabled = false
 		endScreen.get_node("PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RematchButton").disabled = false
+		get_tree().paused = true

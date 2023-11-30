@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://yjefolfkqwrx"]
+[gd_scene load_steps=7 format=3 uid="uid://yjefolfkqwrx"]
 
 [sub_resource type="GDScript" id="GDScript_egx1j"]
 script/source = "extends CanvasLayer
 
 func _on_rematch_button_pressed():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 	if (GameManager.level == 1):
 		get_tree().change_scene_to_file(\"res://Levels/Level 2/level2.tscn\")
@@ -17,12 +18,16 @@ func _on_rematch_button_pressed():
 
 
 func _on_quit_button_pressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_file(\"res://Menus/main.tscn\")
 
 
 func setText(text):
-	var label = get_node(\"PanelContainer/MarginContainer/Rows/EndLabel\")
-	label.setWhoWon(text)
+	var endLabel = get_node(\"PanelContainer/MarginContainer/Rows/EndLabel\")
+	endLabel.setWhoWon(text)
+	for i in GameManager.player_count:
+		var label = get_node(\"PanelContainer/MarginContainer/Rows/HBoxContainer/Label\" + str(i + 1))
+		label.visible = true
 "
 
 [sub_resource type="GDScript" id="GDScript_h35rp"]
@@ -42,7 +47,68 @@ func setWhoWon(num):
 	whoWon = num
 "
 
+[sub_resource type="GDScript" id="GDScript_o7usc"]
+script/source = "extends Label
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if (GameManager.player_count >= 1):
+		text = \"Player One\\nWins:  \" + str(GameManager.player_wins[0]) + \"\\nKills:  \" + str(GameManager.player_kills[0]) 
+
+"
+
+[sub_resource type="GDScript" id="GDScript_jpybw"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if (GameManager.player_count >= 2):
+		text = \"Player Two\\nWins:  \" + str(GameManager.player_wins[1]) + \"\\nKills:  \" + str(GameManager.player_kills[1]) 
+"
+
+[sub_resource type="GDScript" id="GDScript_satyv"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if (GameManager.player_count >= 3):
+		text = \"Player Three\\nWins:  \" + str(GameManager.player_wins[2]) + \"\\nKills:  \" + str(GameManager.player_kills[2]) 
+"
+
+[sub_resource type="GDScript" id="GDScript_yn43a"]
+script/source = "extends Label
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if (GameManager.player_count >= 4):
+		text = \"Player Four\\nWins:  \" + str(GameManager.player_wins[3]) + \"\\nKills:  \" + str(GameManager.player_kills[3]) 
+"
+
 [node name="GameOverScreen" type="CanvasLayer"]
+process_mode = 3
 script = SubResource("GDScript_egx1j")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -65,10 +131,12 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Rows" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 225
+theme_override_constants/separation = 135
 
 [node name="EndLabel" type="Label" parent="PanelContainer/MarginContainer/Rows"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
 text = "Player One wins"
 horizontal_alignment = 1
@@ -93,6 +161,51 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 disabled = true
 text = " Main Menu "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 185
+alignment = 1
+
+[node name="Label1" type="Label" parent="PanelContainer/MarginContainer/Rows/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "Player One
+Wins:  0
+Kills:  0 "
+script = SubResource("GDScript_o7usc")
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/Rows/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.486275, 0.945098, 0.878431, 1)
+theme_override_font_sizes/font_size = 25
+text = "Player Two
+Wins:  0
+Kills:  0 "
+script = SubResource("GDScript_jpybw")
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/Rows/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0.211765, 0.192157, 1)
+theme_override_font_sizes/font_size = 25
+text = "Player Three
+Wins:  0
+Kills:  0 "
+script = SubResource("GDScript_satyv")
+
+[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/Rows/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.254902, 0.564706, 0.337255, 1)
+theme_override_font_sizes/font_size = 25
+text = "Player Four
+Wins:  0
+Kills:  0 "
+script = SubResource("GDScript_yn43a")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RematchButton" to="." method="_on_rematch_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
