@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mt6qofr2m3j3" path="res://Assets/Art/Obstacles/tileset.png" id="4_hm6uc"]
 [ext_resource type="PackedScene" uid="uid://2ykj5dthpi8i" path="res://Levels/moving_platform.tscn" id="5_cjv33"]
 [ext_resource type="Texture2D" uid="uid://bw7fe5a6u78or" path="res://Assets/Art/Obstacles/bone_platform.png" id="6_oid53"]
-[ext_resource type="PackedScene" uid="uid://d24e8r3fc3qyn" path="res://Entities/Items/SSG.tscn" id="7_yg7nj"]
+[ext_resource type="PackedScene" uid="uid://bdqnvams7kwja" path="res://Entities/Items/SSG.tscn" id="7_yg7nj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3iij4"]
 texture = ExtResource("4_hm6uc")
@@ -515,6 +515,9 @@ action = "aim_left_1"
 [node name="LookRightAction" parent="Player1/Controls" index="11"]
 action = "aim_right_1"
 
+[node name="ItemAction" parent="Player1/Controls" index="12"]
+action = "use_item_1"
+
 [node name="Player2" parent="." node_paths=PackedStringArray("SPAWNPOINT") instance=ExtResource("2_5bg56")]
 modulate = Color(0.486275, 0.945098, 0.878431, 1)
 position = Vector2(420, 230)
@@ -556,6 +559,9 @@ action = "aim_left_2"
 [node name="LookRightAction" parent="Player2/Controls" index="11"]
 action = "aim_right_2"
 
+[node name="ItemAction" parent="Player2/Controls" index="12"]
+action = "use_item_2"
+
 [node name="Player3" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.807843, 0.211765, 0.192157, 1)
 position = Vector2(761, 229)
@@ -596,6 +602,9 @@ action = "aim_left_3"
 [node name="LookRightAction" parent="Player3/Controls" index="11"]
 action = "aim_right_3"
 
+[node name="ItemAction" parent="Player3/Controls" index="12"]
+action = "use_item_3"
+
 [node name="Player4" parent="." instance=ExtResource("2_5bg56")]
 modulate = Color(0.254902, 0.564706, 0.337255, 1)
 position = Vector2(1020, 229)
@@ -635,6 +644,9 @@ action = "aim_left_4"
 
 [node name="LookRightAction" parent="Player4/Controls" index="11"]
 action = "aim_right_4"
+
+[node name="ItemAction" parent="Player4/Controls" index="12"]
+action = "use_item_4"
 
 [node name="Spawnpoint1" parent="." instance=ExtResource("3_pn10h")]
 position = Vector2(145, 230)

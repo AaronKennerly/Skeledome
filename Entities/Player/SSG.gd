@@ -1,11 +1,14 @@
-extends Node
+extends ItemState
 
+class_name None
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func on_enter():
+	hand.texture = ssg_sprite
+	hand.scale = Vector2(0.02,0.02)
 
+func action():
+	aim = hand.global_position
+	player.velocity = player.position.direction_to(aim) * -1900
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func throw():
 	pass

@@ -28,6 +28,7 @@ class_name Player
 @export var look_down : PlayerAction
 @export var look_left : PlayerAction
 @export var look_right : PlayerAction
+@export var item : PlayerAction
 
 @export var SPEED : float = 300.0
 @export var ACCELERATION : float = 10.0
@@ -160,6 +161,9 @@ func _physics_process(delta) -> void:
 			
 		if Input.is_action_just_pressed(stomp.action) and is_on_floor():
 			position.y += 1
+		
+		if Input.is_action_just_pressed(item.action):
+			item_state_machine.get_state().action()
 
 	# if the player goes out of bounds kill them
 	if (position.y >= 955 or position.x <= -575 or position.x >= 1735) and player_joined:

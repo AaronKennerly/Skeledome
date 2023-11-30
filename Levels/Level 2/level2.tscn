@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bc0sc1t1gdja4" path="res://Entities/Player/Player.tscn" id="2_feump"]
 [ext_resource type="PackedScene" uid="uid://b11p88gw1kqfq" path="res://Levels/spawnpoint.tscn" id="3_ubnn1"]
 [ext_resource type="PackedScene" uid="uid://yjefolfkqwrx" path="res://Menus/GameOverScreen.tscn" id="4_edaan"]
-[ext_resource type="TileSet" uid="uid://cae3j3wkcs612" path="res://Assets/Art/Obstacles/world.tres" id="5_f0wup"]
+[ext_resource type="TileSet" uid="uid://c1b3nrd1eqdnb" path="res://Assets/Art/Obstacles/world.tres" id="5_f0wup"]
 [ext_resource type="Texture2D" uid="uid://bw7fe5a6u78or" path="res://Assets/Art/Obstacles/bone_platform.png" id="6_vr61x"]
 [ext_resource type="PackedScene" uid="uid://v8u0fb2cw5bl" path="res://Levels/Spikes.tscn" id="7_cf0gq"]
 [ext_resource type="PackedScene" uid="uid://ds7kug08dq2nf" path="res://Levels/wind.tscn" id="8_7lg8j"]

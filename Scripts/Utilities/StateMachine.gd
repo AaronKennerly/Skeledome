@@ -26,10 +26,6 @@ func _physics_process(delta) -> void:
 	
 	current_state.state_process(delta)
 
-# can player move in this state?
-func get_can_move() -> bool:
-	return current_state.can_move
-
 func get_state() -> State:
 	return current_state
 

@@ -1,9 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://bc0sc1t1gdja4"]
+[gd_scene load_steps=39 format=3 uid="uid://bc0sc1t1gdja4"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_3sdl6"]
 [ext_resource type="Script" path="res://Scripts/Utilities/Player/Aim.gd" id="2_374lj"]
 [ext_resource type="Script" path="res://Entities/Player/Hand.gd" id="3_51uqc"]
-[ext_resource type="Script" path="res://Scripts/Utilities/StateMachine.gd" id="4_omoaf"]
+[ext_resource type="Script" path="res://Entities/Player/PlayerStateMachine.gd" id="4_bbi2u"]
 [ext_resource type="Script" path="res://Scripts/States/Player/RunState.gd" id="4_wvjsy"]
 [ext_resource type="Script" path="res://Scripts/States/Player/BlockState.gd" id="5_8jnx5"]
 [ext_resource type="Script" path="res://Scripts/States/Player/AirState.gd" id="5_3321d"]
@@ -31,6 +31,9 @@
 [ext_resource type="AudioStream" uid="uid://cvlnqqcnq317q" path="res://Assets/Sound/Player/Spawn/spawn04.wav" id="28_64oac"]
 [ext_resource type="AudioStream" uid="uid://hvuodygqkb7r" path="res://Assets/Sound/Player/Spawn/spawn05.wav" id="29_str1r"]
 [ext_resource type="AudioStream" uid="uid://c5hr0apil0tdy" path="res://Assets/Sound/Player/Spawn/spawn06.wav" id="30_fd4oy"]
+[ext_resource type="Script" path="res://Entities/Player/ItemStateMachine.gd" id="32_vy7ie"]
+[ext_resource type="Script" path="res://Entities/Player/SSG.gd" id="33_emrjs"]
+[ext_resource type="Script" path="res://Entities/Player/None.gd" id="34_b4ihh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3myt"]
 radius = 31.0
@@ -44,19 +47,7 @@ height = 32.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5y63k"]
 
-[sub_resource type="GDScript" id="GDScript_fr00e"]
-script/source = "extends ItemState
-
-class_name None
-
-func action():
-	pass
-
-func throw():
-	pass
-"
-
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "item_state_machine", "none", "ssg", "hand", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_state_machine", "air_state", "dash_state", "respawn_state", "block_state", "cancel_state", "wall_state", "item_state_machine", "none", "ssg", "hand", "right", "left", "jump", "dash", "slide", "stomp", "block", "cancel", "look_up", "look_down", "look_left", "look_right", "item") groups=["Player"]]
 script = ExtResource("1_3sdl6")
 player_state_machine = NodePath("PlayerStateMachine")
 air_state = NodePath("PlayerStateMachine/AirState")
@@ -81,6 +72,7 @@ look_up = NodePath("Controls/LookUpAction")
 look_down = NodePath("Controls/LookDownAction")
 look_left = NodePath("Controls/LookLeftAction")
 look_right = NodePath("Controls/LookRightAction")
+item = NodePath("Controls/ItemAction")
 SPEED = 800.0
 ACCELERATION = 15.0
 DECELERATION = 50.0
@@ -130,7 +122,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
-script = ExtResource("4_omoaf")
+script = ExtResource("4_bbi2u")
 player = NodePath("..")
 current_state = NodePath("AirState")
 
@@ -299,6 +291,10 @@ action = null
 script = ExtResource("15_af7lr")
 action = null
 
+[node name="ItemAction" type="Node" parent="Controls"]
+script = ExtResource("15_af7lr")
+action = "<null>"
+
 [node name="RespawnSoundPool" parent="." instance=ExtResource("23_gcqha")]
 
 [node name="RespawnSoundQueue1" parent="RespawnSoundPool" instance=ExtResource("23_1ao3c")]
@@ -337,14 +333,16 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_fd4oy")
 
-[node name="ItemStateMachine" type="Node" parent="."]
-script = ExtResource("4_omoaf")
+[node name="ItemStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
+script = ExtResource("32_vy7ie")
+player = NodePath("..")
+current_state = NodePath("None")
 
 [node name="SSG" type="Node" parent="ItemStateMachine"]
-script = SubResource("GDScript_fr00e")
+script = ExtResource("33_emrjs")
 
 [node name="None" type="Node" parent="ItemStateMachine"]
-script = SubResource("GDScript_fr00e")
+script = ExtResource("34_b4ihh")
 
 [connection signal="area_entered" from="Touch" to="." method="area_entered"]
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
