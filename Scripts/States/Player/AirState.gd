@@ -2,8 +2,13 @@ extends PlayerState
 
 class_name AirState
 
+@export var wall_jump_buffer : Timer
+@export var wall_coyote_timer : Timer
+
 func on_enter() -> void:
 	height = player.position.y + player.JUMP_HEIGHT
+	if (!wall_jump_buffer.is_stopped):
+		wall_jump_buffer.stop()
 
 # TODO: Fix Dash issue
 func state_process(_delta) -> void:
@@ -29,7 +34,7 @@ func state_process(_delta) -> void:
 
 
 func state_input(_event : InputEvent) -> void:	
-	if Input.is_action_just_pressed(player.jump.action) and !player.wall_coyote_timer.is_stopped():
+	if Input.is_action_just_pressed(player.jump.action) and (player.can_wall_jump() or !player.wall_coyote_timer.is_stopped()):
 		player.is_wall_jumping = true
 		player.last_wall = player.which_wall
 		# I don't know why acceleration_direction needs to be negative here. Please don't ask
@@ -42,7 +47,7 @@ func state_input(_event : InputEvent) -> void:
 		if player.coyote_timer < 0:
 			player.jump_count += 1
 		jump()
-	elif Input.is_action_just_pressed(player.jump.action) and (player.coyote_timer > 0 or player.jump_count < 2) and player.is_wall_jumping:
+	elif Input.is_action_just_pressed(player.jump.action) and (!wall_coyote_timer.is_stopped()) and player.is_wall_jumping:
 		height = player.position.y + player.JUMP_HEIGHT
 		if player.coyote_timer < 0:
 			player.jump_count += 1

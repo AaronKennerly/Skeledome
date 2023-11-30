@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdqnvams7kwja"]
+
+[gd_scene load_steps=3 format=3 uid="uid://d24e8r3fc3qyn"]
+
 
 [ext_resource type="Texture2D" uid="uid://b6081sbjejble" path="res://Assets/Art/Items/ssg.png" id="1_tnj68"]
 
@@ -34,3 +36,4 @@ target_position = Vector2(362, 184)
 [node name="RayCast2D5" type="RayCast2D" parent="."]
 position = Vector2(130, -22)
 target_position = Vector2(439, -15)
+

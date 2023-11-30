@@ -118,7 +118,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="WallJumpBuffer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
@@ -126,8 +126,10 @@ script = ExtResource("4_bbi2u")
 player = NodePath("..")
 current_state = NodePath("AirState")
 
-[node name="AirState" type="Node" parent="PlayerStateMachine"]
+[node name="AirState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("wall_jump_buffer", "wall_coyote_timer")]
 script = ExtResource("5_3321d")
+wall_jump_buffer = NodePath("../../WallJumpBuffer")
+wall_coyote_timer = NodePath("../../WallCoyoteTimer")
 can_slide = false
 
 [node name="BlockState" type="Node" parent="PlayerStateMachine"]
@@ -223,8 +225,9 @@ can_block = false
 
 [node name="StunTimer" type="Timer" parent="PlayerStateMachine/StunnedState"]
 
-[node name="WallState" type="Node" parent="PlayerStateMachine"]
+[node name="WallState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("wall_coyote_timer")]
 script = ExtResource("19_hht18")
+wall_coyote_timer = NodePath("../../WallCoyoteTimer")
 
 [node name="WallJumpTimer" type="Timer" parent="PlayerStateMachine/WallState" node_paths=PackedStringArray("player")]
 wait_time = 0.4
@@ -333,6 +336,30 @@ count = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RespawnSoundPool/RespawnSoundQueue6"]
 stream = ExtResource("30_fd4oy")
 
+
+[node name="HorizontalRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(-30, 0)
+
+[node name="HorizontalRaycast2" type="RayCast2D" parent="."]
+position = Vector2(0, 10)
+target_position = Vector2(-30, 0)
+
+[node name="HorizontalRaycast3" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(-30, 0)
+
+[node name="HorizontalRaycast4" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+
+[node name="HorizontalRaycast5" type="RayCast2D" parent="."]
+position = Vector2(0, 10)
+target_position = Vector2(30, 0)
+
+[node name="HorizontalRaycast6" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(30, 0)
+
+
 [node name="ItemStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("32_vy7ie")
 player = NodePath("..")
@@ -345,6 +372,7 @@ script = ExtResource("33_emrjs")
 script = ExtResource("34_b4ihh")
 
 [connection signal="area_entered" from="Touch" to="." method="area_entered"]
+
 [connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]
 [connection signal="timeout" from="PlayerStateMachine/BlockState/BlockCooldown" to="PlayerStateMachine/BlockState/BlockCooldown" method="on_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/CancelState/CancelTimer" to="PlayerStateMachine/CancelState" method="end_cancel"]

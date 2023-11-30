@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfw4pu282pkc0"]
+[gd_scene load_steps=7 format=3 uid="uid://cj5iothjqmmtf"]
 
 [ext_resource type="Texture2D" uid="uid://coeid8ovnxmga" path="res://Assets/Art/backgrounds/Limbotest.png" id="1_3qh0r"]
 [ext_resource type="StyleBox" uid="uid://btcesjsb4x2an" path="res://Assets/Art/Styles/buttonStyleN.tres" id="1_6ponw"]

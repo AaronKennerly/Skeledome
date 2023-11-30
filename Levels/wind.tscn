@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds7kug08dq2nf"]
+[gd_scene load_steps=4 format=3 uid="uid://ds7kug08dq2nf"]
 
 [sub_resource type="GDScript" id="GDScript_308lq"]
 script/source = "extends Node2D
@@ -41,6 +41,9 @@ func setWind(emit : bool):
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhyy7"]
 size = Vector2(3726, 1950)
 
+[sub_resource type="Gradient" id="Gradient_xysd5"]
+colors = PackedColorArray(0.340339, 0.340339, 0.340339, 1, 1, 1, 1, 1)
+
 [node name="Wind" type="Node2D"]
 script = SubResource("GDScript_308lq")
 
@@ -65,6 +68,7 @@ initial_velocity_max = 495.95
 scale_amount_min = 2.0
 scale_amount_max = 3.0
 color = Color(0.698039, 0.698039, 0.698039, 1)
+color_initial_ramp = SubResource("Gradient_xysd5")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
