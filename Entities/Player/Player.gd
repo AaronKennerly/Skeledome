@@ -164,7 +164,7 @@ func _physics_process(delta) -> void:
 			block_timer += delta
 	
 	if is_wall_jumping:
-		velocity.x = lerp(velocity.x, acceleration_direction * ACCELERATION * delta, 0.1)
+		velocity.x = lerp(velocity.x, acceleration_direction * ACCELERATION * delta, 0.01)
 	
 	if abs(velocity.x) == SPEED:
 		momentum_tracker += delta 
@@ -180,3 +180,10 @@ func update_force(_velocity) -> void:
 func _on_touch_body_entered(body) -> void:
 	if body.is_in_group("Player") && collision_timer.is_stopped():
 		state_machine.get_state().collide(body)
+
+func can_wall_jump() -> bool:
+	if is_on_wall_only() or ($HorizontalRaycast.is_colliding() or $HorizontalRaycast2.is_colliding() or $HorizontalRaycast3.is_colliding()
+	   or $HorizontalRaycast4.is_colliding() or $HorizontalRaycast5.is_colliding() or $HorizontalRaycast6.is_colliding()):
+		return true
+	else:
+		return false
